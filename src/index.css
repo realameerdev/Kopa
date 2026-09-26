@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+@theme {
+  --font-heading: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --color-obsidian: #08110F;
+  --color-deep-forest: #10251E;
+  --color-kopa-lime: #B8F36B;
+  --color-soft-mint: #E8F5D8;
+  --color-warm-ivory: #F7F6F0;
+  --color-ink: #111916;
+  --color-muted-slate: #69746F;
+  --color-soft-border: #DEE3DE;
+}
+
+@layer base {
+  :root {
+    --kopa-dark-primary: #08110F;
+    --kopa-dark-secondary: #10251E;
+    --kopa-dark-surface: #0E1F1A;
+    --kopa-dark-card: #142B23;
+    --kopa-dark-border: #1B352B;
+
+    --kopa-lime: #B8F36B;
+    --kopa-lime-hover: #A5E852;
+    --kopa-lime-soft: #E8F5D8;
+
+    --kopa-light-bg: #F7F6F0;
+    --kopa-light-surface: #FFFFFF;
+    --kopa-light-muted: #EEEFEA;
+    --kopa-light-border: #DEE3DE;
+
+    --kopa-text-primary: #111916;
+    --kopa-text-muted: #69746F;
+    --kopa-text-subtle: #98A39E;
+
+    --font-heading: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+}
+
+body {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #08110F;
+  color: #FFFFFF;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  letter-spacing: -0.02em;
+}
+
+.font-sans {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+/* Custom background grid textures matching the reference's subtle ambient lines */
+.bg-grid-dark {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+}
+
+.bg-grid-light {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(16, 37, 30, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 37, 30, 0.04) 1px, transparent 1px);
+}
+
+/* Subtle glow utilities */
+.glow-lime-subtle {
+  box-shadow: 0 0 24px -4px rgba(184, 243, 107, 0.18);
+}
+
+.glow-lime-strong {
+  box-shadow: 0 0 32px 0px rgba(184, 243, 107, 0.28);
+}

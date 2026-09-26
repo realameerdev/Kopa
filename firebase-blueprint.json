@@ -1,0 +1,135 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User business account and onboarding profile",
+      "type": "object",
+      "properties": {
+        "fullName": { "type": "string" },
+        "businessName": { "type": "string" },
+        "email": { "type": "string" },
+        "businessCategory": { "type": "string" },
+        "country": { "type": "string" },
+        "currency": { "type": "string" },
+        "currencySymbol": { "type": "string" },
+        "description": { "type": "string" },
+        "phone": { "type": "string" },
+        "onboardingAnswers": { "type": "object" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["fullName", "businessName", "email"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Inventory product item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "sellingPrice": { "type": "number" },
+        "costPrice": { "type": "number" },
+        "stock": { "type": "number" },
+        "salesCount": { "type": "number" },
+        "totalRevenue": { "type": "number" },
+        "minStockAlert": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "name", "sellingPrice", "stock"]
+    },
+    "Customer": {
+      "title": "Customer",
+      "description": "Customer contact and credit record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "totalPurchases": { "type": "number" },
+        "outstandingBalance": { "type": "number" },
+        "lastActivity": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "name"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Financial ledger record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "title": { "type": "string" },
+        "amount": { "type": "number" },
+        "cost": { "type": "number" },
+        "date": { "type": "string" },
+        "customerId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "productId": { "type": "string" },
+        "productName": { "type": "string" },
+        "quantity": { "type": "number" },
+        "status": { "type": "string" },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "type", "title", "amount", "date", "status"]
+    },
+    "Expense": {
+      "title": "Expense",
+      "description": "Operational expense item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "amount": { "type": "number" },
+        "date": { "type": "string" },
+        "isRecurring": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "category", "description", "amount", "date"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "Actionable business notification alert",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "isRead": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "type", "title", "message", "isRead", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User business profile document"
+    },
+    "/users/{userId}/products/{productId}": {
+      "schema": "Product",
+      "description": "User business products"
+    },
+    "/users/{userId}/customers/{customerId}": {
+      "schema": "Customer",
+      "description": "User customer records"
+    },
+    "/users/{userId}/transactions/{transactionId}": {
+      "schema": "Transaction",
+      "description": "User business transactions"
+    },
+    "/users/{userId}/expenses/{expenseId}": {
+      "schema": "Expense",
+      "description": "User operational expenses"
+    },
+    "/users/{userId}/notifications/{notificationId}": {
+      "schema": "Notification",
+      "description": "User business notifications"
+    }
+  }
+}
