@@ -556,7 +556,13 @@ async function startServer() {
       })
     : null;
 
-  app.post('/api/ai/chat', async (req: Request, res: Response) => {
+  // AI Model Abstraction
+function getRecommendedModel(): string {
+  // Can be configured via environment or user selection
+  return process.env.KOPA_AI_MODEL || 'gemini-3.8-flash';
+}
+
+app.post('/api/ai/chat', async (req: Request, res: Response) => {
     const { message, language = 'en', businessContext, chatHistory = [] } = req.body;
 
     if (!message || typeof message !== 'string') {
@@ -622,7 +628,7 @@ Respond strictly in valid JSON matching this schema:
         contentsPayload.push({ role: 'user', parts: [{ text: message }] });
 
         const response = await ai.models.generateContent({
-          model: 'gemini-3.8-flash',
+          model: getRecommendedModel(),
           contents: contentsPayload,
           config: {
             systemInstruction,

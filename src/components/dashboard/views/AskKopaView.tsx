@@ -36,8 +36,6 @@ import {
 } from 'lucide-react';
 import { db, Product, Customer, Transaction, ChatSession, ChatMessageData } from '../../../lib/db';
 import { useTheme } from '../../../context/ThemeContext';
-import { MCPExecutor } from '../../../lib/connectors/mcpExecutor';
-import { ConnectorProviderId } from '../../../lib/connectors/types';
 
 export interface LanguageOption {
   code: string;
@@ -349,7 +347,7 @@ export const AskKopaView: React.FC = () => {
 
     try {
       const metrics = db.getMetrics(30);
-      const res = await fetch('/api/ai/chat', {
+      const res = await fetch('/api/ai/ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         signal: controller.signal,

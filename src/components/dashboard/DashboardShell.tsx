@@ -218,7 +218,7 @@ export const DashboardShell: React.FC<DashboardShellProps> = ({ onBackToLanding 
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
         {/* TOP BAR (Stationary Header) */}
         <header
-          className={`shrink-0 h-16 border-b flex items-center justify-between px-4 sm:px-6 lg:px-8 backdrop-blur-xl z-30 transition-colors ${
+          className={`sticky top-0 z-30 shrink-0 h-16 border-b flex items-center justify-between px-4 sm:px-6 lg:px-8 backdrop-blur-xl transition-colors ${
             isDark ? 'bg-[#07111F]/90 border-[#243B56]' : 'bg-[#F7FAFC]/90 border-[#DCE6F0]'
           }`}
         >
