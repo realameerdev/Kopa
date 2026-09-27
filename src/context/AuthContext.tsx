@@ -312,6 +312,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const openAuth = (mode: AuthMode) => {
+    if (currentUserRef.current || (auth && auth.currentUser)) {
+      setAuthError(null);
+      setUnauthorizedDomain(null);
+      setCurrentAuthMode(null);
+      setIsDashboardOpen(true);
+      return;
+    }
     setAuthError(null);
     setUnauthorizedDomain(null);
     setIsDashboardOpen(false);

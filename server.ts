@@ -3,6 +3,7 @@ import { createServer as createViteServer } from 'vite';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { GoogleGenAI } from '@google/genai';
 import { CONNECTORS_REGISTRY } from './src/lib/connectors/registry.js';
 import { ShopifyConnector } from './src/lib/connectors/modules/shopify.js';
 import { GoogleConnector } from './src/lib/connectors/modules/google.js';
@@ -442,6 +443,209 @@ async function startServer() {
       serverCredentialsStore.delete(`${userId}_${provider}`);
     }
     res.json({ success: true, provider, status: 'disconnected' });
+  });
+
+  // -------------------------------------------------------------
+  // 8B. KOPA SERVER-SIDE GEMINI 3.8 FLASH BUSINESS INTELLIGENCE
+  // -------------------------------------------------------------
+  function parseMessageFallback(message: string, language: string, businessContext: any) {
+    const lower = message.toLowerCase();
+    const symbol = businessContext?.currencySymbol || '₦';
+
+    // Extract amount
+    const numbers = message.match(/\d+[\d,.]*/g);
+    let amount = 0;
+    if (numbers && numbers.length > 0) {
+      amount = parseFloat(numbers[0].replace(/,/g, '')) || 0;
+    }
+
+    // Keywords for sales in multiple languages
+    const isSale =
+      lower.includes('sold') ||
+      lower.includes('sale') ||
+      lower.includes('na sayar') || // Hausa
+      lower.includes('re si') || // Yoruba
+      lower.includes('erero') || // Igbo
+      lower.includes('nilliuza') || // Swahili
+      lower.includes('uuza');
+
+    // Keywords for expenses
+    const isExpense =
+      lower.includes('spent') ||
+      lower.includes('paid') ||
+      lower.includes('bought') ||
+      lower.includes('diesel') ||
+      lower.includes('fuel') ||
+      lower.includes('na saya') || // Hausa
+      lower.includes('mo ra') || // Yoruba
+      lower.includes('zụrụ'); // Igbo
+
+    let replyText = '';
+    let extractedAction: any = null;
+
+    if (isSale && amount > 0) {
+      if (language === 'ha') {
+        replyText = `Madalla! An rubuta ciniki ta ${symbol}${amount.toLocaleString()} a cikin littafin ku.`;
+      } else if (language === 'yo') {
+        replyText = `Asegun! A ti fi epo si iwe ipamọ rẹ fun ${symbol}${amount.toLocaleString()}.`;
+      } else if (language === 'ig') {
+        replyText = `E e! E dekọrọ ahịa gị nke ${symbol}${amount.toLocaleString()} nke ọma.`;
+      } else if (language === 'sw') {
+        replyText = `Safi sana! Mamlaka yako imerekodi mauzo ya ${symbol}${amount.toLocaleString()}.`;
+      } else if (language === 'am') {
+        replyText = `በጣም ጥሩ! የ ${symbol}${amount.toLocaleString()} ሽያጭ በተሳካ ሁኔታ ተመዝግቧል።`;
+      } else {
+        replyText = `Got it! Recorded a sale of ${symbol}${amount.toLocaleString()} in your business ledger.`;
+      }
+
+      extractedAction = {
+        type: 'record_sale',
+        title: `Sale Recorded via Kopa AI`,
+        amount,
+        quantity: 1,
+        notes: message,
+      };
+    } else if (isExpense && amount > 0) {
+      if (language === 'ha') {
+        replyText = `An rubuta kudin da aka kashe guda ${symbol}${amount.toLocaleString()} a bangaren asara.`;
+      } else if (language === 'yo') {
+        replyText = `A ti kọ owo inawo ${symbol}${amount.toLocaleString()} sinu iwe inawo rẹ.`;
+      } else if (language === 'ig') {
+        replyText = `E dekọrọ ego emefuru ${symbol}${amount.toLocaleString()} n'akwụkwọ ego gị.`;
+      } else if (language === 'sw') {
+        replyText = `Gharama ya ${symbol}${amount.toLocaleString()} imerekodiwa kwa usahihi.`;
+      } else if (language === 'am') {
+        replyText = `የ ${symbol}${amount.toLocaleString()} ወጪ በተሳካ ሁኔታ ተመዝግቧል።`;
+      } else {
+        replyText = `Noted! Recorded business expense of ${symbol}${amount.toLocaleString()} in your ledger.`;
+      }
+
+      extractedAction = {
+        type: 'record_expense',
+        title: `Expense Recorded via Kopa AI`,
+        amount,
+        category: 'Operating Expense',
+        notes: message,
+      };
+    } else {
+      if (language === 'ha') {
+        replyText = `Na fahimta. Kopa yana sa ido akan kasuwancin ku na ${businessContext?.businessName || 'ku'}.`;
+      } else if (language === 'yo') {
+        replyText = `Mo ye e. Kopa n ṣetọju ati tẹle gbogbo iṣẹ adani rẹ ni ${businessContext?.businessName || 'iṣowo rẹ'}.`;
+      } else if (language === 'ig') {
+        replyText = `Anụ m ya. Kopa na-ahazi ma na-edekọ azụmahịa gị n'ụzọ dị mfe.`;
+      } else if (language === 'sw') {
+        replyText = `Nimekuelewa. Kopa inaendelea kusimamia na kuchambua biashara yako.`;
+      } else if (language === 'am') {
+        replyText = `ተረድቻለሁ። ኮፓ የንግድዎን እንቅስቃሴ በቅርበት ይከታተላል።`;
+      } else {
+        replyText = `I understand. Kopa is actively monitoring and organizing your ledger for ${businessContext?.businessName || 'your enterprise'}.`;
+      }
+    }
+
+    return { replyText, extractedAction };
+  }
+  const ai = process.env.GEMINI_API_KEY
+    ? new GoogleGenAI({
+        apiKey: process.env.GEMINI_API_KEY,
+        httpOptions: {
+          headers: {
+            'User-Agent': 'aistudio-build',
+          },
+        },
+      })
+    : null;
+
+  app.post('/api/ai/chat', async (req: Request, res: Response) => {
+    const { message, language = 'en', businessContext, chatHistory = [] } = req.body;
+
+    if (!message || typeof message !== 'string') {
+      return res.status(400).json({ error: 'Message content is required.' });
+    }
+
+    const langNames: Record<string, string> = {
+      en: 'English',
+      ha: 'Hausa (Harshen Hausa)',
+      yo: 'Yoruba (Èdè Yorùbá)',
+      ig: 'Igbo (Asụsụ Igbo)',
+      sw: 'Swahili (Kiswahili)',
+      am: 'Amharic (አማርኛ)',
+    };
+
+    const selectedLangName = langNames[language] || 'English';
+
+    const systemInstruction = `You are Kopa, an intelligent AI Operating System assistant for African businesses.
+You understand all business context, sales, expenses, debts, inventory, and customer relationships.
+User's Business: "${businessContext?.businessName || 'African Enterprise'}" (${businessContext?.category || 'General Merchant'}), operating in ${businessContext?.country || 'Nigeria'} (${businessContext?.currencySymbol || '₦'}).
+
+LANGUAGE MANDATE:
+The user selected target language: "${selectedLangName}".
+You MUST respond fluently and naturally in ${selectedLangName}.
+
+AUTOMATIC BOOKKEEPING TASK:
+If the user's input mentions an operational business event (e.g. selling items, making a sale, paying an expense, receiving debt payment, or adding inventory), extract an action object so it can be automatically recorded in their ledger.
+
+JSON RESPONSE FORMAT:
+Respond strictly in valid JSON matching this schema:
+{
+  "replyText": "Direct helpful response in ${selectedLangName} confirming what was recorded or answering the query",
+  "extractedAction": {
+    "type": "record_sale" | "record_expense" | "record_payment" | "add_product" | "add_customer" | "none",
+    "title": "Clear short summary",
+    "amount": 150000,
+    "quantity": 1,
+    "productName": "name of item if mentioned",
+    "customerName": "customer name if mentioned",
+    "category": "Sales or Expense category",
+    "notes": "notes or description"
+  }
+}`;
+
+    try {
+      if (ai) {
+        const contentsPayload: any[] = [];
+        if (Array.isArray(chatHistory)) {
+          chatHistory.slice(-10).forEach((item: any) => {
+            contentsPayload.push({
+              role: item.sender === 'user' ? 'user' : 'model',
+              parts: [{ text: item.text }],
+            });
+          });
+        }
+        contentsPayload.push({ role: 'user', parts: [{ text: message }] });
+
+        const response = await ai.models.generateContent({
+          model: 'gemini-3.8-flash',
+          contents: contentsPayload,
+          config: {
+            systemInstruction,
+            responseMimeType: 'application/json',
+          },
+        });
+
+        const rawText = response.text;
+        if (rawText) {
+          try {
+            const parsed = JSON.parse(rawText);
+            return res.json({
+              replyText: parsed.replyText || rawText,
+              extractedAction:
+                parsed.extractedAction && parsed.extractedAction.type !== 'none'
+                  ? parsed.extractedAction
+                  : null,
+            });
+          } catch {
+            return res.json({ replyText: rawText, extractedAction: null });
+          }
+        }
+      }
+
+      // Local intelligent fallback parser if API key is not yet set
+      return res.json(parseMessageFallback(message, language, businessContext));
+    } catch (err: any) {
+      console.warn('Gemini chat route fallback:', err?.message || err);
+      return res.json(parseMessageFallback(message, language, businessContext));
+    }
   });
 
   // -------------------------------------------------------------

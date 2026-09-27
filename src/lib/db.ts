@@ -92,6 +92,34 @@ export interface NotificationItem {
   actionUrl?: string;
 }
 
+export interface ChatMessageData {
+  id: string;
+  sender: 'user' | 'kopa';
+  text: string;
+  audioUrl?: string;
+  language?: string;
+  candidateAction?: {
+    type: 'record_sale' | 'record_expense' | 'record_payment' | 'add_product' | 'add_customer' | 'none';
+    title: string;
+    amount: number;
+    quantity?: number;
+    productName?: string;
+    customerName?: string;
+    notes?: string;
+  };
+  confirmed?: boolean;
+  timestamp: string;
+}
+
+export interface ChatSession {
+  id: string;
+  title: string;
+  language: string;
+  messages: ChatMessageData[];
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface BusinessSettings {
   businessName: string;
   category: string;
@@ -120,6 +148,7 @@ function getStorageKeys(userId: string = 'default') {
     NOTIFICATIONS: `${STORAGE_PREFIX}${userId}_notifications`,
     CONNECTORS: `${STORAGE_PREFIX}${userId}_connectors`,
     SYNC_LOGS: `${STORAGE_PREFIX}${userId}_sync_logs`,
+    CHAT_SESSIONS: `${STORAGE_PREFIX}${userId}_chat_sessions`,
   };
 }
 
@@ -158,6 +187,7 @@ class KopaDatabase {
   private notifications: NotificationItem[] = [];
   private connectors: ConnectorConnection[] = [];
   private syncLogs: SyncLogEntry[] = [];
+  private chatSessions: ChatSession[] = [];
 
   constructor() {
     this.loadFromLocalCache('default');
@@ -388,6 +418,9 @@ class KopaDatabase {
 
       const savedLogs = localStorage.getItem(keys.SYNC_LOGS);
       this.syncLogs = savedLogs ? JSON.parse(savedLogs) : [...DEFAULT_SYNC_LOGS];
+
+      const savedChat = localStorage.getItem(keys.CHAT_SESSIONS);
+      this.chatSessions = savedChat ? JSON.parse(savedChat) : [];
     } catch (e) {
       console.warn('Could not read from local cache:', e);
     }
@@ -447,6 +480,58 @@ class KopaDatabase {
     try {
       localStorage.setItem(keys.SYNC_LOGS, JSON.stringify(this.syncLogs));
     } catch {}
+  }
+
+  private saveChatSessionsToCache() {
+    const keys = getStorageKeys(this.activeUserId || 'default');
+    try {
+      localStorage.setItem(keys.CHAT_SESSIONS, JSON.stringify(this.chatSessions));
+    } catch {}
+  }
+
+  // -------------------------------------------------------------
+  // CHAT SESSIONS & HISTORY (ChatGPT Style)
+  // -------------------------------------------------------------
+  public getChatSessions(): ChatSession[] {
+    return [...this.chatSessions].sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+  }
+
+  public getChatSession(id: string): ChatSession | undefined {
+    return this.chatSessions.find((s) => s.id === id);
+  }
+
+  public createChatSession(title?: string, language: string = 'en'): ChatSession {
+    const session: ChatSession = {
+      id: `chat_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      title: title || 'New Business Conversation',
+      language,
+      messages: [],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    this.chatSessions.unshift(session);
+    this.saveChatSessionsToCache();
+    this.notify();
+    return session;
+  }
+
+  public addChatMessageToSession(sessionId: string, message: ChatMessageData): void {
+    const session = this.chatSessions.find((s) => s.id === sessionId);
+    if (session) {
+      session.messages.push(message);
+      session.updatedAt = new Date().toISOString();
+      if (session.messages.length === 1 && message.sender === 'user') {
+        session.title = message.text.length > 32 ? message.text.substring(0, 32) + '...' : message.text;
+      }
+      this.saveChatSessionsToCache();
+      this.notify();
+    }
+  }
+
+  public deleteChatSession(sessionId: string): void {
+    this.chatSessions = this.chatSessions.filter((s) => s.id !== sessionId);
+    this.saveChatSessionsToCache();
+    this.notify();
   }
 
   // -------------------------------------------------------------
