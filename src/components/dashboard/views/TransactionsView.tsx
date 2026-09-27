@@ -371,7 +371,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
       {viewingTx && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
           <div
-            className={`w-full max-w-md rounded-2xl border p-6 shadow-2xl ${
+            className={`w-full max-w-md max-h-[90vh] overflow-y-auto rounded-2xl border p-5 sm:p-6 shadow-2xl ${
               isDark ? 'bg-[#08110F] border-[#1C382E] text-white' : 'bg-white border-[#DEE3DE] text-[#111916]'
             }`}
           >
@@ -480,7 +480,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
       {editingTx && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
           <div
-            className={`w-full max-w-md rounded-2xl border p-6 shadow-2xl ${
+            className={`w-full max-w-md max-h-[90vh] overflow-y-auto rounded-2xl border p-5 sm:p-6 shadow-2xl ${
               isDark ? 'bg-[#08110F] border-[#1C382E] text-white' : 'bg-white border-[#DEE3DE] text-[#111916]'
             }`}
           >

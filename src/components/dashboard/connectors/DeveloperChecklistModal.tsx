@@ -94,7 +94,7 @@ export const DeveloperChecklistModal: React.FC<DeveloperChecklistModalProps> = (
           {/* Modal Body */}
           <div className="flex-1 overflow-hidden grid grid-cols-1 md:grid-cols-12">
             {/* Sidebar list of 10 connectors */}
-            <div className={`md:col-span-4 border-r border-[#1C382E]/40 p-3 overflow-y-auto max-h-[70vh] space-y-1.5 ${
+            <div className={`md:col-span-4 border-b md:border-b-0 md:border-r border-[#1C382E]/40 p-3 overflow-y-auto max-h-36 md:max-h-[70vh] space-y-1.5 ${
               isDark ? 'bg-[#08110F]' : 'bg-slate-50'
             }`}>
               <div className="px-2 py-1 text-[11px] font-semibold uppercase tracking-wider text-[#69746F]">

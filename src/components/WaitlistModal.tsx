@@ -66,7 +66,7 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({ isOpen, onClose })
         initial={{ opacity: 0, scale: 0.95, y: 12 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95 }}
-        className={`border rounded-2xl max-w-md w-full p-6 sm:p-7 relative shadow-2xl transition-colors duration-200 ${
+        className={`border rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto p-6 sm:p-7 relative shadow-2xl transition-colors duration-200 ${
           isDark
             ? 'bg-[#08110F] border-[#1E3B30] text-white'
             : 'bg-white border-[#DEE3DE] text-[#111916]'

@@ -67,7 +67,7 @@ export const RecordPaymentModal: React.FC<RecordPaymentModalProps> = ({
       }}
     >
       <div
-        className={`w-full max-w-md rounded-2xl border p-6 shadow-2xl transition-all ${
+        className={`w-full max-w-md max-h-[90vh] overflow-y-auto rounded-2xl border p-5 sm:p-6 shadow-2xl transition-all ${
           isDark ? 'bg-[#08110F] border-[#1C382E] text-white' : 'bg-white border-[#DEE3DE] text-[#111916]'
         }`}
       >
