@@ -81,10 +81,8 @@ export const AskKopaView: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  // Draft Editing Modal/State
-  const [editingDraftId, setEditingDraftId] = useState<string | null>(null);
-  const [editAmount, setEditAmount] = useState<number>(0);
-  const [editName, setEditName] = useState<string>('');
+  // Mutex Lock for preventing Duplicate API Calls & Duplicate Messages
+  const sendingLockRef = useRef<boolean>(false);
 
   // Voice recording state
   const [isRecording, setIsRecording] = useState(false);
@@ -95,20 +93,17 @@ export const AskKopaView: React.FC = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // Load chat sessions from DB on mount & listen for updates
+  // Load chat sessions on mount and initialize default session if needed
   useEffect(() => {
-    const unsub = db.subscribe(() => {
-      const sessions = db.getChatSessions();
-      setChatSessions(sessions);
-    });
-
     const initialSessions = db.getChatSessions();
     setChatSessions(initialSessions);
 
     if (initialSessions.length > 0) {
-      setActiveSessionId(initialSessions[0].id);
-      setMessages(initialSessions[0].messages);
-      setSelectedLanguage(initialSessions[0].language || 'en');
+      if (!activeSessionId || !initialSessions.some((s) => s.id === activeSessionId)) {
+        setActiveSessionId(initialSessions[0].id);
+        setMessages(initialSessions[0].messages);
+        setSelectedLanguage(initialSessions[0].language || 'en');
+      }
     } else {
       // Create default welcome session
       const newSession = db.createChatSession(`Business Operations Assistant`, selectedLanguage);
@@ -122,19 +117,22 @@ export const AskKopaView: React.FC = () => {
       setActiveSessionId(newSession.id);
       setMessages([welcomeMsg]);
     }
-
-    return () => unsub();
   }, []);
 
-  // Update messages when active session changes
+  // Listen for DB updates to sync current active session messages
   useEffect(() => {
-    if (activeSessionId) {
-      const session = db.getChatSession(activeSessionId);
-      if (session) {
-        setMessages(session.messages);
-        setSelectedLanguage(session.language || 'en');
+    const unsub = db.subscribe(() => {
+      const sessions = db.getChatSessions();
+      setChatSessions(sessions);
+      if (activeSessionId) {
+        const session = db.getChatSession(activeSessionId);
+        if (session) {
+          setMessages(session.messages);
+        }
       }
-    }
+    });
+
+    return () => unsub();
   }, [activeSessionId]);
 
   const scrollToBottom = () => {
@@ -319,23 +317,32 @@ export const AskKopaView: React.FC = () => {
     }
   };
 
-  // Handle Send Message
+  // Handle Send Message (PERMANENT DUPLICATE PREVENTION FIX)
   const handleSend = async (textToSend?: string) => {
     const text = (textToSend || input).trim();
-    if (!text || isProcessing || !activeSessionId) return;
+    if (!text || isProcessing || sendingLockRef.current || !activeSessionId) return;
 
+    // Mutex lock to prevent double calls from rapid enter key + click or re-renders
+    sendingLockRef.current = true;
+    setIsProcessing(true);
+
+    const userMsgId = `user-${Date.now()}`;
     const userMessage: ChatMessageData = {
-      id: `user-${Date.now()}`,
+      id: userMsgId,
       sender: 'user',
       text,
       language: selectedLanguage,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
 
-    setMessages((prev) => [...prev, userMessage]);
+    // Save to single source of truth in DB session
     db.addChatMessageToSession(activeSessionId, userMessage);
+    setMessages((prev) => {
+      if (prev.some((m) => m.id === userMsgId)) return prev;
+      return [...prev, userMessage];
+    });
+
     setInput('');
-    setIsProcessing(true);
 
     const controller = new AbortController();
     abortControllerRef.current = controller;
@@ -364,10 +371,10 @@ export const AskKopaView: React.FC = () => {
       });
 
       const data = await res.json();
-      setIsProcessing(false);
 
+      const assistantMsgId = `kopa-${Date.now()}`;
       const kopaMessage: ChatMessageData = {
-        id: `kopa-${Date.now()}`,
+        id: assistantMsgId,
         sender: 'kopa',
         text: data.replyText || 'I have analyzed your request against your business records.',
         language: selectedLanguage,
@@ -376,24 +383,30 @@ export const AskKopaView: React.FC = () => {
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
 
-      setMessages((prev) => [...prev, kopaMessage]);
       db.addChatMessageToSession(activeSessionId, kopaMessage);
+      setMessages((prev) => {
+        if (prev.some((m) => m.id === assistantMsgId)) return prev;
+        return [...prev, kopaMessage];
+      });
     } catch (err: any) {
-      if (err.name === 'AbortError') {
-        setIsProcessing(false);
-        return;
-      }
-      console.warn('AI chat request notice:', err);
-      setIsProcessing(false);
+      if (err.name === 'AbortError') return;
 
+      console.warn('AI chat request notice:', err);
+      const fallbackId = `kopa-err-${Date.now()}`;
       const fallbackMsg: ChatMessageData = {
-        id: `kopa-${Date.now()}`,
+        id: fallbackId,
         sender: 'kopa',
         text: `I received your input. You can confirm or manage your ledger records directly below.`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
-      setMessages((prev) => [...prev, fallbackMsg]);
       db.addChatMessageToSession(activeSessionId, fallbackMsg);
+      setMessages((prev) => {
+        if (prev.some((m) => m.id === fallbackId)) return prev;
+        return [...prev, fallbackMsg];
+      });
+    } finally {
+      setIsProcessing(false);
+      sendingLockRef.current = false;
     }
   };
 
@@ -401,6 +414,7 @@ export const AskKopaView: React.FC = () => {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
       setIsProcessing(false);
+      sendingLockRef.current = false;
     }
   };
 
@@ -421,22 +435,22 @@ export const AskKopaView: React.FC = () => {
   ];
 
   return (
-    <div className="h-full flex flex-col min-h-0 relative bg-[#F7F6F0] dark:bg-[#08110F] text-[#111916] dark:text-white overflow-hidden">
+    <div className="h-full flex flex-col min-h-0 relative bg-[#F7FAFC] dark:bg-[#07111F] text-[#0F172A] dark:text-[#F8FBFF] overflow-hidden">
       {/* 
-        1. TOP CONTROLS & LANGUAGE SWITCHER HEADER BAR
+        1. TOP CONTROLS & LANGUAGE SWITCHER HEADER BAR (Blue + White Silk)
       */}
-      <div className="shrink-0 p-3 sm:p-4 border-b border-[#DEE3DE] dark:border-[#1A2E27] bg-[#F7F6F0]/90 dark:bg-[#08110F]/90 backdrop-blur-md flex flex-wrap items-center justify-between gap-2.5 z-20">
+      <div className="shrink-0 p-3 sm:p-4 border-b border-[#DCE6F0] dark:border-[#243B56] bg-[#FFFFFF]/90 dark:bg-[#0D1B2E]/90 backdrop-blur-md flex flex-wrap items-center justify-between gap-2.5 z-20">
         <div className="flex items-center gap-2">
-          {/* History Drawer Toggle (ChatGPT Style) */}
+          {/* History Drawer Toggle */}
           <button
             type="button"
             onClick={() => setHistoryDrawerOpen(!historyDrawerOpen)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-[#DEE3DE] dark:border-[#1C382E] bg-white dark:bg-[#10251E] text-xs font-semibold text-[#111916] dark:text-white hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer transition-colors shadow-2xs"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-[#DCE6F0] dark:border-[#243B56] bg-[#FFFFFF] dark:bg-[#132640] text-xs font-semibold text-[#0F172A] dark:text-[#F8FBFF] hover:bg-[#EAF2FF] dark:hover:bg-[#102B4D] cursor-pointer transition-colors shadow-2xs"
             title="Chat History"
           >
-            <History className="w-3.5 h-3.5 text-[#15803D] dark:text-[#B8F36B]" />
+            <History className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#60A5FA]" />
             <span className="hidden sm:inline">History</span>
-            <span className="px-1.5 py-0.5 rounded bg-[#15803D]/10 dark:bg-[#B8F36B]/20 text-[10px] font-mono font-bold text-[#15803D] dark:text-[#B8F36B]">
+            <span className="px-1.5 py-0.5 rounded bg-[#2563EB]/10 dark:bg-[#60A5FA]/20 text-[10px] font-mono font-bold text-[#2563EB] dark:text-[#60A5FA]">
               {chatSessions.length}
             </span>
           </button>
@@ -445,7 +459,7 @@ export const AskKopaView: React.FC = () => {
           <button
             type="button"
             onClick={handleNewChat}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#15803D] dark:bg-[#B8F36B] text-[#08110F] text-xs font-semibold hover:opacity-90 cursor-pointer shadow-xs"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#2563EB] dark:bg-[#3B82F6] text-white text-xs font-semibold hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB] cursor-pointer shadow-xs transition-colors"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>New Chat</span>
@@ -454,16 +468,16 @@ export const AskKopaView: React.FC = () => {
 
         {/* Language Selector Dropdown */}
         <div className="flex items-center gap-2">
-          <Globe className="w-4 h-4 text-[#15803D] dark:text-[#B8F36B]" />
+          <Globe className="w-4 h-4 text-[#2563EB] dark:text-[#60A5FA]" />
           <select
             value={selectedLanguage}
             onChange={(e) => setSelectedLanguage(e.target.value)}
             className={`px-3 py-1.5 rounded-xl border text-xs font-semibold outline-none cursor-pointer ${
-              isDark ? 'bg-[#10251E] border-[#1C382E] text-white' : 'bg-white border-[#DEE3DE] text-[#111916] shadow-2xs'
+              isDark ? 'bg-[#0D1B2E] border-[#243B56] text-[#F8FBFF]' : 'bg-[#FFFFFF] border-[#DCE6F0] text-[#0F172A] shadow-2xs'
             }`}
           >
             {SUPPORTED_LANGUAGES.map((lang) => (
-              <option key={lang.code} value={lang.code} className={isDark ? 'bg-[#08110F]' : 'bg-white'}>
+              <option key={lang.code} value={lang.code} className={isDark ? 'bg-[#07111F]' : 'bg-[#FFFFFF]'}>
                 {lang.flag} {lang.name} ({lang.nativeName})
               </option>
             ))}
@@ -480,17 +494,17 @@ export const AskKopaView: React.FC = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
-            className="absolute top-14 bottom-0 left-0 w-72 z-30 border-r border-[#DEE3DE] dark:border-[#1C382E] bg-white dark:bg-[#0A1612] p-4 flex flex-col shadow-2xl"
+            className="absolute top-14 bottom-0 left-0 w-72 z-30 border-r border-[#DCE6F0] dark:border-[#243B56] bg-[#FFFFFF] dark:bg-[#0D1B2E] p-4 flex flex-col shadow-2xl"
           >
-            <div className="flex items-center justify-between pb-3 border-b border-[#DEE3DE] dark:border-[#1C382E] mb-3">
+            <div className="flex items-center justify-between pb-3 border-b border-[#DCE6F0] dark:border-[#243B56] mb-3">
               <div className="flex items-center gap-2">
-                <MessageSquare className="w-4 h-4 text-[#15803D] dark:text-[#B8F36B]" />
+                <MessageSquare className="w-4 h-4 text-[#2563EB] dark:text-[#60A5FA]" />
                 <span className="text-xs font-heading font-semibold">Conversations</span>
               </div>
               <button
                 type="button"
                 onClick={() => setHistoryDrawerOpen(false)}
-                className="p-1 rounded-lg text-slate-400 hover:text-white cursor-pointer"
+                className="p-1 rounded-lg text-slate-400 hover:text-[#0F172A] dark:hover:text-white cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -510,20 +524,20 @@ export const AskKopaView: React.FC = () => {
                     }}
                     className={`p-2.5 rounded-xl border text-xs cursor-pointer flex items-center justify-between transition-colors ${
                       isActive
-                        ? 'bg-[#15803D]/10 dark:bg-[#B8F36B]/15 border-[#15803D]/30 dark:border-[#B8F36B]/40 font-semibold'
+                        ? 'bg-[#EAF2FF] dark:bg-[#102B4D] border-[#2563EB]/40 dark:border-[#60A5FA]/40 font-semibold text-[#2563EB] dark:text-[#60A5FA]'
                         : isDark
-                        ? 'border-[#1C382E] hover:bg-white/5 text-slate-300'
-                        : 'border-[#DEE3DE] hover:bg-black/5 text-[#111916]'
+                        ? 'border-[#243B56] hover:bg-[#132640] text-[#D5E2F0]'
+                        : 'border-[#DCE6F0] hover:bg-[#EAF2FF]/50 text-[#0F172A]'
                     }`}
                   >
                     <div className="flex items-center gap-2 truncate pr-2">
-                      <MessageSquare className="w-3.5 h-3.5 shrink-0 text-[#15803D] dark:text-[#B8F36B]" />
+                      <MessageSquare className="w-3.5 h-3.5 shrink-0 text-[#2563EB] dark:text-[#60A5FA]" />
                       <span className="truncate">{s.title || 'Conversation'}</span>
                     </div>
                     <button
                       type="button"
                       onClick={(e) => handleDeleteSession(s.id, e)}
-                      className="p-1 rounded text-red-400 hover:bg-red-500/10 cursor-pointer shrink-0"
+                      className="p-1 rounded text-red-500 hover:bg-red-500/10 cursor-pointer shrink-0"
                       title="Delete chat"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -546,12 +560,12 @@ export const AskKopaView: React.FC = () => {
             className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}
           >
             <div
-              className={`max-w-[88%] sm:max-w-[80%] rounded-2xl p-4 text-xs sm:text-sm leading-relaxed shadow-xs ${
+              className={`max-w-[88%] sm:max-w-[80%] rounded-2xl p-4 text-xs sm:text-sm leading-relaxed shadow-2xs ${
                 msg.sender === 'user'
-                  ? 'bg-[#15803D] dark:bg-[#B8F36B] text-white dark:text-[#08110F] rounded-br-2xs font-medium'
+                  ? 'bg-[#2563EB] dark:bg-[#3B82F6] text-white rounded-br-2xs font-medium'
                   : isDark
-                  ? 'bg-[#10251E] border border-[#1C382E] text-white rounded-bl-2xs'
-                  : 'bg-white border border-[#DEE3DE] text-[#111916] rounded-bl-2xs'
+                  ? 'bg-[#0D1B2E] border border-[#243B56] text-[#F8FBFF] rounded-bl-2xs'
+                  : 'bg-[#FFFFFF] border border-[#DCE6F0] text-[#0F172A] rounded-bl-2xs'
               }`}
             >
               <div className="flex items-center justify-between gap-2 mb-1.5 text-[10px] font-mono opacity-80">
@@ -559,25 +573,25 @@ export const AskKopaView: React.FC = () => {
                 <span>{msg.timestamp}</span>
               </div>
 
-              <p className="whitespace-pre-wrap">{msg.text}</p>
+              <p className="whitespace-pre-wrap break-word-custom">{msg.text}</p>
 
-              {/* Action Draft Confirmation Card (Requirements 3, 4, 7) */}
+              {/* Action Draft Confirmation Card */}
               {msg.candidateAction && (
-                <div className="mt-3 p-3.5 rounded-2xl border bg-black/5 dark:bg-white/5 border-[#15803D]/30 dark:border-[#B8F36B]/40 space-y-2.5">
+                <div className="mt-3 p-3.5 rounded-2xl border bg-[#EAF2FF]/60 dark:bg-[#102B4D]/60 border-[#2563EB]/30 dark:border-[#60A5FA]/40 space-y-2.5">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-heading font-bold text-[#15803D] dark:text-[#B8F36B] flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5" />
+                    <span className="text-xs font-heading font-bold text-[#0F3B82] dark:text-[#60A5FA] flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#60A5FA]" />
                       {msg.candidateAction.title || 'Structured Action Detected'}
                     </span>
-                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold">
+                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-blue-500/20 text-[#2563EB] dark:text-[#60A5FA] font-bold">
                       {msg.confirmed ? 'CONFIRMED' : 'DRAFT'}
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2 text-xs font-mono bg-white/50 dark:bg-black/20 p-2.5 rounded-xl border border-black/5 dark:border-white/5">
+                  <div className="grid grid-cols-2 gap-2 text-xs font-mono bg-white dark:bg-[#07111F]/60 p-2.5 rounded-xl border border-[#DCE6F0] dark:border-[#243B56]">
                     <div>
-                      <span className="text-[10px] opacity-70 block">Amount</span>
-                      <span className="font-semibold text-emerald-600 dark:text-emerald-400">
+                      <span className="text-[10px] text-[#64748B] dark:text-[#9FB1C5] block">Amount</span>
+                      <span className="font-bold text-[#2563EB] dark:text-[#60A5FA]">
                         {currencySymbol}
                         {msg.candidateAction.amount ? msg.candidateAction.amount.toLocaleString() : '0'}
                       </span>
@@ -585,20 +599,20 @@ export const AskKopaView: React.FC = () => {
 
                     {msg.candidateAction.customerName && (
                       <div>
-                        <span className="text-[10px] opacity-70 block">Customer</span>
+                        <span className="text-[10px] text-[#64748B] dark:text-[#9FB1C5] block">Customer</span>
                         <span className="font-semibold">{msg.candidateAction.customerName}</span>
                       </div>
                     )}
 
                     {msg.candidateAction.productName && (
                       <div>
-                        <span className="text-[10px] opacity-70 block">Product</span>
+                        <span className="text-[10px] text-[#64748B] dark:text-[#9FB1C5] block">Product</span>
                         <span className="font-semibold">{msg.candidateAction.productName}</span>
                       </div>
                     )}
 
                     <div>
-                      <span className="text-[10px] opacity-70 block">Date</span>
+                      <span className="text-[10px] text-[#64748B] dark:text-[#9FB1C5] block">Date</span>
                       <span className="font-semibold">Today</span>
                     </div>
                   </div>
@@ -609,15 +623,15 @@ export const AskKopaView: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => handleConfirmActionDraft(msg.id, msg.candidateAction)}
-                        className="flex-1 py-2 px-3 rounded-xl bg-[#15803D] dark:bg-[#B8F36B] text-white dark:text-[#08110F] font-bold text-xs hover:opacity-90 transition-all shadow-xs cursor-pointer flex items-center justify-center gap-1.5"
+                        className="flex-1 py-2 px-3 rounded-xl bg-[#2563EB] dark:bg-[#3B82F6] text-white font-bold text-xs hover:bg-[#1D4ED8] transition-all shadow-xs cursor-pointer flex items-center justify-center gap-1.5"
                       >
                         <CheckCircle2 className="w-3.5 h-3.5" />
                         <span>Confirm & Record</span>
                       </button>
                     </div>
                   ) : (
-                    <div className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-medium pt-1">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                    <div className="flex items-center gap-1.5 text-xs text-[#16A34A] dark:text-[#4ADE80] font-medium pt-1">
+                      <CheckCircle2 className="w-4 h-4 text-[#16A34A] dark:text-[#4ADE80] shrink-0" />
                       <span>Saved to Firestore and reflected on dashboard.</span>
                     </div>
                   )}
@@ -642,7 +656,7 @@ export const AskKopaView: React.FC = () => {
                   onClick={() => handleCopy(msg.id, msg.text)}
                   className="inline-flex items-center gap-1 text-[10px] opacity-70 hover:opacity-100 cursor-pointer"
                 >
-                  {copiedId === msg.id ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                  {copiedId === msg.id ? <Check className="w-3 h-3 text-[#16A34A] dark:text-[#4ADE80]" /> : <Copy className="w-3 h-3" />}
                   <span>{copiedId === msg.id ? 'Copied' : 'Copy'}</span>
                 </button>
               </div>
@@ -651,15 +665,15 @@ export const AskKopaView: React.FC = () => {
         ))}
 
         {isProcessing && (
-          <div className="flex items-center justify-between p-3 rounded-2xl border border-[#DEE3DE] dark:border-[#1C382E] bg-white dark:bg-[#10251E] text-xs text-[#69746F] dark:text-slate-400 font-mono w-full sm:w-auto">
+          <div className="flex items-center justify-between p-3 rounded-2xl border border-[#DCE6F0] dark:border-[#243B56] bg-[#FFFFFF] dark:bg-[#0D1B2E] text-xs text-[#475569] dark:text-[#D5E2F0] font-mono w-full sm:w-auto">
             <div className="flex items-center gap-2.5">
-              <div className="w-2 h-2 rounded-full bg-[#15803D] dark:bg-[#B8F36B] animate-ping" />
+              <div className="w-2 h-2 rounded-full bg-[#2563EB] dark:bg-[#60A5FA] animate-ping" />
               <span>Analyzing business context in {selectedLangObj.name}...</span>
             </div>
             <button
               type="button"
               onClick={handleStopGeneration}
-              className="px-2 py-1 rounded bg-red-500/10 text-red-400 hover:bg-red-500/20 text-[10px] font-bold flex items-center gap-1 cursor-pointer"
+              className="px-2 py-1 rounded bg-red-500/10 text-red-500 hover:bg-red-500/20 text-[10px] font-bold flex items-center gap-1 cursor-pointer"
             >
               <Square className="w-3 h-3 fill-current" />
               <span>Stop</span>
@@ -680,8 +694,8 @@ export const AskKopaView: React.FC = () => {
               onClick={() => handleSend(p.label)}
               className={`px-3 py-1.5 rounded-xl border text-xs font-medium transition-all shrink-0 cursor-pointer ${
                 isDark
-                  ? 'bg-[#10251E] border-[#1C382E] text-slate-300 hover:text-white hover:border-[#B8F36B]'
-                  : 'bg-white border-[#DEE3DE] text-[#111916] hover:border-black/30 shadow-2xs'
+                  ? 'bg-[#0D1B2E] border-[#243B56] text-[#D5E2F0] hover:text-white hover:border-[#60A5FA]'
+                  : 'bg-[#FFFFFF] border-[#DCE6F0] text-[#0F172A] hover:border-[#2563EB] shadow-2xs'
               }`}
             >
               ✨ {p.label}
@@ -693,7 +707,7 @@ export const AskKopaView: React.FC = () => {
       {/* 
         4. STAGNANT CHATGPT-STYLE BOTTOM INPUT DOCK WITH VOICE MIC
       */}
-      <div className="shrink-0 w-full p-3 sm:p-4 bg-[#F7F6F0] dark:bg-[#08110F] border-t border-[#DEE3DE] dark:border-[#1A2E27] z-20">
+      <div className="shrink-0 w-full p-3 sm:p-4 bg-[#F7FAFC] dark:bg-[#07111F] border-t border-[#DCE6F0] dark:border-[#243B56] z-20">
         <div className="max-w-3xl mx-auto w-full space-y-2">
           {recordingFeedback && (
             <div className="p-2 rounded-xl bg-red-500/10 border border-red-500/30 text-xs text-red-500 flex items-center justify-between animate-pulse">
@@ -704,7 +718,7 @@ export const AskKopaView: React.FC = () => {
             </div>
           )}
 
-          <div className="relative shadow-xl rounded-2xl border border-[#DEE3DE] dark:border-[#1E3B30] bg-white dark:bg-[#10251E] p-2 flex items-end gap-2 focus-within:ring-2 focus-within:ring-[#15803D] dark:focus-within:ring-[#B8F36B] transition-all">
+          <div className="relative shadow-lg rounded-2xl border border-[#DCE6F0] dark:border-[#243B56] bg-[#FFFFFF] dark:bg-[#0D1B2E] p-2 flex items-end gap-2 focus-within:ring-2 focus-within:ring-[#2563EB] dark:focus-within:ring-[#60A5FA] transition-all">
             {/* Auto-expanding Input Area */}
             <textarea
               ref={textareaRef}
@@ -718,7 +732,7 @@ export const AskKopaView: React.FC = () => {
                 }
               }}
               placeholder={`Ask Kopa or speak in ${selectedLangObj.name} ("I sold 3 shirts for ${currencySymbol}45,000")…`}
-              className="flex-1 max-h-32 min-h-[38px] py-1.5 px-2 bg-transparent text-xs sm:text-sm text-[#111916] dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none resize-none leading-relaxed"
+              className="flex-1 max-h-32 min-h-[38px] py-1.5 px-2 bg-transparent text-xs sm:text-sm text-[#0F172A] dark:text-[#F8FBFF] placeholder-[#64748B] dark:placeholder-[#9FB1C5] outline-none resize-none leading-relaxed"
             />
 
             {/* Voice Recording Button */}
@@ -728,7 +742,7 @@ export const AskKopaView: React.FC = () => {
               className={`p-2.5 rounded-full transition-colors cursor-pointer shrink-0 ${
                 isRecording
                   ? 'bg-red-500 text-white animate-pulse'
-                  : 'text-slate-400 hover:text-[#111916] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
+                  : 'text-[#64748B] hover:text-[#0F172A] dark:hover:text-white hover:bg-[#EAF2FF] dark:hover:bg-[#132640]'
               }`}
               title={isRecording ? 'Stop Recording' : `Speak in ${selectedLangObj.name}`}
             >
@@ -740,14 +754,14 @@ export const AskKopaView: React.FC = () => {
               type="button"
               onClick={() => handleSend()}
               disabled={!input.trim() || isProcessing}
-              className="w-9 h-9 rounded-full flex items-center justify-center bg-[#15803D] dark:bg-[#B8F36B] text-white dark:text-[#08110F] hover:opacity-90 disabled:opacity-30 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:text-slate-500 transition-all shrink-0 cursor-pointer shadow-xs"
+              className="w-9 h-9 rounded-full flex items-center justify-center bg-[#2563EB] dark:bg-[#3B82F6] text-white hover:bg-[#1D4ED8] disabled:opacity-30 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:text-slate-500 transition-all shrink-0 cursor-pointer shadow-xs"
               aria-label="Send message"
             >
               <CornerDownLeft className="w-4 h-4" />
             </button>
           </div>
 
-          <div className="flex items-center justify-between text-[11px] text-[#69746F] dark:text-slate-400 font-sans px-1">
+          <div className="flex items-center justify-between text-[11px] text-[#64748B] dark:text-[#9FB1C5] font-sans px-1">
             <span>Powered by Gemini 3.8 Flash</span>
             <span>Active Language: {selectedLangObj.flag} {selectedLangObj.name}</span>
           </div>

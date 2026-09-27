@@ -81,8 +81,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
       transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-200 border-b backdrop-blur-xl ${
         isDark
-          ? 'bg-[#08110F]/95 border-[#1A2E27] shadow-[0_4px_24px_rgba(0,0,0,0.4)]'
-          : 'bg-[#F7F6F0]/95 border-[#DEE3DE] shadow-[0_4px_20px_rgba(0,0,0,0.05)]'
+          ? 'bg-[#07111F]/95 border-[#243B56] shadow-[0_4px_24px_rgba(0,0,0,0.4)]'
+          : 'bg-[#F7FAFC]/95 border-[#DCE6F0] shadow-[0_4px_20px_rgba(0,0,0,0.05)]'
       }`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -90,7 +90,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
           {/* Brand Zone */}
           <a
             href="#"
-            className="flex items-center group focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none rounded-lg p-1 transition-transform active:scale-95 shrink-0"
+            className="flex items-center group focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:outline-none rounded-lg p-1 transition-transform active:scale-95 shrink-0"
             aria-label="Kopa Home"
             onClick={() => {
               if (mobileMenuOpen) setMobileMenuOpen(false);
@@ -106,7 +106,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
           {/* Desktop Navigation Links */}
           <nav
             className={`hidden md:flex items-center gap-6 lg:gap-8 text-[13.5px] font-medium transition-colors ${
-              isDark ? 'text-slate-200' : 'text-[#2D3732]'
+              isDark ? 'text-[#D5E2F0]' : 'text-[#475569]'
             }`}
             aria-label="Main Navigation"
           >
@@ -120,8 +120,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
                     onOpenDashboard();
                   }
                 }}
-                className={`relative py-1 transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none rounded whitespace-nowrap ${
-                  isDark ? 'hover:text-white' : 'hover:text-[#111916]'
+                className={`relative py-1 transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:outline-none rounded whitespace-nowrap ${
+                  isDark ? 'hover:text-[#F8FBFF]' : 'hover:text-[#0F172A]'
                 }`}
               >
                 {link.label}
@@ -137,9 +137,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
               <button
                 type="button"
                 onClick={() => onOpenDashboard?.()}
-                className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#08110F] bg-[#B8F36B] hover:bg-[#A5E852] active:bg-[#97D844] rounded-xl transition-all duration-150 shadow-sm shadow-[#B8F36B]/20 whitespace-nowrap cursor-pointer focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none active:scale-[0.98] px-4 py-2 min-h-[40px]"
+                className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB] rounded-xl transition-all duration-150 shadow-sm whitespace-nowrap cursor-pointer focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:outline-none active:scale-[0.98] px-4 py-2 min-h-[40px]"
               >
-                <Sparkles className="w-3.5 h-3.5 text-[#08110F]" />
+                <Sparkles className="w-3.5 h-3.5 text-white" />
                 <span className="max-w-[140px] truncate">{currentUser.businessName || 'Workspace'}</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </button>
@@ -151,10 +151,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
                     if (onOpenAuth) onOpenAuth('login');
                     else onOpenWaitlist?.();
                   }}
-                  className={`text-[13px] font-semibold transition-colors duration-150 px-3.5 py-2 min-h-[40px] flex items-center whitespace-nowrap cursor-pointer rounded-xl border focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none ${
+                  className={`text-[13px] font-semibold transition-colors duration-150 px-3.5 py-2 min-h-[40px] flex items-center whitespace-nowrap cursor-pointer rounded-xl border focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:outline-none ${
                     isDark
-                      ? 'border-[#1C382E] text-slate-200 hover:text-white hover:bg-white/5'
-                      : 'border-[#DEE3DE] text-[#111916] hover:bg-black/5'
+                      ? 'border-[#243B56] text-[#D5E2F0] hover:text-[#F8FBFF] hover:bg-white/5'
+                      : 'border-[#DCE6F0] text-[#0F172A] hover:bg-black/5'
                   }`}
                 >
                   Sign in
@@ -166,7 +166,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
                     if (onOpenAuth) onOpenAuth('signup');
                     else onOpenWaitlist?.();
                   }}
-                  className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#08110F] bg-[#B8F36B] hover:bg-[#A5E852] active:bg-[#97D844] rounded-xl transition-all duration-150 shadow-sm shadow-[#B8F36B]/20 whitespace-nowrap cursor-pointer focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none active:scale-[0.98] px-4 py-2 min-h-[40px]"
+                  className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB] rounded-xl transition-all duration-150 shadow-sm whitespace-nowrap cursor-pointer focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:outline-none active:scale-[0.98] px-4 py-2 min-h-[40px]"
                 >
                   <span>Start with Kopa</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />

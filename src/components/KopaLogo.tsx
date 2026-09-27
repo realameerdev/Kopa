@@ -43,18 +43,20 @@ export const KopaLogo: React.FC<KopaLogoProps> = ({
   const bodyColor = isMonochrome
     ? 'currentColor'
     : isDark
-    ? '#FFFFFF'
-    : '#07110F';
+    ? '#F8FBFF'
+    : '#0F172A';
 
   const dotColor = isMonochrome
     ? 'currentColor'
-    : '#19C37D';
+    : isDark
+    ? '#3B82F6'
+    : '#2563EB';
 
   const wordmarkTextColor = isMonochrome
     ? 'text-current'
     : isDark
-    ? 'text-white'
-    : 'text-[#07110F]';
+    ? 'text-[#F8FBFF]'
+    : 'text-[#0F172A]';
 
   // Standalone vector geometric symbol
   const symbolElement = (

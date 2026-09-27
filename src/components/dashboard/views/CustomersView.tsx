@@ -62,10 +62,10 @@ export const CustomersView: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-heading font-medium tracking-tight text-[#111916] dark:text-white">
+          <h1 className="text-xl sm:text-2xl font-heading font-medium tracking-tight text-[#0F172A] dark:text-[#F8FBFF]">
             Customers & Debtors
           </h1>
-          <p className="text-xs sm:text-sm text-[#48534E] dark:text-slate-400">
+          <p className="text-xs sm:text-sm text-[#475569] dark:text-[#D5E2F0]">
             Customer relationships, purchase history, and outstanding credit balances
           </p>
         </div>
@@ -73,7 +73,7 @@ export const CustomersView: React.FC = () => {
         <button
           type="button"
           onClick={handleOpenAdd}
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-[#15803D] dark:bg-[#B8F36B] text-white dark:text-[#08110F] hover:opacity-90 cursor-pointer self-start sm:self-auto shadow-xs"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-[#2563EB] dark:bg-[#3B82F6] text-white hover:bg-[#1D4ED8] transition-colors cursor-pointer self-start sm:self-auto shadow-xs"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>Add Customer</span>
@@ -82,7 +82,7 @@ export const CustomersView: React.FC = () => {
 
       {/* Search */}
       <div className="relative">
-        <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#69746F] dark:text-slate-400" />
+        <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#64748B] dark:text-[#9FB1C5]" />
         <input
           type="text"
           placeholder="Search customers by name, phone or email..."
@@ -90,8 +90,8 @@ export const CustomersView: React.FC = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           className={`w-full pl-9 pr-4 py-2.5 rounded-xl border text-xs sm:text-sm outline-none ${
             isDark
-              ? 'bg-[#10251E]/60 border-[#1C382E] text-white focus:border-[#B8F36B]'
-              : 'bg-white border-[#DEE3DE] text-[#111916] focus:border-[#10251E]'
+              ? 'bg-[#0D1B2E] border-[#243B56] text-[#F8FBFF] focus:border-[#60A5FA]'
+              : 'bg-white border-[#DCE6F0] text-[#0F172A] focus:border-[#2563EB]'
           }`}
         />
       </div>
@@ -99,14 +99,14 @@ export const CustomersView: React.FC = () => {
       {/* Customers Table */}
       <div
         className={`rounded-2xl border overflow-hidden ${
-          isDark ? 'bg-[#10251E]/30 border-[#1C382E]' : 'bg-white border-[#DEE3DE] shadow-xs'
+          isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0] shadow-xs'
         }`}
       >
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs sm:text-sm">
             <thead
               className={`border-b text-[11px] font-mono uppercase tracking-wider ${
-                isDark ? 'bg-[#08110F] border-[#1C382E] text-slate-400' : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#48534E]'
+                isDark ? 'bg-[#132640] border-[#243B56] text-[#9FB1C5]' : 'bg-[#F7FAFC] border-[#DCE6F0] text-[#475569]'
               }`}
             >
               <tr>

@@ -92,7 +92,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         {/* Period Filter Tabs */}
         <div
           className={`inline-flex items-center p-1 rounded-xl border text-xs font-medium self-start md:self-auto ${
-            isDark ? 'bg-[#10251E]/60 border-[#1C382E]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
+            isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-[#F7FAFC] border-[#DCE6F0]'
           }`}
         >
           {[
@@ -108,10 +108,10 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               onClick={() => setPeriod(item.days)}
               className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
                 period === item.days
-                  ? 'bg-[#B8F36B] text-[#08110F] font-semibold shadow-xs'
+                  ? 'bg-[#2563EB] dark:bg-[#3B82F6] text-white font-semibold shadow-xs'
                   : isDark
-                  ? 'text-slate-300 hover:text-white'
-                  : 'text-[#69746F] hover:text-[#111916]'
+                  ? 'text-[#D5E2F0] hover:text-white'
+                  : 'text-[#64748B] hover:text-[#0F172A]'
               }`}
             >
               {item.label}
@@ -125,7 +125,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         <button
           type="button"
           onClick={onOpenRecordSale}
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-[#B8F36B] text-[#08110F] hover:bg-[#A5E852] transition-colors shadow-xs shrink-0 cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-[#2563EB] dark:bg-[#3B82F6] text-white hover:bg-[#1D4ED8] transition-colors shadow-xs shrink-0 cursor-pointer"
         >
           <PlusCircle className="w-3.5 h-3.5" />
           <span>Record Sale</span>
@@ -135,8 +135,8 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           onClick={onOpenAddExpense}
           className={`inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium rounded-xl border transition-colors shrink-0 cursor-pointer ${
             isDark
-              ? 'bg-[#10251E]/80 border-[#1C382E] text-slate-200 hover:text-white hover:bg-white/5'
-              : 'bg-white border-[#DEE3DE] text-[#111916] hover:bg-black/5'
+              ? 'bg-[#0D1B2E] border-[#243B56] text-[#D5E2F0] hover:text-white hover:bg-white/5'
+              : 'bg-white border-[#DCE6F0] text-[#0F172A] hover:bg-black/5'
           }`}
         >
           <Receipt className="w-3.5 h-3.5" />
@@ -147,8 +147,8 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           onClick={onOpenRecordPayment}
           className={`inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium rounded-xl border transition-colors shrink-0 cursor-pointer ${
             isDark
-              ? 'bg-[#10251E]/80 border-[#1C382E] text-slate-200 hover:text-white hover:bg-white/5'
-              : 'bg-white border-[#DEE3DE] text-[#111916] hover:bg-black/5'
+              ? 'bg-[#0D1B2E] border-[#243B56] text-[#D5E2F0] hover:text-white hover:bg-white/5'
+              : 'bg-white border-[#DCE6F0] text-[#0F172A] hover:bg-black/5'
           }`}
         >
           <DollarSign className="w-3.5 h-3.5" />
@@ -159,8 +159,8 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           onClick={onOpenAddProduct}
           className={`inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium rounded-xl border transition-colors shrink-0 cursor-pointer ${
             isDark
-              ? 'bg-[#10251E]/80 border-[#1C382E] text-slate-200 hover:text-white hover:bg-white/5'
-              : 'bg-white border-[#DEE3DE] text-[#111916] hover:bg-black/5'
+              ? 'bg-[#0D1B2E] border-[#243B56] text-[#D5E2F0] hover:text-white hover:bg-white/5'
+              : 'bg-white border-[#DCE6F0] text-[#0F172A] hover:bg-black/5'
           }`}
         >
           <Package className="w-3.5 h-3.5" />
@@ -171,8 +171,8 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           onClick={onOpenAddCustomer}
           className={`inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium rounded-xl border transition-colors shrink-0 cursor-pointer ${
             isDark
-              ? 'bg-[#10251E]/80 border-[#1C382E] text-slate-200 hover:text-white hover:bg-white/5'
-              : 'bg-white border-[#DEE3DE] text-[#111916] hover:bg-black/5'
+              ? 'bg-[#0D1B2E] border-[#243B56] text-[#D5E2F0] hover:text-white hover:bg-white/5'
+              : 'bg-white border-[#DCE6F0] text-[#0F172A] hover:bg-black/5'
           }`}
         >
           <Users className="w-3.5 h-3.5" />
@@ -181,7 +181,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         <button
           type="button"
           onClick={() => onNavigate('ask-kopa')}
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl border border-[#15803D]/30 dark:border-[#B8F36B]/40 bg-[#15803D]/10 dark:bg-[#B8F36B]/10 text-[#15803D] dark:text-[#B8F36B] hover:bg-[#15803D]/15 dark:hover:bg-[#B8F36B]/20 transition-colors shrink-0 cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl border border-[#2563EB]/30 dark:border-[#60A5FA]/40 bg-[#EAF2FF] dark:bg-[#102B4D] text-[#2563EB] dark:text-[#60A5FA] hover:bg-[#2563EB]/15 transition-colors shrink-0 cursor-pointer"
         >
           <Sparkles className="w-3.5 h-3.5" />
           <span>Ask Kopa</span>

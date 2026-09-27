@@ -5,40 +5,64 @@
   --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  --color-obsidian: #08110F;
-  --color-deep-forest: #10251E;
-  --color-kopa-lime: #B8F36B;
-  --color-soft-mint: #E8F5D8;
-  --color-warm-ivory: #F7F6F0;
-  --color-ink: #111916;
-  --color-muted-slate: #4A5652;
-  --color-soft-border: #DEE3DE;
+  /* Blue + White Silk Theme Palette */
+  --color-silk-light-bg: #F7FAFC;
+  --color-silk-light-surface: #FFFFFF;
+  --color-silk-light-border: #DCE6F0;
+  --color-silk-light-text-primary: #0F172A;
+  --color-silk-light-text-secondary: #475569;
+  --color-silk-light-text-muted: #64748B;
+  --color-silk-light-blue-primary: #2563EB;
+  --color-silk-light-blue-deep: #0F3B82;
+  --color-silk-light-blue-soft: #EAF2FF;
+
+  --color-silk-dark-bg: #07111F;
+  --color-silk-dark-surface: #0D1B2E;
+  --color-silk-dark-elevated: #132640;
+  --color-silk-dark-border: #243B56;
+  --color-silk-dark-text-primary: #F8FBFF;
+  --color-silk-dark-text-secondary: #D5E2F0;
+  --color-silk-dark-text-muted: #9FB1C5;
+  --color-silk-dark-blue-primary: #60A5FA;
+  --color-silk-dark-blue-deep: #3B82F6;
+  --color-silk-dark-blue-soft: #102B4D;
 }
 
 @layer base {
   :root {
-    --kopa-dark-primary: #08110F;
-    --kopa-dark-secondary: #10251E;
-    --kopa-dark-surface: #0E1F1A;
-    --kopa-dark-card: #142B23;
-    --kopa-dark-border: #1B352B;
-
-    --kopa-lime: #B8F36B;
-    --kopa-lime-hover: #A5E852;
-    --kopa-lime-soft: #E8F5D8;
-
-    --kopa-light-bg: #F7F6F0;
-    --kopa-light-surface: #FFFFFF;
-    --kopa-light-muted: #EEEFEA;
-    --kopa-light-border: #DEE3DE;
-
-    --kopa-text-primary: #111916;
-    --kopa-text-muted: #4A5652;
-    --kopa-text-subtle: #73807B;
+    --bg-app: #F7FAFC;
+    --bg-surface: #FFFFFF;
+    --bg-elevated: #FFFFFF;
+    --border-app: #DCE6F0;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #64748B;
+    --blue-primary: #2563EB;
+    --blue-hover: #1D4ED8;
+    --blue-deep: #0F3B82;
+    --blue-soft: #EAF2FF;
+    --color-success: #16A34A;
+    --color-error: #DC2626;
 
     --font-heading: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  html.dark {
+    --bg-app: #07111F;
+    --bg-surface: #0D1B2E;
+    --bg-elevated: #132640;
+    --border-app: #243B56;
+    --text-primary: #F8FBFF;
+    --text-secondary: #D5E2F0;
+    --text-muted: #9FB1C5;
+    --blue-primary: #60A5FA;
+    --blue-hover: #3B82F6;
+    --blue-deep: #3B82F6;
+    --blue-soft: #102B4D;
+    --color-success: #4ADE80;
+    --color-error: #F87171;
   }
 }
 
@@ -52,8 +76,8 @@ html, body {
 
 html.dark body,
 html.dark {
-  background-color: #08110F;
-  color: #F8FAFC;
+  background-color: #07111F;
+  color: #F8FBFF;
   color-scheme: dark;
 }
 
@@ -61,8 +85,8 @@ html.light body,
 html:not(.dark) body,
 html.light,
 html:not(.dark) {
-  background-color: #F7F6F0;
-  color: #111916;
+  background-color: #F7FAFC;
+  color: #0F172A;
   color-scheme: light;
 }
 
@@ -86,28 +110,28 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   font-family: 'JetBrains Mono', monospace !important;
 }
 
-/* Custom background grid textures */
+/* Custom background grid textures for Blue + White Silk */
 .bg-grid-dark {
   background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(96, 165, 250, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(96, 165, 250, 0.05) 1px, transparent 1px);
 }
 
 .bg-grid-light {
   background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, rgba(16, 37, 30, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(16, 37, 30, 0.06) 1px, transparent 1px);
+    linear-gradient(to right, rgba(37, 99, 235, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(37, 99, 235, 0.04) 1px, transparent 1px);
 }
 
-/* Subtle glow utilities */
-.glow-lime-subtle {
-  box-shadow: 0 0 24px -4px rgba(184, 243, 107, 0.18);
+/* Subtle silk blue glow utilities */
+.glow-blue-subtle {
+  box-shadow: 0 0 24px -4px rgba(37, 99, 235, 0.2);
 }
 
-.glow-lime-strong {
-  box-shadow: 0 0 32px 0px rgba(184, 243, 107, 0.28);
+.glow-blue-strong {
+  box-shadow: 0 0 32px 0px rgba(37, 99, 235, 0.35);
 }
 
 /* Mobile responsive scrollable table wrappers */

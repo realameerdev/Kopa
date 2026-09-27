@@ -518,7 +518,19 @@ class KopaDatabase {
   public addChatMessageToSession(sessionId: string, message: ChatMessageData): void {
     const session = this.chatSessions.find((s) => s.id === sessionId);
     if (session) {
-      session.messages.push(message);
+      if (!session.messages.some((m) => m.id === message.id)) {
+        // Extra safeguard: prevent adding identical consecutive assistant responses
+        const last = session.messages[session.messages.length - 1];
+        if (
+          last &&
+          last.sender === message.sender &&
+          message.sender === 'kopa' &&
+          last.text === message.text
+        ) {
+          return;
+        }
+        session.messages.push(message);
+      }
       session.updatedAt = new Date().toISOString();
       if (session.messages.length === 1 && message.sender === 'user') {
         session.title = message.text.length > 32 ? message.text.substring(0, 32) + '...' : message.text;

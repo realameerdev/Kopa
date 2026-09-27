@@ -52,10 +52,10 @@ export const ExpensesView: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-heading font-medium tracking-tight text-[#111916] dark:text-white">
+          <h1 className="text-xl sm:text-2xl font-heading font-medium tracking-tight text-[#0F172A] dark:text-[#F8FBFF]">
             Expenses & Payouts
           </h1>
-          <p className="text-xs sm:text-sm text-[#48534E] dark:text-slate-400">
+          <p className="text-xs sm:text-sm text-[#475569] dark:text-[#D5E2F0]">
             Track operational costs, recurring bills, supplier purchases, and category breakdowns
           </p>
         </div>
@@ -63,7 +63,7 @@ export const ExpensesView: React.FC = () => {
         <button
           type="button"
           onClick={() => setIsModalOpen(true)}
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-[#15803D] dark:bg-[#B8F36B] text-white dark:text-[#08110F] hover:opacity-90 cursor-pointer self-start sm:self-auto shadow-xs"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-[#2563EB] dark:bg-[#3B82F6] text-white hover:bg-[#1D4ED8] transition-colors cursor-pointer self-start sm:self-auto shadow-xs"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>Add Expense</span>
@@ -73,13 +73,13 @@ export const ExpensesView: React.FC = () => {
       {/* Category Breakdown Cards */}
       <div
         className={`p-6 rounded-2xl border ${
-          isDark ? 'bg-[#10251E]/40 border-[#1C382E]' : 'bg-white border-[#DEE3DE] shadow-xs'
+          isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0] shadow-xs'
         }`}
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
           <div>
-            <h2 className="text-sm font-heading font-semibold text-[#111916] dark:text-white">Category Breakdown</h2>
-            <p className="text-xs text-[#48534E] dark:text-slate-400 font-medium">Total Recorded: {currencySymbol}{totalExpenseAmount.toLocaleString()}</p>
+            <h2 className="text-sm font-heading font-semibold text-[#0F172A] dark:text-white">Category Breakdown</h2>
+            <p className="text-xs text-[#475569] dark:text-[#D5E2F0] font-medium">Total Recorded: {currencySymbol}{totalExpenseAmount.toLocaleString()}</p>
           </div>
         </div>
 
@@ -93,7 +93,7 @@ export const ExpensesView: React.FC = () => {
               <div
                 key={cat}
                 className={`p-3.5 rounded-xl border text-xs ${
-                  isDark ? 'bg-[#08110F] border-[#1C382E]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
+                  isDark ? 'bg-[#132640] border-[#243B56]' : 'bg-[#F7FAFC] border-[#DCE6F0]'
                 }`}
               >
                 <div className="flex justify-between items-center mb-1.5">

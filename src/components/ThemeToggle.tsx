@@ -52,21 +52,21 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({ className = '', size =
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       disabled={isTransitioning}
-      className={`relative inline-flex items-center select-none rounded-full p-0.5 transition-colors duration-200 cursor-pointer before:content-[''] before:absolute before:-inset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:ring-offset-2 ${
+      className={`relative inline-flex items-center select-none rounded-full p-0.5 transition-colors duration-200 cursor-pointer before:content-[''] before:absolute before:-inset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] dark:focus-visible:ring-[#60A5FA] focus-visible:ring-offset-2 ${
         isDark
-          ? 'bg-[#10251E] border border-[#1E3B30] text-slate-300 focus-visible:ring-offset-[#08110F]'
-          : 'bg-[#EEEFEA] border border-[#DEE3DE] text-[#69746F] focus-visible:ring-offset-[#F7F6F0]'
+          ? 'bg-[#0D1B2E] border border-[#243B56] text-[#D5E2F0] focus-visible:ring-offset-[#07111F]'
+          : 'bg-[#EAF2FF] border border-[#DCE6F0] text-[#475569] focus-visible:ring-offset-[#F7FAFC]'
       } ${size === 'sm' ? 'w-[52px] h-[28px]' : 'w-[58px] h-[32px]'} ${className}`}
     >
       {/* Sliding Thumb Indicator */}
       <span
         aria-hidden="true"
-        className={`absolute rounded-full transition-transform duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-sm flex items-center justify-center ${
+        className={`absolute rounded-full transition-transform duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-xs flex items-center justify-center ${
           size === 'sm' ? 'w-5 h-5' : 'w-6 h-6'
         } ${
           isDark
-            ? 'translate-x-[26px] bg-[#08110F] text-[#B8F36B] border border-[#1B352B]'
-            : 'translate-x-[2px] bg-white text-[#10251E] border border-[#DEE3DE]'
+            ? 'translate-x-[26px] bg-[#132640] text-[#60A5FA] border border-[#243B56]'
+            : 'translate-x-[2px] bg-white text-[#2563EB] border border-[#DCE6F0]'
         }`}
       >
         {isDark ? (
