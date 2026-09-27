@@ -132,10 +132,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
   };
 
+  // Helper to remove undefined values for Firestore
+  const cleanUndefined = (obj: any): any => {
+    if (obj === null || typeof obj !== 'object') {
+      return obj;
+    }
+    if (Array.isArray(obj)) {
+      return obj.map(cleanUndefined);
+    }
+    const cleaned: Record<string, any> = {};
+    for (const key of Object.keys(obj)) {
+      const val = obj[key];
+      if (val !== undefined) {
+        cleaned[key] = cleanUndefined(val);
+      }
+    }
+    return cleaned;
+  };
+
   // Background non-blocking sync with Firestore
   const backgroundSaveFirestoreProfile = (uid: string, profile: UserBusinessProfile) => {
     if (!firestore || !uid) return;
-    setDoc(doc(firestore, 'users', uid), profile, { merge: true }).catch((err) => {
+    const sanitized = cleanUndefined(profile);
+    setDoc(doc(firestore, 'users', uid), sanitized, { merge: true }).catch((err) => {
       console.warn('Background Firestore profile save notice:', err);
     });
   };
