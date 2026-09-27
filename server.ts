@@ -575,29 +575,36 @@ async function startServer() {
     const selectedLangName = langNames[language] || 'English';
 
     const systemInstruction = `You are Kopa, an intelligent AI Operating System assistant for African businesses.
-You understand all business context, sales, expenses, debts, inventory, and customer relationships.
-User's Business: "${businessContext?.businessName || 'African Enterprise'}" (${businessContext?.category || 'General Merchant'}), operating in ${businessContext?.country || 'Nigeria'} (${businessContext?.currencySymbol || '₦'}).
+You are directly connected to the business owner's real enterprise ledger.
+User's Business: "${businessContext?.businessName || 'Enterprise'}" (${businessContext?.category || 'General Merchant'}), operating in ${businessContext?.country || 'Nigeria'} (${businessContext?.currencySymbol || '₦'}).
+
+STRICT ANTI-HALLUCINATION & ACCURACY RULES:
+1. NEVER INVENT prices, amounts, product costs, customers, or transactions.
+2. If required information is missing (e.g. user says "I sold 3 shirts" without amount), DO NOT guess the price. Ask the user for the missing total amount.
+3. If product cost is unavailable ("Cost not set"), DO NOT invent a cost. Clearly explain that gross profit requires product cost. Revenue is NOT profit.
+4. Always answer financial questions using the provided real business metrics (Revenue: ${businessContext?.metrics?.totalRevenue || 0}, Expenses: ${businessContext?.metrics?.totalExpenses || 0}, Outstanding Debts: ${businessContext?.metrics?.outstandingDebts || 0}).
 
 LANGUAGE MANDATE:
-The user selected target language: "${selectedLangName}".
-You MUST respond fluently and naturally in ${selectedLangName}.
+The user's target language is "${selectedLangName}".
+You MUST respond fluently and naturally in ${selectedLangName} (English, Hausa, Yoruba, Igbo, Swahili, or Amharic).
 
-AUTOMATIC BOOKKEEPING TASK:
-If the user's input mentions an operational business event (e.g. selling items, making a sale, paying an expense, receiving debt payment, or adding inventory), extract an action object so it can be automatically recorded in their ledger.
+ACTION DRAFT EXTRACTION:
+When the user states a business transaction (e.g., "I made a sale of ₦45,000", "Alhaji Yusuf is owing me ₦50,000", "Spent ₦8,000 on delivery", "John paid ₦20,000 debt", "Add 20 black shirts"), extract a structured actionDraft object so Kopa UI can present a confirmation draft card to the user before committing to Firestore.
 
 JSON RESPONSE FORMAT:
 Respond strictly in valid JSON matching this schema:
 {
-  "replyText": "Direct helpful response in ${selectedLangName} confirming what was recorded or answering the query",
-  "extractedAction": {
-    "type": "record_sale" | "record_expense" | "record_payment" | "add_product" | "add_customer" | "none",
-    "title": "Clear short summary",
-    "amount": 150000,
-    "quantity": 1,
-    "productName": "name of item if mentioned",
+  "replyText": "Direct helpful answer or question in ${selectedLangName}",
+  "actionDraft": {
+    "type": "record_sale" | "record_expense" | "record_debt" | "record_payment" | "add_product" | "update_stock" | "none",
+    "title": "Short title (e.g. Sale Detected, Debt Detected)",
+    "amount": number or 0,
+    "quantity": number or 1,
+    "productName": "product name if mentioned",
     "customerName": "customer name if mentioned",
-    "category": "Sales or Expense category",
-    "notes": "notes or description"
+    "category": "category name",
+    "notes": "notes or description",
+    "missingFields": ["amount" or "customerName"]
   }
 }`;
 
@@ -627,15 +634,13 @@ Respond strictly in valid JSON matching this schema:
         if (rawText) {
           try {
             const parsed = JSON.parse(rawText);
+            const draft = parsed.actionDraft || parsed.extractedAction;
             return res.json({
               replyText: parsed.replyText || rawText,
-              extractedAction:
-                parsed.extractedAction && parsed.extractedAction.type !== 'none'
-                  ? parsed.extractedAction
-                  : null,
+              actionDraft: draft && draft.type !== 'none' ? draft : null,
             });
           } catch {
-            return res.json({ replyText: rawText, extractedAction: null });
+            return res.json({ replyText: rawText, actionDraft: null });
           }
         }
       }

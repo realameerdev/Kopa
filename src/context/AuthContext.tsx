@@ -365,36 +365,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      // Profile setup
-      const rawName = user.displayName || user.email?.split('@')[0] || 'Business Owner';
-      const initialProfile: UserBusinessProfile = {
-        uid: user.uid,
-        fullName: rawName,
-        businessName: `${rawName}'s Business`,
-        email: user.email || '',
-        businessCategory: 'Retail & General Merchant',
-        country: 'Nigeria',
-        currency: 'NGN',
-        currencySymbol: '₦',
-        photoURL: user.photoURL || undefined,
-        provider: 'google.com',
-        createdAt: new Date().toISOString(),
-      };
+      // Check if user already exists in Firestore
+      const fullProfile = await syncFirebaseUserProfile(user);
+      applyUserProfile(fullProfile);
 
-      applyUserProfile(initialProfile);
-      setPendingUser(initialProfile);
+      // Existing user with profile -> Go directly to dashboard!
+      if (fullProfile.onboardingAnswers || fullProfile.updatedAt) {
+        setIsLoading(false);
+        closeAuth();
+        setIsDashboardOpen(true);
+        return true;
+      }
+
+      // New Google User -> Prompt onboarding once
+      setPendingUser(fullProfile);
       setIsLoading(false);
       setCurrentAuthMode('onboarding');
-
-      // Background check if user already completed onboarding
-      syncFirebaseUserProfile(user).then((fullProfile) => {
-        applyUserProfile(fullProfile);
-        if (fullProfile.onboardingAnswers) {
-          closeAuth();
-          setIsDashboardOpen(true);
-        }
-      }).catch(() => {});
-
       return true;
     } catch (err: any) {
       console.warn('Google Sign-In response code:', err.code, err.message);

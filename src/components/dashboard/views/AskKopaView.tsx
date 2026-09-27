@@ -30,13 +30,14 @@ import {
   Trash2,
   X,
   Volume2,
+  Square,
+  Edit3,
+  DollarSign,
 } from 'lucide-react';
 import { db, Product, Customer, Transaction, ChatSession, ChatMessageData } from '../../../lib/db';
 import { useTheme } from '../../../context/ThemeContext';
 import { MCPExecutor } from '../../../lib/connectors/mcpExecutor';
 import { ConnectorProviderId } from '../../../lib/connectors/types';
-import { ConnectorIcon } from '../connectors/ConnectorIcons';
-import { KopaLogo } from '../../KopaLogo';
 
 export interface LanguageOption {
   code: string;
@@ -60,8 +61,14 @@ export const AskKopaView: React.FC = () => {
   const settings = db.getSettings();
   const currencySymbol = settings.currencySymbol || '₦';
 
-  // Selected Language (default English)
-  const [selectedLanguage, setSelectedLanguage] = useState<string>('en');
+  // Selected Language (default English, saved per user)
+  const [selectedLanguage, setSelectedLanguage] = useState<string>(() => {
+    return localStorage.getItem('kopa_chat_language') || 'en';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('kopa_chat_language', selectedLanguage);
+  }, [selectedLanguage]);
 
   // Chat Sessions & Active Session State (ChatGPT Style)
   const [chatSessions, setChatSessions] = useState<ChatSession[]>([]);
@@ -72,23 +79,25 @@ export const AskKopaView: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessageData[]>([]);
   const [input, setInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
-  const [showMcpDrawer, setShowMcpDrawer] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  // Draft Editing Modal/State
+  const [editingDraftId, setEditingDraftId] = useState<string | null>(null);
+  const [editAmount, setEditAmount] = useState<number>(0);
+  const [editName, setEditName] = useState<string>('');
 
   // Voice recording state
   const [isRecording, setIsRecording] = useState(false);
   const [recordingFeedback, setRecordingFeedback] = useState<string | null>(null);
   const recognitionRef = useRef<any>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const [availableMcpTools, setAvailableMcpTools] = useState(MCPExecutor.getAvailableTools());
-
   // Load chat sessions from DB on mount & listen for updates
   useEffect(() => {
     const unsub = db.subscribe(() => {
-      setAvailableMcpTools(MCPExecutor.getAvailableTools());
       const sessions = db.getChatSessions();
       setChatSessions(sessions);
     });
@@ -102,11 +111,11 @@ export const AskKopaView: React.FC = () => {
       setSelectedLanguage(initialSessions[0].language || 'en');
     } else {
       // Create default welcome session
-      const newSession = db.createChatSession(`Welcome Conversation`, 'en');
+      const newSession = db.createChatSession(`Business Operations Assistant`, selectedLanguage);
       const welcomeMsg: ChatMessageData = {
         id: 'welcome',
         sender: 'kopa',
-        text: `Hello ${settings.ownerName}. I am Kopa, powered by Gemini 3.8 Flash. You can talk to me via text or voice in English, Hausa, Yoruba, Igbo, Swahili, or Amharic! Try saying "I sold 3 shirts for ₦45,000" or "Paid ₦15,000 for generator fuel" and I will automatically record it into your ledger.`,
+        text: `Hello ${settings.ownerName}. I am Kopa AI, connected directly to your ${settings.businessName} enterprise database. Ask me financial queries or speak/type transactions naturally (e.g., "I made a sale of ${currencySymbol}45,000 today" or "Alhaji Yusuf is owing me ${currencySymbol}50,000"). I will create structured action drafts for your confirmation before committing to Firestore.`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
       db.addChatMessageToSession(newSession.id, welcomeMsg);
@@ -138,11 +147,11 @@ export const AskKopaView: React.FC = () => {
 
   // Create New Chat Session
   const handleNewChat = () => {
-    const newSession = db.createChatSession('New Conversation', selectedLanguage);
+    const newSession = db.createChatSession('New Business Chat', selectedLanguage);
     const welcomeMsg: ChatMessageData = {
       id: `welcome-${Date.now()}`,
       sender: 'kopa',
-      text: `Starting a new chat in ${SUPPORTED_LANGUAGES.find((l) => l.code === selectedLanguage)?.name}. How can I assist ${settings.businessName} today?`,
+      text: `New conversation started for ${settings.businessName}. How can I assist you with sales, expenses, inventory, or customer debts today?`,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
     db.addChatMessageToSession(newSession.id, welcomeMsg);
@@ -170,7 +179,7 @@ export const AskKopaView: React.FC = () => {
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
     if (!SpeechRecognition) {
-      setRecordingFeedback('Speech recognition is not supported in this browser. Please type your message.');
+      setRecordingFeedback('Speech recognition is not supported in this browser. Please type your prompt.');
       setTimeout(() => setRecordingFeedback(null), 4000);
       return;
     }
@@ -206,9 +215,9 @@ export const AskKopaView: React.FC = () => {
       };
 
       recognition.onerror = (event: any) => {
-        console.warn('Speech recognition error:', event.error);
+        console.warn('Speech recognition notice:', event.error);
         setIsRecording(false);
-        setRecordingFeedback(`Voice input note: ${event.error || 'Could not catch audio'}`);
+        setRecordingFeedback(`Voice input note: ${event.error || 'Could not process audio'}`);
         setTimeout(() => setRecordingFeedback(null), 3000);
       };
 
@@ -224,59 +233,89 @@ export const AskKopaView: React.FC = () => {
     }
   };
 
-  // Automatically execute transaction in database when Gemini returns extractedAction
-  const applyExtractedAction = (action: any) => {
-    if (!action || !action.type || action.type === 'none') return;
+  // Execute Action Draft upon User Confirmation (Commits to Firestore & DB)
+  const handleConfirmActionDraft = (msgId: string, draft: any) => {
+    if (!draft || !draft.type || draft.type === 'none') return;
 
-    if (action.type === 'record_sale' && action.amount > 0) {
+    if (draft.type === 'record_sale' && draft.amount > 0) {
       db.addTransaction({
         type: 'sale',
-        title: action.title || `Sale Recorded via Kopa AI`,
-        amount: action.amount,
-        quantity: action.quantity || 1,
-        productName: action.productName,
-        customerName: action.customerName,
+        title: draft.title || `Sale Recorded via Kopa AI`,
+        amount: draft.amount,
+        quantity: draft.quantity || 1,
+        productName: draft.productName || 'General Sale',
+        customerName: draft.customerName,
         status: 'completed',
-        category: action.category || 'Sales',
-        notes: action.notes || 'Recorded automatically by Kopa AI assistant',
+        category: draft.category || 'Sales',
+        notes: draft.notes || 'Recorded via Kopa AI Voice/Text Draft',
         date: new Date().toISOString(),
       });
-    } else if (action.type === 'record_expense' && action.amount > 0) {
+    } else if ((draft.type === 'record_debt' || draft.type === 'add_debt') && draft.amount > 0) {
+      const custName = draft.customerName || draft.title || 'Customer';
+      db.addCustomer({
+        name: custName,
+        phone: draft.notes || 'Contact via Kopa',
+        outstandingBalance: draft.amount,
+      });
+      db.addTransaction({
+        type: 'debt',
+        title: `Debt Recorded: ${custName}`,
+        amount: draft.amount,
+        customerName: custName,
+        status: 'pending',
+        category: 'Customer Credit',
+        notes: `Outstanding debt recorded via Kopa AI`,
+        date: new Date().toISOString(),
+      });
+    } else if (draft.type === 'record_expense' && draft.amount > 0) {
       db.addTransaction({
         type: 'expense',
-        title: action.title || `Expense Recorded via Kopa AI`,
-        amount: action.amount,
+        title: draft.title || `Expense Recorded via Kopa AI`,
+        amount: draft.amount,
         status: 'completed',
-        category: action.category || 'Operating Expense',
-        notes: action.notes || 'Recorded automatically by Kopa AI assistant',
+        category: draft.category || 'Operating Expense',
+        notes: draft.notes || 'Expense recorded via Kopa AI',
         date: new Date().toISOString(),
       });
-    } else if (action.type === 'record_payment' && action.amount > 0) {
+    } else if (draft.type === 'record_payment' && draft.amount > 0) {
       db.addTransaction({
         type: 'payment',
-        title: action.title || `Debt Payment Recorded via Kopa AI`,
-        amount: action.amount,
-        customerName: action.customerName,
+        title: draft.title || `Debt Payment Received`,
+        amount: draft.amount,
+        customerName: draft.customerName,
         status: 'completed',
         category: 'Customer Payments',
-        notes: action.notes || 'Debt payment recorded by Kopa AI assistant',
+        notes: 'Debt payment recorded via Kopa AI',
         date: new Date().toISOString(),
       });
-    } else if (action.type === 'add_product' && action.productName) {
+    } else if (draft.type === 'add_product' && draft.productName) {
       db.addProduct({
-        name: action.productName,
-        category: action.category || 'General',
-        sellingPrice: action.amount || 0,
+        name: draft.productName,
+        category: draft.category || 'General',
+        sellingPrice: draft.amount || 0,
         costPrice: null,
-        stock: action.quantity || 10,
+        stock: draft.quantity || 10,
         minStockAlert: 3,
       });
-    } else if (action.type === 'add_customer' && action.customerName) {
-      db.addCustomer({
-        name: action.customerName,
-        phone: action.notes || 'Contact via Kopa',
-        outstandingBalance: action.amount || 0,
-      });
+    }
+
+    // Mark message as confirmed in state & DB
+    setMessages((prev) =>
+      prev.map((m) => (m.id === msgId ? { ...m, confirmed: true } : m))
+    );
+
+    if (activeSessionId) {
+      const session = db.getChatSession(activeSessionId);
+      if (session) {
+        const msg = session.messages.find((m) => m.id === msgId);
+        if (msg) msg.confirmed = true;
+        db.addChatMessageToSession(activeSessionId, {
+          id: `sys-${Date.now()}`,
+          sender: 'kopa',
+          text: `✓ Action confirmed and recorded in your live enterprise ledger and Firestore. Dashboard metrics have updated.`,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        });
+      }
     }
   };
 
@@ -298,11 +337,15 @@ export const AskKopaView: React.FC = () => {
     setInput('');
     setIsProcessing(true);
 
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
     try {
-      // Call Server-Side Gemini Route (/api/ai/chat)
+      const metrics = db.getMetrics(30);
       const res = await fetch('/api/ai/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
         body: JSON.stringify({
           message: text,
           language: selectedLanguage,
@@ -312,6 +355,9 @@ export const AskKopaView: React.FC = () => {
             country: settings.country,
             currency: settings.currency,
             currencySymbol,
+            metrics,
+            products: db.getProducts().slice(0, 10),
+            customers: db.getCustomers().slice(0, 10),
           },
           chatHistory: messages.slice(-8),
         }),
@@ -320,33 +366,41 @@ export const AskKopaView: React.FC = () => {
       const data = await res.json();
       setIsProcessing(false);
 
-      if (data.extractedAction) {
-        applyExtractedAction(data.extractedAction);
-      }
-
       const kopaMessage: ChatMessageData = {
         id: `kopa-${Date.now()}`,
         sender: 'kopa',
-        text: data.replyText || 'I have analyzed your business records.',
+        text: data.replyText || 'I have analyzed your request against your business records.',
         language: selectedLanguage,
-        candidateAction: data.extractedAction || undefined,
-        confirmed: Boolean(data.extractedAction),
+        candidateAction: data.actionDraft || undefined,
+        confirmed: false,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
 
       setMessages((prev) => [...prev, kopaMessage]);
       db.addChatMessageToSession(activeSessionId, kopaMessage);
     } catch (err: any) {
-      console.warn('AI chat error:', err);
+      if (err.name === 'AbortError') {
+        setIsProcessing(false);
+        return;
+      }
+      console.warn('AI chat request notice:', err);
       setIsProcessing(false);
-      const errorMessage: ChatMessageData = {
+
+      const fallbackMsg: ChatMessageData = {
         id: `kopa-${Date.now()}`,
         sender: 'kopa',
-        text: `Recorded text in your business log. Processing updates...`,
+        text: `I received your input. You can confirm or manage your ledger records directly below.`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
-      setMessages((prev) => [...prev, errorMessage]);
-      db.addChatMessageToSession(activeSessionId, errorMessage);
+      setMessages((prev) => [...prev, fallbackMsg]);
+      db.addChatMessageToSession(activeSessionId, fallbackMsg);
+    }
+  };
+
+  const handleStopGeneration = () => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      setIsProcessing(false);
     }
   };
 
@@ -357,6 +411,14 @@ export const AskKopaView: React.FC = () => {
   };
 
   const selectedLangObj = SUPPORTED_LANGUAGES.find((l) => l.code === selectedLanguage) || SUPPORTED_LANGUAGES[0];
+
+  const suggestedPrompts = [
+    { label: `I made a sale of ${currencySymbol}45,000 today`, lang: 'en' },
+    { label: `Alhaji Yusuf is owing me ${currencySymbol}50,000`, lang: 'en' },
+    { label: `I spent ${currencySymbol}8,000 on delivery`, lang: 'en' },
+    { label: `Add 20 black shirts to inventory`, lang: 'en' },
+    { label: `How much revenue did I make this month?`, lang: 'en' },
+  ];
 
   return (
     <div className="h-full flex flex-col min-h-0 relative bg-[#F7F6F0] dark:bg-[#08110F] text-[#111916] dark:text-white overflow-hidden">
@@ -395,13 +457,9 @@ export const AskKopaView: React.FC = () => {
           <Globe className="w-4 h-4 text-[#15803D] dark:text-[#B8F36B]" />
           <select
             value={selectedLanguage}
-            onChange={(e) => {
-              setSelectedLanguage(e.target.value);
-            }}
+            onChange={(e) => setSelectedLanguage(e.target.value)}
             className={`px-3 py-1.5 rounded-xl border text-xs font-semibold outline-none cursor-pointer ${
-              isDark
-                ? 'bg-[#10251E] border-[#1C382E] text-white'
-                : 'bg-white border-[#DEE3DE] text-[#111916] shadow-2xs'
+              isDark ? 'bg-[#10251E] border-[#1C382E] text-white' : 'bg-white border-[#DEE3DE] text-[#111916] shadow-2xs'
             }`}
           >
             {SUPPORTED_LANGUAGES.map((lang) => (
@@ -503,24 +561,82 @@ export const AskKopaView: React.FC = () => {
 
               <p className="whitespace-pre-wrap">{msg.text}</p>
 
-              {/* Automatic Ledger Recording Badge */}
+              {/* Action Draft Confirmation Card (Requirements 3, 4, 7) */}
               {msg.candidateAction && (
-                <div className="mt-3 p-3 rounded-xl border bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-400 text-xs space-y-1">
-                  <div className="flex items-center gap-1.5 font-bold">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                    <span>Auto-Recorded in Ledger: {msg.candidateAction.title}</span>
+                <div className="mt-3 p-3.5 rounded-2xl border bg-black/5 dark:bg-white/5 border-[#15803D]/30 dark:border-[#B8F36B]/40 space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-heading font-bold text-[#15803D] dark:text-[#B8F36B] flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5" />
+                      {msg.candidateAction.title || 'Structured Action Detected'}
+                    </span>
+                    <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold">
+                      {msg.confirmed ? 'CONFIRMED' : 'DRAFT'}
+                    </span>
                   </div>
-                  <div className="text-[11px] font-mono pl-5">
-                    Amount: {currencySymbol}
-                    {msg.candidateAction.amount.toLocaleString()}
-                    {msg.candidateAction.productName ? ` · Item: ${msg.candidateAction.productName}` : ''}
-                    {msg.candidateAction.customerName ? ` · Customer: ${msg.candidateAction.customerName}` : ''}
+
+                  <div className="grid grid-cols-2 gap-2 text-xs font-mono bg-white/50 dark:bg-black/20 p-2.5 rounded-xl border border-black/5 dark:border-white/5">
+                    <div>
+                      <span className="text-[10px] opacity-70 block">Amount</span>
+                      <span className="font-semibold text-emerald-600 dark:text-emerald-400">
+                        {currencySymbol}
+                        {msg.candidateAction.amount ? msg.candidateAction.amount.toLocaleString() : '0'}
+                      </span>
+                    </div>
+
+                    {msg.candidateAction.customerName && (
+                      <div>
+                        <span className="text-[10px] opacity-70 block">Customer</span>
+                        <span className="font-semibold">{msg.candidateAction.customerName}</span>
+                      </div>
+                    )}
+
+                    {msg.candidateAction.productName && (
+                      <div>
+                        <span className="text-[10px] opacity-70 block">Product</span>
+                        <span className="font-semibold">{msg.candidateAction.productName}</span>
+                      </div>
+                    )}
+
+                    <div>
+                      <span className="text-[10px] opacity-70 block">Date</span>
+                      <span className="font-semibold">Today</span>
+                    </div>
                   </div>
+
+                  {/* Confirmation or Verified Badge */}
+                  {!msg.confirmed ? (
+                    <div className="flex items-center gap-2 pt-1">
+                      <button
+                        type="button"
+                        onClick={() => handleConfirmActionDraft(msg.id, msg.candidateAction)}
+                        className="flex-1 py-2 px-3 rounded-xl bg-[#15803D] dark:bg-[#B8F36B] text-white dark:text-[#08110F] font-bold text-xs hover:opacity-90 transition-all shadow-xs cursor-pointer flex items-center justify-center gap-1.5"
+                      >
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                        <span>Confirm & Record</span>
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-medium pt-1">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                      <span>Saved to Firestore and reflected on dashboard.</span>
+                    </div>
+                  )}
                 </div>
               )}
 
-              {/* Copy message button */}
-              <div className="flex justify-end pt-2">
+              {/* Copy & Retry Controls */}
+              <div className="flex items-center justify-end gap-3 pt-2">
+                {msg.sender === 'kopa' && (
+                  <button
+                    type="button"
+                    onClick={() => handleSend(messages[messages.findIndex((m) => m.id === msg.id) - 1]?.text)}
+                    className="inline-flex items-center gap-1 text-[10px] opacity-70 hover:opacity-100 cursor-pointer"
+                    title="Retry response"
+                  >
+                    <RotateCcw className="w-3 h-3" />
+                    <span>Retry</span>
+                  </button>
+                )}
                 <button
                   type="button"
                   onClick={() => handleCopy(msg.id, msg.text)}
@@ -535,14 +651,44 @@ export const AskKopaView: React.FC = () => {
         ))}
 
         {isProcessing && (
-          <div className="flex items-center gap-2.5 p-3 rounded-2xl border border-[#DEE3DE] dark:border-[#1C382E] bg-white dark:bg-[#10251E] text-xs text-[#69746F] dark:text-slate-400 font-mono w-fit">
-            <div className="w-2 h-2 rounded-full bg-[#15803D] dark:bg-[#B8F36B] animate-ping" />
-            <span>Kopa analyzing business context in {selectedLangObj.name}...</span>
+          <div className="flex items-center justify-between p-3 rounded-2xl border border-[#DEE3DE] dark:border-[#1C382E] bg-white dark:bg-[#10251E] text-xs text-[#69746F] dark:text-slate-400 font-mono w-full sm:w-auto">
+            <div className="flex items-center gap-2.5">
+              <div className="w-2 h-2 rounded-full bg-[#15803D] dark:bg-[#B8F36B] animate-ping" />
+              <span>Analyzing business context in {selectedLangObj.name}...</span>
+            </div>
+            <button
+              type="button"
+              onClick={handleStopGeneration}
+              className="px-2 py-1 rounded bg-red-500/10 text-red-400 hover:bg-red-500/20 text-[10px] font-bold flex items-center gap-1 cursor-pointer"
+            >
+              <Square className="w-3 h-3 fill-current" />
+              <span>Stop</span>
+            </button>
           </div>
         )}
 
         <div ref={messagesEndRef} />
       </div>
+
+      {/* Suggested Prompt Chips */}
+      {messages.length <= 2 && !isProcessing && (
+        <div className="shrink-0 px-4 py-2 max-w-3xl mx-auto w-full flex flex-wrap gap-2 overflow-x-auto scrollbar-none">
+          {suggestedPrompts.map((p, idx) => (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => handleSend(p.label)}
+              className={`px-3 py-1.5 rounded-xl border text-xs font-medium transition-all shrink-0 cursor-pointer ${
+                isDark
+                  ? 'bg-[#10251E] border-[#1C382E] text-slate-300 hover:text-white hover:border-[#B8F36B]'
+                  : 'bg-white border-[#DEE3DE] text-[#111916] hover:border-black/30 shadow-2xs'
+              }`}
+            >
+              ✨ {p.label}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* 
         4. STAGNANT CHATGPT-STYLE BOTTOM INPUT DOCK WITH VOICE MIC
@@ -571,7 +717,7 @@ export const AskKopaView: React.FC = () => {
                   handleSend();
                 }
               }}
-              placeholder={`Ask Kopa or speak in ${selectedLangObj.name} ("I sold 30 items for ${currencySymbol}150,000")…`}
+              placeholder={`Ask Kopa or speak in ${selectedLangObj.name} ("I sold 3 shirts for ${currencySymbol}45,000")…`}
               className="flex-1 max-h-32 min-h-[38px] py-1.5 px-2 bg-transparent text-xs sm:text-sm text-[#111916] dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none resize-none leading-relaxed"
             />
 
