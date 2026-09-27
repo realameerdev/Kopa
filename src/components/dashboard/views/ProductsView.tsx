@@ -50,10 +50,10 @@ export const ProductsView: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-heading font-medium tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-heading font-medium tracking-tight text-[#111916] dark:text-white">
             Products & Inventory
           </h1>
-          <p className="text-xs sm:text-sm text-[#69746F] dark:text-slate-400">
+          <p className="text-xs sm:text-sm text-[#48534E] dark:text-slate-400">
             Catalog, stock levels, unit costs, and profit margin analysis
           </p>
         </div>
@@ -61,7 +61,7 @@ export const ProductsView: React.FC = () => {
         <button
           type="button"
           onClick={handleOpenAdd}
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-[#B8F36B] text-[#08110F] hover:bg-[#A5E852] cursor-pointer self-start sm:self-auto"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-[#15803D] dark:bg-[#B8F36B] text-white dark:text-[#08110F] hover:opacity-90 cursor-pointer self-start sm:self-auto shadow-xs"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>Add Product</span>
@@ -94,7 +94,7 @@ export const ProductsView: React.FC = () => {
           <table className="w-full text-left text-xs sm:text-sm">
             <thead
               className={`border-b text-[11px] font-mono uppercase tracking-wider ${
-                isDark ? 'bg-[#08110F] border-[#1C382E] text-slate-400' : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#69746F]'
+                isDark ? 'bg-[#08110F] border-[#1C382E] text-slate-400' : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#48534E]'
               }`}
             >
               <tr>
@@ -156,8 +156,8 @@ export const ProductsView: React.FC = () => {
                         <span
                           className={`font-mono px-2 py-0.5 rounded text-xs ${
                             isLowStock
-                              ? 'bg-amber-500/10 text-amber-400 font-bold'
-                              : 'text-slate-300'
+                              ? 'bg-amber-500/15 text-amber-700 dark:text-amber-400 font-bold'
+                              : 'text-[#48534E] dark:text-slate-300'
                           }`}
                         >
                           {p.stock} units
@@ -165,7 +165,7 @@ export const ProductsView: React.FC = () => {
                       </td>
                       <td className="py-3.5 px-4 text-right font-mono">
                         <div>
-                          <span>
+                          <span className="text-[#111916] dark:text-white font-medium">
                             {currencySymbol}
                             {p.totalRevenue.toLocaleString()}
                           </span>
@@ -176,12 +176,12 @@ export const ProductsView: React.FC = () => {
                       </td>
                       <td className="py-3.5 px-4 text-right font-mono">
                         {totalProfit !== null ? (
-                          <span className="text-[#B8F36B] font-semibold">
+                          <span className="text-[#15803D] dark:text-[#B8F36B] font-bold">
                             +{currencySymbol}
                             {totalProfit.toLocaleString()}
                           </span>
                         ) : (
-                          <span className="text-[11px] text-amber-500 font-sans">
+                          <span className="text-[11px] text-amber-600 dark:text-amber-500 font-sans">
                             Cost not set
                           </span>
                         )}
@@ -190,7 +190,7 @@ export const ProductsView: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => handleEdit(p)}
-                          className="p-1 rounded text-slate-400 hover:text-white hover:bg-white/10 mr-1 cursor-pointer"
+                          className="p-1.5 rounded-lg text-slate-500 hover:text-[#111916] hover:bg-black/5 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/10 mr-1 cursor-pointer transition-colors"
                           title="Edit product"
                         >
                           <Edit2 className="w-3.5 h-3.5" />
@@ -198,7 +198,7 @@ export const ProductsView: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => handleDelete(p.id)}
-                          className="p-1 rounded text-red-400 hover:text-red-300 hover:bg-red-500/10 cursor-pointer"
+                          className="p-1.5 rounded-lg text-red-500 hover:text-red-700 hover:bg-red-500/10 dark:text-red-400 dark:hover:text-red-300 cursor-pointer transition-colors"
                           title="Delete product"
                         >
                           <Trash2 className="w-3.5 h-3.5" />

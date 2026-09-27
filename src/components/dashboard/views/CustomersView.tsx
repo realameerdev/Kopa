@@ -62,10 +62,10 @@ export const CustomersView: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-heading font-medium tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-heading font-medium tracking-tight text-[#111916] dark:text-white">
             Customers & Debtors
           </h1>
-          <p className="text-xs sm:text-sm text-[#69746F] dark:text-slate-400">
+          <p className="text-xs sm:text-sm text-[#48534E] dark:text-slate-400">
             Customer relationships, purchase history, and outstanding credit balances
           </p>
         </div>
@@ -73,7 +73,7 @@ export const CustomersView: React.FC = () => {
         <button
           type="button"
           onClick={handleOpenAdd}
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-[#B8F36B] text-[#08110F] hover:bg-[#A5E852] cursor-pointer self-start sm:self-auto"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-[#15803D] dark:bg-[#B8F36B] text-white dark:text-[#08110F] hover:opacity-90 cursor-pointer self-start sm:self-auto shadow-xs"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>Add Customer</span>
@@ -106,7 +106,7 @@ export const CustomersView: React.FC = () => {
           <table className="w-full text-left text-xs sm:text-sm">
             <thead
               className={`border-b text-[11px] font-mono uppercase tracking-wider ${
-                isDark ? 'bg-[#08110F] border-[#1C382E] text-slate-400' : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#69746F]'
+                isDark ? 'bg-[#08110F] border-[#1C382E] text-slate-400' : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#48534E]'
               }`}
             >
               <tr>
@@ -158,12 +158,12 @@ export const CustomersView: React.FC = () => {
                       </td>
                       <td className="py-3.5 px-4 text-right font-mono">
                         {hasDebt ? (
-                          <span className="text-amber-400 font-bold">
+                          <span className="text-amber-700 dark:text-amber-400 font-bold">
                             {currencySymbol}
                             {c.outstandingBalance.toLocaleString()}
                           </span>
                         ) : (
-                          <span className="text-emerald-400 text-xs">Settled</span>
+                          <span className="text-emerald-700 dark:text-emerald-400 font-medium text-xs">Settled</span>
                         )}
                       </td>
                       <td className="py-3.5 px-4 text-xs text-[#69746F] dark:text-slate-400">
@@ -174,7 +174,7 @@ export const CustomersView: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => handleOpenPayment(c.id)}
-                            className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-lg bg-[#B8F36B] text-[#08110F] hover:bg-[#A5E852] mr-2 cursor-pointer"
+                            className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-lg bg-[#15803D] dark:bg-[#B8F36B] text-white dark:text-[#08110F] hover:opacity-90 mr-2 cursor-pointer shadow-xs"
                           >
                             <DollarSign className="w-3 h-3" />
                             <span>Collect</span>
@@ -183,7 +183,7 @@ export const CustomersView: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => handleEdit(c)}
-                          className="p-1 rounded text-slate-400 hover:text-white hover:bg-white/10 mr-1 cursor-pointer"
+                          className="p-1.5 rounded-lg text-slate-500 hover:text-[#111916] hover:bg-black/5 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/10 mr-1 cursor-pointer transition-colors"
                           title="Edit customer"
                         >
                           <Edit2 className="w-3.5 h-3.5" />
@@ -191,7 +191,7 @@ export const CustomersView: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => handleDelete(c.id)}
-                          className="p-1 rounded text-red-400 hover:text-red-300 hover:bg-red-500/10 cursor-pointer"
+                          className="p-1.5 rounded-lg text-red-500 hover:text-red-700 hover:bg-red-500/10 dark:text-red-400 dark:hover:text-red-300 cursor-pointer transition-colors"
                           title="Delete customer"
                         >
                           <Trash2 className="w-3.5 h-3.5" />

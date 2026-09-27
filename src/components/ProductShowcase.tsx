@@ -231,49 +231,49 @@ export const ProductShowcase: React.FC = () => {
           {/* Four Key Metrics Cards (Revenue, Expenses, Estimated Profit, Transactions) */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
             <div className={`p-4 sm:p-5 rounded-2xl border ${isDark ? 'bg-[#0E1F1A] border-[#183126]' : 'bg-[#F7F6F0] border-[#DEE3DE]'}`}>
-              <span className={`text-[11px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+              <span className={`text-[11px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
                 Revenue
               </span>
               <span className={`text-2xl sm:text-3xl font-heading font-semibold tabular-nums block ${isDark ? 'text-white' : 'text-[#111916]'}`}>
                 {activeData.revenue}
               </span>
-              <span className={`text-xs font-medium block mt-1 ${isDark ? 'text-[#B8F36B]' : 'text-[#10251E]'}`}>
+              <span className={`text-xs font-semibold block mt-1 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
                 {activeData.revenueChange}
               </span>
             </div>
 
             <div className={`p-4 sm:p-5 rounded-2xl border ${isDark ? 'bg-[#0E1F1A] border-[#183126]' : 'bg-[#F7F6F0] border-[#DEE3DE]'}`}>
-              <span className={`text-[11px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+              <span className={`text-[11px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
                 Expenses
               </span>
               <span className={`text-2xl sm:text-3xl font-heading font-semibold tabular-nums block ${isDark ? 'text-white' : 'text-[#111916]'}`}>
                 {activeData.expenses}
               </span>
-              <span className={`text-xs block mt-1 ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+              <span className={`text-xs block mt-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
                 {activeData.expensesNote}
               </span>
             </div>
 
             <div className={`p-4 sm:p-5 rounded-2xl border ${isDark ? 'bg-[#0E1F1A] border-[#183126]' : 'bg-[#F7F6F0] border-[#DEE3DE]'}`}>
-              <span className={`text-[11px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+              <span className={`text-[11px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
                 Estimated Profit
               </span>
-              <span className={`text-2xl sm:text-3xl font-heading font-semibold tabular-nums block ${isDark ? 'text-[#B8F36B]' : 'text-[#10251E]'}`}>
+              <span className={`text-2xl sm:text-3xl font-heading font-semibold tabular-nums block ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
                 {activeData.profit}
               </span>
-              <span className={`text-xs font-medium block mt-1 ${isDark ? 'text-slate-300' : 'text-[#69746F]'}`}>
+              <span className={`text-xs font-medium block mt-1 ${isDark ? 'text-slate-300' : 'text-[#48534E]'}`}>
                 {activeData.profitMargin}
               </span>
             </div>
 
             <div className={`p-4 sm:p-5 rounded-2xl border ${isDark ? 'bg-[#0E1F1A] border-[#183126]' : 'bg-[#F7F6F0] border-[#DEE3DE]'}`}>
-              <span className={`text-[11px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+              <span className={`text-[11px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
                 Transactions
               </span>
               <span className={`text-2xl sm:text-3xl font-heading font-semibold tabular-nums block ${isDark ? 'text-white' : 'text-[#111916]'}`}>
                 {activeData.transactions}
               </span>
-              <span className={`text-xs block mt-1 ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+              <span className={`text-xs block mt-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
                 {activeData.transactionsNote}
               </span>
             </div>
@@ -286,12 +286,14 @@ export const ProductShowcase: React.FC = () => {
                 <span className={`text-sm font-semibold block ${isDark ? 'text-white' : 'text-[#111916]'}`}>
                   Business Activity & Revenue Trajectory
                 </span>
-                <span className={`text-xs ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+                <span className={`text-xs ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
                   Real-time transaction volume curve
                 </span>
               </div>
               <span className={`text-xs font-mono font-semibold px-2.5 py-1 rounded border ${
-                isDark ? 'text-[#B8F36B] bg-[#B8F36B]/10 border-[#B8F36B]/20' : 'text-[#10251E] bg-[#E8F5D8] border-[#DEE3DE]'
+                isDark
+                  ? 'text-[#B8F36B] bg-[#B8F36B]/10 border-[#B8F36B]/20'
+                  : 'text-[#15803D] bg-[#15803D]/10 border-[#15803D]/25'
               }`}>
                 Peak: {activeData.revenue}
               </span>
@@ -302,8 +304,8 @@ export const ProductShowcase: React.FC = () => {
               <svg className="w-full h-full overflow-visible" viewBox="0 0 600 130" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="revenueGradTheme" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor={isDark ? "#B8F36B" : "#10251E"} stopOpacity={isDark ? "0.25" : "0.15"} />
-                    <stop offset="100%" stopColor={isDark ? "#B8F36B" : "#10251E"} stopOpacity="0.0" />
+                    <stop offset="0%" stopColor={isDark ? "#B8F36B" : "#15803D"} stopOpacity={isDark ? "0.25" : "0.15"} />
+                    <stop offset="100%" stopColor={isDark ? "#B8F36B" : "#15803D"} stopOpacity="0.0" />
                   </linearGradient>
                 </defs>
 
@@ -323,7 +325,7 @@ export const ProductShowcase: React.FC = () => {
                 <path
                   d={activeData.chartPath}
                   fill="none"
-                  stroke={isDark ? "#B8F36B" : "#10251E"}
+                  stroke={isDark ? "#B8F36B" : "#15803D"}
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   className="transition-all duration-500 ease-out"
@@ -336,15 +338,15 @@ export const ProductShowcase: React.FC = () => {
                       cx={pt.cx}
                       cy={pt.cy}
                       r={idx === activeData.points.length - 1 ? 5 : 3.5}
-                      fill={idx === activeData.points.length - 1 ? "#B8F36B" : isDark ? "#08110F" : "#FFFFFF"}
-                      stroke={isDark ? "#B8F36B" : "#10251E"}
+                      fill={idx === activeData.points.length - 1 ? isDark ? "#B8F36B" : "#15803D" : isDark ? "#08110F" : "#FFFFFF"}
+                      stroke={isDark ? "#B8F36B" : "#15803D"}
                       strokeWidth="2"
                     />
                   </g>
                 ))}
               </svg>
 
-              <div className={`flex justify-between text-[11px] font-mono mt-2 px-1 ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+              <div className={`flex justify-between text-[11px] font-mono mt-2 px-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
                 {activeData.points.map((pt, idx) => (
                   <span key={idx}>
                     {pt.label} ({pt.value})
@@ -363,7 +365,7 @@ export const ProductShowcase: React.FC = () => {
                 <span className={`text-xs font-semibold uppercase tracking-wider font-mono ${isDark ? 'text-white' : 'text-[#111916]'}`}>
                   Top Products
                 </span>
-                <span className={`text-xs font-mono ${isDark ? 'text-[#B8F36B]' : 'text-[#10251E]'}`}>By Recorded Revenue</span>
+                <span className={`text-xs font-mono font-semibold ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>By Recorded Revenue</span>
               </div>
 
               <div className="space-y-2.5">
@@ -378,7 +380,7 @@ export const ProductShowcase: React.FC = () => {
                       <div className={`text-xs sm:text-sm font-semibold ${isDark ? 'text-white' : 'text-[#111916]'}`}>
                         {p.name}
                       </div>
-                      <div className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+                      <div className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
                         {p.units} units sold · {p.margin} margin
                       </div>
                     </div>
@@ -386,7 +388,7 @@ export const ProductShowcase: React.FC = () => {
                       <div className={`text-xs sm:text-sm font-semibold tabular-nums ${isDark ? 'text-white' : 'text-[#111916]'}`}>
                         {p.revenue}
                       </div>
-                      <div className={`text-[10px] font-mono ${isDark ? 'text-[#B8F36B]' : 'text-[#10251E]'}`}>
+                      <div className={`text-[10px] font-mono font-semibold ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
                         {p.share} of total
                       </div>
                     </div>
@@ -401,7 +403,7 @@ export const ProductShowcase: React.FC = () => {
                 <span className={`text-xs font-semibold uppercase tracking-wider font-mono ${isDark ? 'text-white' : 'text-[#111916]'}`}>
                   Recent Activity
                 </span>
-                <span className={`text-xs font-mono flex items-center gap-1 ${isDark ? 'text-[#B8F36B]' : 'text-[#10251E]'}`}>
+                <span className={`text-xs font-mono font-semibold flex items-center gap-1 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
                   <Clock className="w-3 h-3" /> Live
                 </span>
               </div>
@@ -418,13 +420,15 @@ export const ProductShowcase: React.FC = () => {
                       <div className={`text-xs font-semibold ${isDark ? 'text-white' : 'text-[#111916]'}`}>
                         {act.title}
                       </div>
-                      <div className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+                      <div className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
                         {act.party}
                       </div>
                     </div>
                     <div className="text-right">
                       <div className={`text-xs font-semibold tabular-nums ${
-                        act.isPositive ? isDark ? 'text-[#B8F36B]' : 'text-[#10251E]' : isDark ? 'text-slate-400' : 'text-[#69746F]'
+                        act.isPositive
+                          ? isDark ? 'text-[#B8F36B]' : 'text-[#15803D] font-bold'
+                          : isDark ? 'text-slate-400' : 'text-[#48534E]'
                       }`}>
                         {act.amount}
                       </div>
@@ -439,26 +443,55 @@ export const ProductShowcase: React.FC = () => {
 
           </div>
 
-          {/* Interactive "Ask Kopa" Interface matching prompt requirements */}
-          <div className="rounded-2xl bg-[#10251E] text-white p-5 sm:p-6 border border-[#214739] shadow-xl relative overflow-hidden">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3.5 mb-3.5 border-b border-[#1A382C] gap-3">
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-[#B8F36B]" />
-                <span className="text-xs font-mono font-semibold text-[#B8F36B] uppercase tracking-wider">
-                  Ask Kopa Interface
-                </span>
+          {/* 
+            Interactive "Ask Kopa" Interface with true ChatGPT UI Styling
+            - Stationary container that does not shift away
+            - Clean prompt selector pills
+            - Conversational user message bubble & assistant markdown response
+            - Crisp contrast in both light mode and dark mode
+          */}
+          <div
+            className={`rounded-3xl border shadow-xl relative overflow-hidden transition-all ${
+              isDark
+                ? 'bg-[#0E1F1A] border-[#1C382E] text-white'
+                : 'bg-white border-[#DEE3DE] text-[#111916]'
+            }`}
+          >
+            {/* ChatGPT-Style Pinned Top Bar */}
+            <div
+              className={`flex flex-col sm:flex-row sm:items-center justify-between px-5 sm:px-6 py-3.5 border-b gap-3 transition-colors ${
+                isDark ? 'bg-[#08110F]/70 border-[#182E26]' : 'bg-[#F7F6F0]/80 border-[#DEE3DE]'
+              }`}
+            >
+              <div className="flex items-center gap-2.5">
+                <div className="w-7 h-7 rounded-lg flex items-center justify-center bg-[#08110F] border border-[#1C382E] text-white shadow-xs">
+                  <KopaLogo variant="symbol" theme="dark" size="sm" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs sm:text-sm font-heading font-semibold text-[#111916] dark:text-white">
+                      Ask Kopa
+                    </span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#15803D] dark:bg-[#B8F36B] animate-pulse" />
+                    <span className="text-[10px] font-mono text-[#69746F] dark:text-slate-400">
+                      GPT Engine · Live Context
+                    </span>
+                  </div>
+                </div>
               </div>
 
               {/* Cost data condition toggle */}
               <div className="flex items-center gap-2 text-xs font-sans">
-                <span className="text-slate-400 text-[11px]">Cost data status:</span>
+                <span className="text-[#69746F] dark:text-slate-400 text-[11px]">Cost data:</span>
                 <button
                   type="button"
                   onClick={() => setCostDataAvailable(!costDataAvailable)}
                   className={`text-[11px] px-2.5 py-1 rounded-md border font-mono cursor-pointer transition-colors ${
                     costDataAvailable
-                      ? 'bg-[#B8F36B]/20 text-[#B8F36B] border-[#B8F36B]/40'
-                      : 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                      ? isDark
+                        ? 'bg-[#B8F36B]/15 text-[#B8F36B] border-[#B8F36B]/30'
+                        : 'bg-[#15803D]/10 text-[#15803D] border-[#15803D]/25 font-semibold'
+                      : 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/40 font-semibold'
                   }`}
                 >
                   {costDataAvailable ? '✓ Unit Costs Configured' : '⚠ Costs Not Set'}
@@ -466,53 +499,105 @@ export const ProductShowcase: React.FC = () => {
               </div>
             </div>
 
-            {/* Prompt Selector Pills */}
-            <div className="flex flex-wrap gap-2 mb-4" role="group" aria-label="Exploration questions">
-              {aiQueries.map((q, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  aria-pressed={activeQueryIndex === idx}
-                  onClick={() => setActiveQueryIndex(idx)}
-                  className={`text-xs px-3.5 py-2 rounded-lg border transition-all cursor-pointer font-sans min-h-[38px] flex items-center focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none ${
-                    activeQueryIndex === idx
-                      ? 'bg-[#B8F36B] text-[#08110F] border-[#B8F36B] font-semibold shadow-xs'
-                      : 'bg-[#08110F] text-slate-300 border-[#1B352B] hover:text-white hover:border-[#214739]'
-                  }`}
-                >
-                  "{q.question}"
-                </button>
-              ))}
-            </div>
-
-            {/* Kopa Response */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={`${activeQueryIndex}-${costDataAvailable}`}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.25 }}
-                className="p-4 rounded-xl bg-[#08110F] border border-[#1E3B30] text-xs sm:text-sm text-slate-200 flex items-start gap-3"
-              >
-                {costDataAvailable || activeQueryIndex !== 0 ? (
-                  <CheckCircle2 className="w-4 h-4 text-[#B8F36B] shrink-0 mt-0.5" />
-                ) : (
-                  <AlertCircle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                )}
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <strong className="text-white font-medium">Kopa Intelligence</strong>
-                    <span className="text-[10px] font-mono text-[#B8F36B] bg-[#B8F36B]/10 px-1.5 py-0.2 rounded border border-[#B8F36B]/20">
-                      {activeQuery.badge}
-                    </span>
-                  </div>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
-                    {activeQuery.getAnswer(costDataAvailable)}
-                  </p>
+            {/* Main Interactive Chat Flow Area */}
+            <div className="p-5 sm:p-6 space-y-4">
+              {/* Quick Prompt Selector Chips (ChatGPT Style) */}
+              <div>
+                <p className="text-[11px] font-mono uppercase tracking-wider text-[#69746F] dark:text-slate-400 mb-2">
+                  Suggested Queries
+                </p>
+                <div className="flex flex-wrap gap-2" role="group" aria-label="Exploration questions">
+                  {aiQueries.map((q, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      aria-pressed={activeQueryIndex === idx}
+                      onClick={() => setActiveQueryIndex(idx)}
+                      className={`text-xs px-3.5 py-2 rounded-xl border transition-all cursor-pointer font-sans min-h-[36px] flex items-center focus-visible:ring-2 focus-visible:ring-[#15803D] dark:focus-visible:ring-[#B8F36B] focus-visible:outline-none ${
+                        activeQueryIndex === idx
+                          ? isDark
+                            ? 'bg-[#B8F36B] text-[#08110F] border-[#B8F36B] font-semibold shadow-xs'
+                            : 'bg-[#10251E] text-white border-[#10251E] font-semibold shadow-xs'
+                          : isDark
+                          ? 'bg-[#08110F] text-slate-300 border-[#1B352B] hover:text-white hover:border-[#214739]'
+                          : 'bg-[#F7F6F0] text-[#111916] border-[#DEE3DE] hover:bg-black/5 hover:border-black/20'
+                      }`}
+                    >
+                      "{q.question}"
+                    </button>
+                  ))}
                 </div>
-              </motion.div>
-            </AnimatePresence>
+              </div>
+
+              {/* Chat Thread: User Message + Assistant Response */}
+              <div className="pt-2 space-y-3">
+                {/* User Message Bubble */}
+                <div className="flex justify-end">
+                  <div className="bg-[#10251E] dark:bg-[#1E3B30] text-white px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-sans max-w-[85%] sm:max-w-[75%] shadow-xs">
+                    <p>"{activeQuery.question}"</p>
+                  </div>
+                </div>
+
+                {/* Assistant Response Bubble */}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={`${activeQueryIndex}-${costDataAvailable}`}
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className={`p-4 rounded-2xl border flex items-start gap-3 text-xs sm:text-sm ${
+                      isDark
+                        ? 'bg-[#08110F] border-[#1E3B30] text-slate-100'
+                        : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#111916]'
+                    }`}
+                  >
+                    <div className="w-7 h-7 rounded-lg shrink-0 flex items-center justify-center bg-[#08110F] border border-[#1C382E] text-white shadow-xs mt-0.5">
+                      <KopaLogo variant="symbol" theme="dark" size="sm" />
+                    </div>
+
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                        <strong className="text-xs sm:text-sm font-semibold text-[#111916] dark:text-white">
+                          Kopa Assistant
+                        </strong>
+                        <span className={`text-[10px] font-mono px-2 py-0.5 rounded border font-semibold ${
+                          costDataAvailable || activeQueryIndex !== 0
+                            ? isDark
+                              ? 'text-[#B8F36B] bg-[#B8F36B]/15 border-[#B8F36B]/30'
+                              : 'text-[#15803D] bg-[#15803D]/10 border-[#15803D]/25'
+                            : 'text-amber-700 dark:text-amber-400 bg-amber-500/10 border-amber-500/30'
+                        }`}>
+                          {activeQuery.badge}
+                        </span>
+                      </div>
+
+                      <p className="text-xs sm:text-sm text-[#111916] dark:text-slate-200 leading-relaxed font-sans">
+                        {activeQuery.getAnswer(costDataAvailable)}
+                      </p>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* Stationary Simulated ChatGPT Prompt Capsule */}
+              <div
+                className={`pt-2 flex items-center gap-2 p-2 rounded-2xl border ${
+                  isDark ? 'bg-[#08110F] border-[#1C382E]' : 'bg-white border-[#DEE3DE]'
+                }`}
+              >
+                <div className="flex-1 px-3 py-1 text-xs text-[#69746F] dark:text-slate-400 font-sans truncate">
+                  Ask Kopa or record transactions naturally…
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setActiveQueryIndex((activeQueryIndex + 1) % aiQueries.length)}
+                  className="px-3 py-1.5 rounded-xl bg-[#15803D] dark:bg-[#B8F36B] text-white dark:text-[#08110F] text-xs font-semibold hover:opacity-90 transition-opacity cursor-pointer shrink-0"
+                >
+                  Next Query →
+                </button>
+              </div>
+            </div>
           </div>
 
         </motion.div>

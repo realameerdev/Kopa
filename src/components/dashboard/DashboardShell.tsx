@@ -446,21 +446,21 @@ export const DashboardShell: React.FC<DashboardShellProps> = ({ onBackToLanding 
                   <button
                     type="button"
                     onClick={() => setActiveView('settings')}
-                    className="w-full text-left px-3 py-2 text-xs font-medium rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+                    className="w-full text-left px-3 py-2 text-xs font-medium rounded-lg text-[#111916] dark:text-slate-200 hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer"
                   >
                     Settings & Profile
                   </button>
                   <button
                     type="button"
                     onClick={() => setActiveView('passport')}
-                    className="w-full text-left px-3 py-2 text-xs font-medium rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+                    className="w-full text-left px-3 py-2 text-xs font-medium rounded-lg text-[#111916] dark:text-slate-200 hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-pointer"
                   >
                     Business Passport
                   </button>
                   <button
                     type="button"
                     onClick={handleLogout}
-                    className="w-full text-left px-3 py-2 text-xs font-medium rounded-lg text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer mt-1"
+                    className="w-full text-left px-3 py-2 text-xs font-medium rounded-lg text-red-600 dark:text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer mt-1"
                   >
                     Sign Out
                   </button>
@@ -470,8 +470,14 @@ export const DashboardShell: React.FC<DashboardShellProps> = ({ onBackToLanding 
           </div>
         </header>
 
-        {/* ACTIVE VIEW CONTENT (Dedicated scrolling area) */}
-        <main className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-3.5 sm:p-6 lg:p-8 pb-24 lg:pb-8 overscroll-contain">
+        {/* ACTIVE VIEW CONTENT (Dedicated scrolling area; stationary/full-height for ask-kopa) */}
+        <main
+          className={`flex-1 min-h-0 ${
+            activeView === 'ask-kopa'
+              ? 'overflow-hidden flex flex-col p-0 pb-16 lg:pb-0'
+              : 'overflow-y-auto overflow-x-hidden p-3.5 sm:p-6 lg:p-8 pb-24 lg:pb-8 overscroll-contain'
+          }`}
+        >
           <AnimatePresence mode="wait">
             <motion.div
               key={activeView}
@@ -479,6 +485,7 @@ export const DashboardShell: React.FC<DashboardShellProps> = ({ onBackToLanding 
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2 }}
+              className={activeView === 'ask-kopa' ? 'h-full flex flex-col min-h-0' : ''}
             >
               {activeView === 'dashboard' && (
                 <OverviewView
@@ -537,13 +544,13 @@ export const DashboardShell: React.FC<DashboardShellProps> = ({ onBackToLanding 
                 onClick={() => setActiveView(item.id)}
                 className={`flex flex-col items-center justify-center py-1 px-2.5 rounded-lg min-w-[56px] text-[10px] font-medium transition-colors cursor-pointer ${
                   isActive
-                    ? 'text-[#B8F36B] font-semibold'
+                    ? 'text-[#15803D] dark:text-[#B8F36B] font-semibold'
                     : isDark
                     ? 'text-slate-400 hover:text-white'
-                    : 'text-[#69746F] hover:text-[#111916]'
+                    : 'text-[#48534E] hover:text-[#111916]'
                 }`}
               >
-                <Icon className={`w-4 h-4 mb-0.5 ${isActive ? 'text-[#B8F36B]' : ''}`} />
+                <Icon className={`w-4 h-4 mb-0.5 ${isActive ? 'text-[#15803D] dark:text-[#B8F36B]' : ''}`} />
                 <span>{item.label}</span>
               </button>
             );
@@ -554,10 +561,10 @@ export const DashboardShell: React.FC<DashboardShellProps> = ({ onBackToLanding 
             onClick={() => setMobileSidebarOpen(true)}
             className={`flex flex-col items-center justify-center py-1 px-2.5 rounded-lg min-w-[56px] text-[10px] font-medium transition-colors cursor-pointer ${
               mobileSidebarOpen
-                ? 'text-[#B8F36B] font-semibold'
+                ? 'text-[#15803D] dark:text-[#B8F36B] font-semibold'
                 : isDark
                 ? 'text-slate-400 hover:text-white'
-                : 'text-[#69746F] hover:text-[#111916]'
+                : 'text-[#48534E] hover:text-[#111916]'
             }`}
           >
             <Menu className="w-4 h-4 mb-0.5" />

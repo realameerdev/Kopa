@@ -73,7 +73,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ onOpenWaitlist }) => {
         
         {/* Simple, understated header */}
         <div className="mb-10 sm:mb-12">
-          <p className="text-xs font-mono uppercase tracking-widest text-[#69746F] dark:text-slate-400 mb-2">
+          <p className="text-xs font-mono uppercase tracking-widest text-[#48534E] dark:text-slate-400 mb-2 font-medium">
             Questions & Answers
           </p>
           <h2
@@ -84,7 +84,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ onOpenWaitlist }) => {
           >
             Frequently asked questions
           </h2>
-          <p className="text-sm sm:text-base font-normal text-[#69746F] dark:text-slate-400 mt-2">
+          <p className="text-sm sm:text-base font-normal text-[#48534E] dark:text-slate-400 mt-2">
             Simple answers to common questions about Kopa, data privacy, and daily usage.
           </p>
         </div>
@@ -108,11 +108,11 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ onOpenWaitlist }) => {
                     className="w-full py-4.5 sm:py-5 flex items-center justify-between gap-4 text-left cursor-pointer group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#B8F36B] transition-colors"
                   >
                     <span
-                      className={`text-[15.5px] sm:text-[16.5px] font-medium transition-colors ${
+                      className={`text-[15.5px] sm:text-[16.5px] font-semibold transition-colors ${
                         isOpen
                           ? isDark
                             ? 'text-[#B8F36B]'
-                            : 'text-[#111916]'
+                            : 'text-[#15803D]'
                           : isDark
                           ? 'text-slate-200 group-hover:text-white'
                           : 'text-[#111916] group-hover:text-black'
@@ -126,14 +126,14 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ onOpenWaitlist }) => {
                         isOpen
                           ? isDark
                             ? 'text-[#B8F36B]'
-                            : 'text-[#111916]'
-                          : 'text-[#69746F] dark:text-slate-400 group-hover:text-black dark:group-hover:text-white'
+                            : 'text-[#15803D]'
+                          : 'text-[#48534E] dark:text-slate-400 group-hover:text-black dark:group-hover:text-white'
                       }`}
                     >
                       {isOpen ? (
-                        <Minus className="w-4 h-4 stroke-[1.75]" />
+                        <Minus className="w-4 h-4 stroke-[2]" />
                       ) : (
-                        <Plus className="w-4 h-4 stroke-[1.75]" />
+                        <Plus className="w-4 h-4 stroke-[2]" />
                       )}
                     </span>
                   </button>
@@ -151,7 +151,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ onOpenWaitlist }) => {
                       transition={{ duration: 0.2, ease: 'easeOut' }}
                       className="overflow-hidden"
                     >
-                      <p className="text-sm sm:text-[14.5px] font-normal leading-relaxed text-[#69746F] dark:text-slate-300 pb-5 sm:pb-6 pr-6">
+                      <p className="text-sm sm:text-[14.5px] font-normal leading-relaxed text-[#3B4641] dark:text-slate-200 pb-5 sm:pb-6 pr-6">
                         {item.answer}
                       </p>
                     </motion.div>
@@ -163,7 +163,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ onOpenWaitlist }) => {
         </div>
 
         {/* Quiet footer link */}
-        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs sm:text-sm text-[#69746F] dark:text-slate-400">
+        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs sm:text-sm text-[#48534E] dark:text-slate-400">
           <p>
             Have a question that isn't answered here?
           </p>
@@ -171,7 +171,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ onOpenWaitlist }) => {
             <button
               type="button"
               onClick={onOpenWaitlist}
-              className="inline-flex items-center gap-1 font-medium text-[#111916] dark:text-[#B8F36B] hover:underline cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#B8F36B]"
+              className="inline-flex items-center gap-1 font-semibold text-[#15803D] dark:text-[#B8F36B] hover:underline cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#B8F36B]"
             >
               <span>Contact our team</span>
               <ArrowUpRight className="w-3.5 h-3.5" />

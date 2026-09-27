@@ -187,10 +187,14 @@ export const HeroBusinessInteraction: React.FC = () => {
           isDark ? 'bg-[#08110F] border-[#182E26]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
         }`}>
           <div className="flex items-center justify-between mb-1.5">
-            <span className={`text-[11px] font-mono uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+            <span className={`text-[11px] font-mono uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
               Inbound activity ({scenario.channel})
             </span>
-            <span className="text-[10px] font-mono text-[#B8F36B] bg-[#B8F36B]/10 px-1.5 py-0.5 rounded border border-[#B8F36B]/20">
+            <span className={`text-[10px] font-mono px-2 py-0.5 rounded border font-semibold ${
+              isDark
+                ? 'text-[#B8F36B] bg-[#B8F36B]/10 border-[#B8F36B]/20'
+                : 'text-[#15803D] bg-[#15803D]/10 border-[#15803D]/25'
+            }`}>
               Voice / Chat
             </span>
           </div>
@@ -198,7 +202,7 @@ export const HeroBusinessInteraction: React.FC = () => {
           <div className={`text-base sm:text-lg font-medium min-h-[28px] flex items-center ${isDark ? 'text-white' : 'text-[#111916]'}`}>
             <span>"{displayInput}"</span>
             {isTyping && (
-              <span className="inline-block w-1.5 h-4 bg-[#B8F36B] ml-1.5 animate-pulse" />
+              <span className={`inline-block w-1.5 h-4 ml-1.5 animate-pulse ${isDark ? 'bg-[#B8F36B]' : 'bg-[#15803D]'}`} />
             )}
           </div>
         </div>
@@ -207,15 +211,15 @@ export const HeroBusinessInteraction: React.FC = () => {
         <div className={`py-2 px-3 mb-4 rounded-xl border flex items-center justify-between text-[10px] sm:text-[11px] font-mono ${
           isDark ? 'bg-[#08110F] border-[#162C23]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
         }`}>
-          <span className={stage === 'input' ? 'text-[#B8F36B] font-bold' : isDark ? 'text-slate-500' : 'text-slate-400'}>
+          <span className={stage === 'input' ? isDark ? 'text-[#B8F36B] font-bold' : 'text-[#15803D] font-bold' : isDark ? 'text-slate-500' : 'text-slate-500'}>
             1. NATURAL SPEECH
           </span>
-          <span className={isDark ? 'text-slate-700' : 'text-slate-300'}>→</span>
-          <span className={stage === 'processing' ? 'text-[#B8F36B] font-bold animate-pulse' : isDark ? 'text-slate-500' : 'text-slate-400'}>
+          <span className={isDark ? 'text-slate-700' : 'text-slate-400'}>→</span>
+          <span className={stage === 'processing' ? isDark ? 'text-[#B8F36B] font-bold animate-pulse' : 'text-[#15803D] font-bold animate-pulse' : isDark ? 'text-slate-500' : 'text-slate-500'}>
             2. PARSING ENTITIES
           </span>
-          <span className={isDark ? 'text-slate-700' : 'text-slate-300'}>→</span>
-          <span className={stage === 'structured' ? 'text-[#B8F36B] font-bold' : isDark ? 'text-slate-500' : 'text-slate-400'}>
+          <span className={isDark ? 'text-slate-700' : 'text-slate-400'}>→</span>
+          <span className={stage === 'structured' ? isDark ? 'text-[#B8F36B] font-bold' : 'text-[#15803D] font-bold' : isDark ? 'text-slate-500' : 'text-slate-500'}>
             3. STRUCTURED DATA
           </span>
         </div>
@@ -238,12 +242,16 @@ export const HeroBusinessInteraction: React.FC = () => {
                 isDark ? 'border-[#183126]' : 'border-[#EAEFEA]'
               }`}>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#B8F36B]" />
+                  <CheckCircle2 className={`w-4 h-4 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`} />
                   <span className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-[#111916]'}`}>
                     {scenario.status}
                   </span>
                 </div>
-                <span className="text-[10px] font-mono text-[#B8F36B] bg-[#B8F36B]/10 px-2 py-0.5 rounded border border-[#B8F36B]/20">
+                <span className={`text-[10px] font-mono px-2 py-0.5 rounded border font-medium ${
+                  isDark
+                    ? 'text-[#B8F36B] bg-[#B8F36B]/10 border-[#B8F36B]/20'
+                    : 'text-[#15803D] bg-[#15803D]/10 border-[#15803D]/25'
+                }`}>
                   Cryptographic checksum verified
                 </span>
               </div>
@@ -253,7 +261,7 @@ export const HeroBusinessInteraction: React.FC = () => {
                 <div className={`p-3.5 rounded-xl border ${
                   isDark ? 'bg-[#08110F] border-[#162C23]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
                 }`}>
-                  <span className={`text-[11px] font-mono block mb-1 ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+                  <span className={`text-[11px] font-mono block mb-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
                     Recorded Revenue
                   </span>
                   <span className={`text-2xl font-bold tabular-nums block ${isDark ? 'text-white' : 'text-[#111916]'}`}>
@@ -264,27 +272,27 @@ export const HeroBusinessInteraction: React.FC = () => {
                 <div className={`p-3.5 rounded-xl border ${
                   isDark ? 'bg-[#08110F] border-[#162C23]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
                 }`}>
-                  <span className={`text-[11px] font-mono block mb-1 ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+                  <span className={`text-[11px] font-mono block mb-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
                     Gross Profit
                   </span>
                   {hasAddedCost ? (
                     <div>
-                      <span className={`text-2xl font-bold tabular-nums block ${isDark ? 'text-[#B8F36B]' : 'text-[#10251E]'}`}>
+                      <span className={`text-2xl font-bold tabular-nums block ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
                         {scenario.grossProfit}
                       </span>
                       {scenario.margin && (
-                        <span className={`text-[10px] font-mono ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+                        <span className={`text-[10px] font-mono ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
                           Margin: {scenario.margin}
                         </span>
                       )}
                     </div>
                   ) : (
                     <div>
-                      <div className="flex items-center gap-1.5 text-amber-500 font-semibold text-xs mb-0.5">
+                      <div className="flex items-center gap-1.5 text-amber-600 dark:text-amber-500 font-semibold text-xs mb-0.5">
                         <AlertCircle className="w-3.5 h-3.5" />
                         <span>Cost not set</span>
                       </div>
-                      <p className={`text-[10px] leading-tight ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+                      <p className={`text-[10px] leading-tight ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
                         Add product cost to calculate gross profit.
                       </p>
                     </div>
@@ -299,7 +307,7 @@ export const HeroBusinessInteraction: React.FC = () => {
                 }`}>
                   <div className="text-xs">
                     <span className="font-semibold block sm:inline">Kopa rule: </span>
-                    <span className={isDark ? 'text-slate-400' : 'text-amber-800'}>
+                    <span className={isDark ? 'text-slate-400' : 'text-amber-900'}>
                       Never invent profit. Set product unit cost to unlock verified margin.
                     </span>
                   </div>
@@ -320,10 +328,10 @@ export const HeroBusinessInteraction: React.FC = () => {
                   isDark ? 'bg-[#08110F] border-[#162C23]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
                 }`}>
                   <div className="flex items-center gap-2">
-                    <Package className="w-3.5 h-3.5 text-[#B8F36B]" />
+                    <Package className={`w-3.5 h-3.5 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`} />
                     <span className="font-medium">{scenario.items}</span>
                   </div>
-                  <span className={`text-[11px] font-mono ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+                  <span className={`text-[11px] font-mono ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
                     {scenario.inventory}
                   </span>
                 </div>
@@ -332,10 +340,10 @@ export const HeroBusinessInteraction: React.FC = () => {
                   isDark ? 'bg-[#08110F] border-[#162C23]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
                 }`}>
                   <div className="flex items-center gap-2">
-                    <User className="w-3.5 h-3.5 text-[#B8F36B]" />
+                    <User className={`w-3.5 h-3.5 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`} />
                     <span className="font-medium">{scenario.customer}</span>
                   </div>
-                  <span className={`text-[11px] font-mono ${isDark ? 'text-[#B8F36B]' : 'text-[#10251E]'}`}>
+                  <span className={`text-[11px] font-mono font-medium ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
                     Activity logged in ledger
                   </span>
                 </div>
@@ -343,16 +351,16 @@ export const HeroBusinessInteraction: React.FC = () => {
             </motion.div>
           ) : (
             <div className={`h-[180px] rounded-2xl border flex flex-col items-center justify-center p-4 text-center ${
-              isDark ? 'bg-[#08110F] border-[#162C23] text-slate-400' : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#69746F]'
+              isDark ? 'bg-[#08110F] border-[#162C23] text-slate-400' : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#48534E]'
             }`}>
               {stage === 'processing' ? (
-                <div className="flex flex-col items-center gap-2 text-[#B8F36B]">
+                <div className={`flex flex-col items-center gap-2 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
                   <Sparkles className="w-5 h-5 animate-spin" />
                   <span className="text-xs font-mono">Parsing items, units, price & customer entity...</span>
                 </div>
               ) : (
                 <div className="flex flex-col items-center gap-2 text-xs">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#B8F36B] animate-ping" />
+                  <span className={`w-2.5 h-2.5 rounded-full animate-ping ${isDark ? 'bg-[#B8F36B]' : 'bg-[#15803D]'}`} />
                   <span>Awaiting natural language input...</span>
                 </div>
               )}
@@ -362,7 +370,7 @@ export const HeroBusinessInteraction: React.FC = () => {
 
         {/* Footer reassurance */}
         <div className={`mt-3.5 pt-3 border-t flex items-center justify-between text-[11px] font-mono ${
-          isDark ? 'border-[#182E26] text-slate-500' : 'border-[#EAEFEA] text-[#98A39E]'
+          isDark ? 'border-[#182E26] text-slate-500' : 'border-[#EAEFEA] text-[#69746F]'
         }`}>
           <span>Latency: 0.28s</span>
           <span>Zero accounting knowledge needed</span>

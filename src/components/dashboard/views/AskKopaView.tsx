@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Sparkles,
@@ -16,12 +16,21 @@ import {
   Layers,
   Terminal,
   ExternalLink,
+  Plus,
+  Copy,
+  Check,
+  RotateCcw,
+  Mic,
+  MicOff,
+  CornerDownLeft,
+  ChevronDown,
 } from 'lucide-react';
 import { db, Product, Customer, Transaction } from '../../../lib/db';
 import { useTheme } from '../../../context/ThemeContext';
 import { MCPExecutor } from '../../../lib/connectors/mcpExecutor';
 import { ConnectorProviderId } from '../../../lib/connectors/types';
 import { ConnectorIcon } from '../connectors/ConnectorIcons';
+import { KopaLogo } from '../../KopaLogo';
 
 interface ParsedTransactionCandidate {
   type: 'sale' | 'expense' | 'payment';
@@ -59,6 +68,12 @@ export const AskKopaView: React.FC = () => {
   const { isDark } = useTheme();
   const [input, setInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [showMcpDrawer, setShowMcpDrawer] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [isRecording, setIsRecording] = useState(false);
+
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const settings = db.getSettings();
   const currencySymbol = settings.currencySymbol || '₦';
@@ -75,10 +90,18 @@ export const AskKopaView: React.FC = () => {
     {
       id: 'welcome',
       sender: 'kopa',
-      text: `Hello ${settings.ownerName}. I am tuned to your ${settings.category} operating context and connected platform tools. Tell me what happened in your business naturally (e.g. "Sold 3 shirts for ₦45,000" or "Paid ₦15,000 for electricity"), ask questions about revenue, or execute MCP actions across your connected integrations.`,
+      text: `Hello ${settings.ownerName}. I am tuned to your ${settings.category} operating context. You can tell me what happened in your business naturally (e.g. "Sold 3 shirts for ₦45,000" or "Paid ₦15,000 for diesel"), ask questions about revenue, debts, and inventory, or execute automated MCP actions across your connected tools.`,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     },
   ]);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isProcessing]);
 
   // Execute MCP Tool directly from chip or prompt
   const handleExecuteMcpTool = async (provider: ConnectorProviderId, toolName: string, args: Record<string, any> = {}) => {
@@ -91,6 +114,7 @@ export const AskKopaView: React.FC = () => {
 
     setMessages((prev) => [...prev, userMsg]);
     setIsProcessing(true);
+    setShowMcpDrawer(false);
 
     try {
       const result = await MCPExecutor.execute({ provider, toolName, args });
@@ -257,9 +281,6 @@ export const AskKopaView: React.FC = () => {
     // 4. TRANSACTION ACTIONS (Sale, Expense, Payment)
     const isSale = lower.startsWith('sold') || lower.includes('sold') || lower.includes('sale of') || lower.includes('made a sale');
     const isExpense = lower.startsWith('paid') || lower.includes('spent') || lower.includes('bought') || lower.includes('expense of');
-    const isDebtPayment =
-      (lower.includes('debt') || lower.includes('repaid') || lower.includes('paid balance')) &&
-      !isExpense;
 
     let extractedAmount = 0;
     const forMatch = text.match(/(?:for|of|cost|worth)\s*(?:₦|ngn|\$|ksh|ghc)?\s*([0-9,]+(?:\.[0-9]+)?)/i);
@@ -345,7 +366,7 @@ export const AskKopaView: React.FC = () => {
     }
 
     return {
-      reply: `I heard: "${text}". You can ask me financial questions (e.g. "How much did I make this month?"), record sales/expenses, or use the connected MCP tools below.`,
+      reply: `I heard: "${text}". You can ask me financial questions (e.g. "How much did I make this month?"), record sales or expenses, or execute actions on your connected platform tools below.`,
     };
   };
 
@@ -398,17 +419,25 @@ export const AskKopaView: React.FC = () => {
         customerId: candidate.customer?.id,
         customerName: candidate.customerName,
         status: 'completed',
-        category: candidate.product?.category || 'Retail Sales',
         notes: candidate.notes,
+        category: 'Sales',
         date: new Date().toISOString(),
       });
+
+      if (candidate.product) {
+        db.updateProduct(candidate.product.id, {
+          stock: Math.max(0, candidate.product.stock - candidate.quantity),
+          salesCount: candidate.product.salesCount + candidate.quantity,
+          totalRevenue: candidate.product.totalRevenue + candidate.amount,
+        });
+      }
     } else if (candidate.type === 'expense') {
       db.addExpense({
         amount: candidate.amount,
         category: 'Operating Expense',
-        description: candidate.title,
-        date: new Date().toISOString(),
+        description: candidate.title || candidate.notes || 'Operating Expense',
         isRecurring: false,
+        date: new Date().toISOString(),
       });
     }
 
@@ -418,275 +447,462 @@ export const AskKopaView: React.FC = () => {
           ? {
               ...m,
               confirmed: true,
-              text: `${m.text}\n\n✓ Confirmed and committed to your official business ledger.`,
+              text: `${m.text}\n\n✓ Transaction successfully committed to ledger!`,
             }
           : m
       )
     );
   };
 
-  const samplePrompts = [
-    'How much revenue did I make in the last 30 days?',
-    'Who owes me money right now?',
-    'Which items are low in stock?',
-    'Sold 2 shirts for ₦30,000',
-    'Paid ₦12,000 for electricity bill',
+  const handleResetChat = () => {
+    setMessages([
+      {
+        id: 'welcome',
+        sender: 'kopa',
+        text: `New session started for ${settings.ownerName}. What happened in your business or what financial query would you like to run?`,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      },
+    ]);
+  };
+
+  const handleCopyMessage = (id: string, text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  const promptCards = [
+    {
+      title: 'Analyze Financial Position',
+      prompt: 'How much revenue and profit did I make in the last 30 days?',
+      icon: TrendingUp,
+    },
+    {
+      title: 'Customer Credit & Debts',
+      prompt: 'Who owes me money and what are the pending balances?',
+      icon: Users,
+    },
+    {
+      title: 'Record a New Sale',
+      prompt: 'Sold 3 black shirts for ₦45,000 to Ahmed',
+      icon: Receipt,
+    },
+    {
+      title: 'Stock & Inventory Alerts',
+      prompt: 'Check my inventory for low stock items',
+      icon: Package,
+    },
   ];
 
   return (
-    <div className="max-w-4xl mx-auto space-y-5">
-      {/* View Header */}
-      <div>
-        <h1 className="text-xl sm:text-2xl font-heading font-semibold tracking-tight text-[#111916] dark:text-white">
-          Ask Kopa & MCP Intelligence
-        </h1>
-        <p className="text-xs sm:text-sm text-[#69746F] dark:text-slate-400 mt-0.5">
-          Conversational financial intelligence, natural ledger bookkeeping, and connected platform tools
-        </p>
-      </div>
-
-      {/* Connected Apps MCP Tools Bar */}
-      {availableMcpTools.length > 0 && (
-        <div className="space-y-2 p-3.5 rounded-2xl border bg-emerald-500/5 border-emerald-500/20">
-          <div className="flex items-center justify-between text-xs">
-            <span className="font-semibold text-emerald-400 flex items-center gap-1.5">
-              <Layers className="w-3.5 h-3.5" />
-              <span>Connected MCP Platform Tools ({availableMcpTools.length})</span>
+    <div className="h-full flex flex-col min-h-0 overflow-hidden relative select-text">
+      {/* 
+        1. ChatGPT-STYLE FIXED TOP BAR (Stationary Header)
+      */}
+      <header className="shrink-0 h-14 sm:h-16 px-4 sm:px-6 border-b border-[#DEE3DE] dark:border-[#1A2E27] flex items-center justify-between backdrop-blur-xl bg-white/70 dark:bg-[#08110F]/70 z-10">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#DEE3DE] dark:border-[#1C382E] bg-black/5 dark:bg-white/5 text-xs font-semibold">
+            <span className="w-2 h-2 rounded-full bg-[#15803D] dark:bg-[#B8F36B] animate-pulse" />
+            <span className="text-[#111916] dark:text-white">Kopa 2.5 Flash</span>
+            <span className="text-[10px] text-[#69746F] dark:text-slate-400 font-mono hidden sm:inline">
+              · Financial Engine
             </span>
-            <span className="text-[11px] text-slate-400 font-mono">1-click execute</span>
           </div>
 
-          <div className="flex flex-wrap gap-2">
-            {availableMcpTools.map((tool) => (
-              <button
-                key={`${tool.provider}-${tool.toolName}`}
-                onClick={() => handleExecuteMcpTool(tool.provider, tool.toolName)}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-medium transition-all cursor-pointer ${
-                  isDark
-                    ? 'bg-[#10251E] border-[#1C382E] text-slate-200 hover:border-emerald-500/40 hover:text-white'
-                    : 'bg-white border-slate-200 text-slate-800 hover:border-emerald-400 shadow-2xs'
-                }`}
-              >
-                <ConnectorIcon provider={tool.provider} className="w-3.5 h-3.5 shrink-0" />
-                <span>{tool.description.split('.')[0] || tool.toolName}</span>
-              </button>
-            ))}
-          </div>
+          <span className="text-xs text-[#69746F] dark:text-slate-400 font-mono hidden md:inline truncate max-w-xs">
+            {settings.businessName} ({settings.category})
+          </span>
         </div>
-      )}
 
-      {/* Suggested Quick Command Chips */}
-      <div>
-        <p className="text-xs font-mono uppercase tracking-wider text-[#69746F] dark:text-slate-400 mb-2">
-          Try asking:
-        </p>
-        <div className="flex flex-wrap gap-2">
-          {samplePrompts.map((prompt) => (
+        <div className="flex items-center gap-2">
+          {availableMcpTools.length > 0 && (
             <button
-              key={prompt}
               type="button"
-              onClick={() => handleSend(prompt)}
-              className={`text-xs px-3 py-1.5 rounded-xl border transition-all cursor-pointer ${
-                isDark
-                  ? 'bg-[#10251E]/60 border-[#1C382E] text-slate-300 hover:text-white hover:border-[#B8F36B]/40'
-                  : 'bg-white border-[#DEE3DE] text-[#111916] hover:border-black/30 shadow-2xs'
+              onClick={() => setShowMcpDrawer(!showMcpDrawer)}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-medium transition-colors cursor-pointer ${
+                showMcpDrawer
+                  ? 'bg-[#15803D] dark:bg-[#B8F36B] text-white dark:text-[#08110F] border-transparent font-semibold'
+                  : 'bg-black/5 dark:bg-white/5 border-[#DEE3DE] dark:border-[#1C382E] text-[#111916] dark:text-slate-200 hover:bg-black/10 dark:hover:bg-white/10'
               }`}
             >
-              "{prompt}"
+              <Layers className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Connected Tools</span>
+              <span className="text-[11px] font-mono">({availableMcpTools.length})</span>
             </button>
-          ))}
-        </div>
-      </div>
+          )}
 
-      {/* Main Conversation Stream */}
-      <div
-        className={`min-h-[380px] max-h-[520px] overflow-y-auto p-4 sm:p-6 rounded-2xl border flex flex-col gap-4 ${
-          isDark ? 'bg-[#08110F] border-[#1C382E]' : 'bg-[#F7F6F0]/80 border-[#DEE3DE]'
-        }`}
-      >
-        {messages.map((msg) => (
-          <div
-            key={msg.id}
-            className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}
+          <button
+            type="button"
+            onClick={handleResetChat}
+            className="p-2 rounded-xl text-slate-500 hover:text-[#111916] dark:text-slate-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer"
+            title="Start new conversation"
+            aria-label="Start new conversation"
           >
-            <div className="flex items-center gap-2 mb-1 px-1">
-              <span className="text-[11px] font-mono text-[#69746F] dark:text-slate-400">
-                {msg.sender === 'kopa' ? 'Kopa' : 'You'} · {msg.timestamp}
-              </span>
+            <RotateCcw className="w-4 h-4" />
+          </button>
+        </div>
+      </header>
+
+      {/* 
+        Connected MCP Tools Floating Drawer / Banner
+      */}
+      <AnimatePresence>
+        {showMcpDrawer && availableMcpTools.length > 0 && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="shrink-0 border-b border-[#DEE3DE] dark:border-[#1A2E27] bg-[#F7F6F0] dark:bg-[#0B1713] p-4 overflow-hidden z-10"
+          >
+            <div className="max-w-3xl mx-auto">
+              <div className="flex items-center justify-between text-xs mb-2">
+                <span className="font-semibold text-[#111916] dark:text-white flex items-center gap-1.5">
+                  <Terminal className="w-3.5 h-3.5 text-[#15803D] dark:text-[#B8F36B]" />
+                  <span>Execute MCP Platform Actions</span>
+                </span>
+                <span className="text-[11px] text-[#69746F] dark:text-slate-400 font-mono">
+                  1-click trigger
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {availableMcpTools.map((tool) => (
+                  <button
+                    key={`${tool.provider}-${tool.toolName}`}
+                    type="button"
+                    onClick={() => handleExecuteMcpTool(tool.provider, tool.toolName)}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-[#DEE3DE] dark:border-[#1C382E] bg-white dark:bg-[#10251E] hover:border-[#15803D] dark:hover:border-[#B8F36B] text-xs font-medium text-[#111916] dark:text-slate-200 transition-colors shadow-2xs cursor-pointer"
+                  >
+                    <ConnectorIcon provider={tool.provider} className="w-3.5 h-3.5 shrink-0" />
+                    <span>{tool.description.split('.')[0] || tool.toolName}</span>
+                  </button>
+                ))}
+              </div>
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-            <div
-              className={`max-w-[85%] rounded-2xl p-4 text-xs sm:text-sm whitespace-pre-wrap ${
-                msg.sender === 'user'
-                  ? 'bg-[#B8F36B] text-[#08110F] font-medium'
-                  : isDark
-                  ? 'bg-[#10251E]/90 border border-[#1C382E] text-slate-200'
-                  : 'bg-white border border-[#DEE3DE] text-[#111916] shadow-xs'
-              }`}
-            >
-              <p className="leading-relaxed">{msg.text}</p>
+      {/* 
+        2. SCROLLABLE CONVERSATION STREAM (Only this inner section scrolls!)
+      */}
+      <div className="flex-1 min-h-0 overflow-y-auto px-4 py-6 sm:px-6 overscroll-contain">
+        <div className="max-w-3xl mx-auto space-y-6">
+          {/* Welcome Screen & Prompt Grid when conversation is just starting */}
+          {messages.length === 1 && (
+            <div className="py-6 sm:py-10 text-center">
+              <div className="w-12 h-12 rounded-2xl mx-auto mb-4 flex items-center justify-center bg-[#10251E] dark:bg-[#B8F36B]/15 text-[#B8F36B] shadow-md border border-[#1C382E]">
+                <Sparkles className="w-6 h-6 text-[#B8F36B]" />
+              </div>
 
-              {/* MCP Tool Result Output */}
-              {msg.mcpResult && (
-                <div
-                  className={`mt-3 p-3.5 rounded-xl border text-xs ${
-                    isDark ? 'bg-[#08110F] border-emerald-500/30' : 'bg-emerald-50/50 border-emerald-200'
-                  }`}
-                >
-                  <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/5">
-                    <div className="flex items-center gap-1.5">
-                      <ConnectorIcon provider={msg.mcpResult.provider} className="w-4 h-4" />
-                      <span className="font-semibold capitalize font-mono text-emerald-400">
-                        {msg.mcpResult.provider} · {msg.mcpResult.toolName}
-                      </span>
-                    </div>
-                    <span className="text-[10px] text-emerald-400 px-2 py-0.5 rounded bg-emerald-500/10 font-mono">
-                      LIVE MCP DATA
-                    </span>
-                  </div>
+              <h2 className="text-xl sm:text-2xl font-heading font-medium tracking-tight text-[#111916] dark:text-white mb-2">
+                What can I help your business run today?
+              </h2>
+              <p className="text-xs sm:text-sm text-[#48534E] dark:text-slate-300 max-w-md mx-auto mb-8 leading-relaxed font-sans">
+                Tell me sales or expenses in natural language, ask questions about profitability, or automate tasks across connected platforms.
+              </p>
 
-                  {msg.mcpResult.summary && (
-                    <p className="text-slate-300 dark:text-slate-200 text-xs mb-2">
-                      {msg.mcpResult.summary}
-                    </p>
-                  )}
-
-                  {msg.mcpResult.data && (
-                    <pre className="p-2.5 rounded-lg bg-black/40 text-[10px] font-mono text-slate-300 overflow-x-auto max-h-40">
-                      {JSON.stringify(msg.mcpResult.data, null, 2)}
-                    </pre>
-                  )}
-                </div>
-              )}
-
-              {/* Data Summary Card (For questions) */}
-              {msg.dataSummary && (
-                <div
-                  className={`mt-3 p-3.5 rounded-xl border text-xs ${
-                    isDark ? 'bg-[#08110F] border-[#1C382E]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
-                  }`}
-                >
-                  <span className="font-semibold block mb-2 text-[#111916] dark:text-white">
-                    {msg.dataSummary.title}
-                  </span>
-                  <div className="space-y-1.5">
-                    {msg.dataSummary.items.map((item, i) => (
-                      <div key={i} className="flex justify-between items-center py-0.5">
-                        <span className="text-[#69746F] dark:text-slate-400">{item.label}</span>
-                        <span className={`font-mono font-medium ${item.isAccent ? 'text-[#B8F36B] font-bold' : ''}`}>
-                          {item.value}
+              {/* 2x2 ChatGPT-style Prompt Cards Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
+                {promptCards.map((card, idx) => {
+                  const Icon = card.icon;
+                  return (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => handleSend(card.prompt)}
+                      className="p-3.5 sm:p-4 rounded-2xl border border-[#DEE3DE] dark:border-[#1C382E] bg-white dark:bg-[#10251E]/60 hover:border-[#15803D] dark:hover:border-[#B8F36B] transition-all shadow-2xs hover:shadow-xs group cursor-pointer text-left"
+                    >
+                      <div className="flex items-center gap-2.5 mb-1.5">
+                        <div className="p-1.5 rounded-lg bg-black/5 dark:bg-white/5 text-[#15803D] dark:text-[#B8F36B]">
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        <span className="text-xs font-heading font-semibold text-[#111916] dark:text-white group-hover:text-[#15803D] dark:group-hover:text-[#B8F36B] transition-colors">
+                          {card.title}
                         </span>
                       </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Pre-Confirmation Card (Before permanent record) */}
-              {msg.candidate && !msg.confirmed && (
-                <div
-                  className={`mt-4 p-4 rounded-xl border ${
-                    isDark ? 'bg-[#08110F] border-[#B8F36B]/30' : 'bg-white border-[#B8F36B] shadow-xs'
-                  }`}
-                >
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-[#B8F36B] mb-2">
-                    <ShieldCheck className="w-4 h-4" />
-                    <span>Transaction Confirmation Required</span>
-                  </div>
-
-                  <div className="space-y-2 text-xs divide-y divide-[#DEE3DE] dark:divide-[#1A2E27]">
-                    <div className="flex justify-between py-1">
-                      <span className="text-[#69746F] dark:text-slate-400">Type</span>
-                      <span className="font-medium capitalize">{msg.candidate.type}</span>
-                    </div>
-                    <div className="flex justify-between py-1">
-                      <span className="text-[#69746F] dark:text-slate-400">Item</span>
-                      <span className="font-medium">{msg.candidate.productName}</span>
-                    </div>
-                    {msg.candidate.type === 'sale' && (
-                      <div className="flex justify-between py-1">
-                        <span className="text-[#69746F] dark:text-slate-400">Quantity</span>
-                        <span className="font-medium">{msg.candidate.quantity}</span>
-                      </div>
-                    )}
-                    <div className="flex justify-between py-1">
-                      <span className="text-[#69746F] dark:text-slate-400">Total Amount</span>
-                      <span className="font-mono font-bold text-sm text-[#B8F36B]">
-                        {currencySymbol}
-                        {msg.candidate.amount.toLocaleString()}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 pt-3 border-t border-[#DEE3DE] dark:border-[#1A2E27] flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => handleConfirmCandidate(msg.id, msg.candidate!)}
-                      className="flex-1 py-2 px-3 rounded-xl bg-[#B8F36B] text-[#08110F] text-xs font-semibold hover:bg-[#A5E852] transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
-                    >
-                      <CheckCircle2 className="w-3.5 h-3.5" />
-                      <span>Confirm & Commit to Ledger</span>
+                      <p className="text-[12px] text-[#48534E] dark:text-slate-300 font-sans line-clamp-2">
+                        "{card.prompt}"
+                      </p>
                     </button>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setMessages((prev) =>
-                          prev.map((m) =>
-                            m.id === msg.id ? { ...m, text: `${m.text} \n\n✗ Discarded by user.` } : m
-                          )
-                        )
-                      }
-                      className="py-2 px-3 rounded-xl border border-black/10 dark:border-white/10 text-xs font-medium hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer text-slate-400"
-                    >
-                      Discard
-                    </button>
-                  </div>
-                </div>
-              )}
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        ))}
+          )}
 
-        {isProcessing && (
-          <div className="flex items-start gap-2">
+          {/* Conversation Messages */}
+          {messages.map((msg) => (
             <div
-              className={`p-3 rounded-2xl border text-xs flex items-center gap-2 ${
-                isDark ? 'bg-[#10251E]/80 border-[#1C382E]' : 'bg-white border-[#DEE3DE]'
+              key={msg.id}
+              className={`flex gap-3 sm:gap-4 ${
+                msg.sender === 'user' ? 'justify-end' : 'justify-start'
               }`}
             >
-              <div className="w-2 h-2 rounded-full bg-[#B8F36B] animate-ping" />
-              <span className="text-[#69746F] dark:text-slate-400 font-mono text-[11px]">
-                Kopa analyzing data & connected platform tools...
-              </span>
+              {/* Kopa Avatar on Left for assistant responses */}
+              {msg.sender === 'kopa' && (
+                <div className="w-8 h-8 rounded-xl shrink-0 flex items-center justify-center bg-[#08110F] border border-[#1C382E] text-white shadow-xs mt-0.5">
+                  <KopaLogo variant="symbol" theme="dark" size="sm" />
+                </div>
+              )}
+
+              {/* Message Content Container */}
+              <div
+                className={`max-w-[88%] sm:max-w-[80%] ${
+                  msg.sender === 'user' ? 'items-end' : 'items-start'
+                }`}
+              >
+                {/* User Message Bubble (ChatGPT sleek dark/pill styling) */}
+                {msg.sender === 'user' ? (
+                  <div className="bg-[#10251E] dark:bg-[#1C382E] text-white px-4 py-2.5 rounded-3xl text-xs sm:text-sm font-sans leading-relaxed shadow-sm">
+                    <p className="whitespace-pre-wrap">{msg.text}</p>
+                  </div>
+                ) : (
+                  /* Assistant Message (ChatGPT style clean Markdown/formatted typography) */
+                  <div className="space-y-3">
+                    <div className="text-xs sm:text-sm text-[#111916] dark:text-slate-100 font-sans leading-relaxed">
+                      <p className="whitespace-pre-wrap">{msg.text}</p>
+                    </div>
+
+                    {/* Pre-Confirmation Card (Before permanent record) */}
+                    {msg.candidate && !msg.confirmed && (
+                      <div
+                        className="p-4 rounded-2xl border border-[#15803D]/40 dark:border-[#B8F36B]/40 bg-white dark:bg-[#0E1F1A] shadow-md text-xs"
+                      >
+                        <div className="flex items-center gap-1.5 font-semibold text-[#15803D] dark:text-[#B8F36B] mb-2.5">
+                          <ShieldCheck className="w-4 h-4 shrink-0" />
+                          <span>Transaction Confirmation Required</span>
+                        </div>
+
+                        <div className="space-y-2 divide-y divide-[#DEE3DE] dark:divide-[#1A2E27]">
+                          <div className="flex justify-between py-1">
+                            <span className="text-[#69746F] dark:text-slate-400">Type</span>
+                            <span className="font-semibold capitalize text-[#111916] dark:text-white">
+                              {msg.candidate.type}
+                            </span>
+                          </div>
+                          <div className="flex justify-between py-1">
+                            <span className="text-[#69746F] dark:text-slate-400">Item</span>
+                            <span className="font-medium text-[#111916] dark:text-white">
+                              {msg.candidate.productName}
+                            </span>
+                          </div>
+                          {msg.candidate.type === 'sale' && (
+                            <div className="flex justify-between py-1">
+                              <span className="text-[#69746F] dark:text-slate-400">Quantity</span>
+                              <span className="font-mono text-[#111916] dark:text-white">
+                                {msg.candidate.quantity}
+                              </span>
+                            </div>
+                          )}
+                          <div className="flex justify-between py-1.5 items-center">
+                            <span className="text-[#69746F] dark:text-slate-400">Total Amount</span>
+                            <span className="font-mono font-bold text-base text-[#15803D] dark:text-[#B8F36B]">
+                              {currencySymbol}
+                              {msg.candidate.amount.toLocaleString()}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="mt-3.5 pt-3 border-t border-[#DEE3DE] dark:border-[#1A2E27] flex items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() => handleConfirmCandidate(msg.id, msg.candidate!)}
+                            className="flex-1 py-2 px-3 rounded-xl bg-[#15803D] dark:bg-[#B8F36B] text-white dark:text-[#08110F] text-xs font-semibold hover:opacity-90 transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                          >
+                            <CheckCircle2 className="w-3.5 h-3.5" />
+                            <span>Confirm & Commit to Ledger</span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setMessages((prev) =>
+                                prev.map((m) =>
+                                  m.id === msg.id ? { ...m, text: `${m.text}\n\n✗ Discarded by user.` } : m
+                                )
+                              )
+                            }
+                            className="py-2 px-3 rounded-xl border border-[#DEE3DE] dark:border-[#1C382E] text-xs font-medium text-[#69746F] dark:text-slate-400 hover:text-[#111916] dark:hover:text-white cursor-pointer"
+                          >
+                            Discard
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Data Summary Card (For questions) */}
+                    {msg.dataSummary && (
+                      <div
+                        className="p-4 rounded-2xl border border-[#DEE3DE] dark:border-[#1C382E] bg-white dark:bg-[#10251E] shadow-xs text-xs"
+                      >
+                        <span className="font-semibold block mb-2.5 text-[#111916] dark:text-white">
+                          {msg.dataSummary.title}
+                        </span>
+                        <div className="space-y-1.5 divide-y divide-[#DEE3DE]/60 dark:divide-[#1A2E27]">
+                          {msg.dataSummary.items.map((item, i) => (
+                            <div key={i} className="flex justify-between items-center pt-1.5 pb-0.5">
+                              <span className="text-[#48534E] dark:text-slate-300">{item.label}</span>
+                              <span
+                                className={`font-mono font-medium ${
+                                  item.isAccent
+                                    ? 'text-[#15803D] dark:text-[#B8F36B] font-bold text-sm'
+                                    : 'text-[#111916] dark:text-white'
+                                }`}
+                              >
+                                {item.value}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* MCP Tool Result Output */}
+                    {msg.mcpResult && (
+                      <div
+                        className="p-3.5 rounded-2xl border border-emerald-500/30 bg-emerald-500/5 dark:bg-[#0B1713] text-xs"
+                      >
+                        <div className="flex items-center justify-between pb-2 mb-2 border-b border-emerald-500/20">
+                          <div className="flex items-center gap-1.5">
+                            <ConnectorIcon provider={msg.mcpResult.provider} className="w-4 h-4" />
+                            <span className="font-semibold capitalize font-mono text-[#15803D] dark:text-emerald-400">
+                              {msg.mcpResult.provider} · {msg.mcpResult.toolName}
+                            </span>
+                          </div>
+                          <span className="text-[10px] text-[#15803D] dark:text-emerald-400 px-2 py-0.5 rounded bg-emerald-500/10 font-mono font-semibold">
+                            LIVE MCP
+                          </span>
+                        </div>
+
+                        {msg.mcpResult.summary && (
+                          <p className="text-[#111916] dark:text-slate-200 text-xs mb-2 leading-relaxed">
+                            {msg.mcpResult.summary}
+                          </p>
+                        )}
+
+                        {msg.mcpResult.data && (
+                          <pre className="p-2.5 rounded-xl bg-black/5 dark:bg-black/40 text-[10px] font-mono text-[#111916] dark:text-slate-300 overflow-x-auto max-h-40 border border-[#DEE3DE] dark:border-[#1C382E]">
+                            {JSON.stringify(msg.mcpResult.data, null, 2)}
+                          </pre>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Message Actions Under Assistant Bubble (Copy, Timestamp) */}
+                    <div className="flex items-center gap-2 pt-1 text-[11px] text-[#69746F] dark:text-slate-400 font-mono">
+                      <span>{msg.timestamp}</span>
+                      <span>·</span>
+                      <button
+                        type="button"
+                        onClick={() => handleCopyMessage(msg.id, msg.text)}
+                        className="inline-flex items-center gap-1 hover:text-[#111916] dark:hover:text-white transition-colors cursor-pointer"
+                        title="Copy message text"
+                      >
+                        {copiedId === msg.id ? (
+                          <>
+                            <Check className="w-3 h-3 text-[#15803D] dark:text-[#B8F36B]" />
+                            <span>Copied</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3 h-3" />
+                            <span>Copy</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-        )}
+          ))}
+
+          {/* Assistant Processing Indicator */}
+          {isProcessing && (
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-xl shrink-0 flex items-center justify-center bg-[#08110F] border border-[#1C382E] text-white shadow-xs">
+                <KopaLogo variant="symbol" theme="dark" size="sm" />
+              </div>
+              <div className="p-3 rounded-2xl border border-[#DEE3DE] dark:border-[#1C382E] bg-white dark:bg-[#10251E] flex items-center gap-2.5 text-xs text-[#69746F] dark:text-slate-400 font-mono shadow-xs">
+                <div className="w-2 h-2 rounded-full bg-[#15803D] dark:bg-[#B8F36B] animate-ping" />
+                <span>Kopa analyzing business context & records...</span>
+              </div>
+            </div>
+          )}
+
+          <div ref={messagesEndRef} />
+        </div>
       </div>
 
-      {/* Input Bar */}
-      <div className="relative">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') handleSend();
-          }}
-          placeholder="Tell Kopa what happened in your business or query connected platforms…"
-          className={`w-full pl-4 pr-12 py-3.5 rounded-2xl border text-xs sm:text-sm outline-none transition-all shadow-md ${
-            isDark
-              ? 'bg-[#10251E]/70 border-[#1C382E] text-white placeholder-slate-500 focus:border-[#B8F36B] focus:ring-1 focus:ring-[#B8F36B]'
-              : 'bg-white border-[#DEE3DE] text-[#111916] placeholder-slate-400 focus:border-[#10251E] focus:ring-1 focus:ring-[#10251E]'
-          }`}
-        />
-        <button
-          type="button"
-          onClick={() => handleSend()}
-          disabled={!input.trim()}
-          className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-xl bg-[#B8F36B] text-[#08110F] hover:bg-[#A5E852] disabled:opacity-40 transition-colors cursor-pointer"
-        >
-          <Send className="w-4 h-4" />
-        </button>
+      {/* 
+        3. CHATGPT-STYLE STAGNANT / ANCHORED BOTTOM DOCK (Never moves away!)
+      */}
+      <div className="shrink-0 w-full pt-2 pb-4 sm:pb-6 px-4 bg-gradient-to-t from-[#F7F6F0] via-[#F7F6F0]/95 to-transparent dark:from-[#08110F] dark:via-[#08110F]/95 dark:to-transparent z-20">
+        <div className="max-w-3xl mx-auto w-full">
+          {/* Floating ChatGPT Input Capsule */}
+          <div className="relative shadow-xl rounded-3xl border border-[#DEE3DE] dark:border-[#1E3B30] bg-white dark:bg-[#10251E] p-2 sm:p-2.5 flex items-end gap-2 focus-within:ring-2 focus-within:ring-[#15803D] dark:focus-within:ring-[#B8F36B] focus-within:border-transparent transition-all">
+            {/* Left Tool / Connector Button */}
+            <button
+              type="button"
+              onClick={() => setShowMcpDrawer(!showMcpDrawer)}
+              className="p-2 rounded-full text-slate-400 hover:text-[#111916] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer shrink-0"
+              title="Toggle tools & connectors"
+              aria-label="Toggle tools"
+            >
+              <Plus className="w-4 h-4" />
+            </button>
+
+            {/* Auto-expanding Input Area */}
+            <textarea
+              ref={textareaRef}
+              rows={1}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSend();
+                }
+              }}
+              placeholder="Ask Kopa or record business activity naturally…"
+              className="flex-1 max-h-32 min-h-[36px] py-1.5 px-2 bg-transparent text-xs sm:text-sm text-[#111916] dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none resize-none leading-relaxed"
+            />
+
+            {/* Audio Voice Simulation Mic */}
+            <button
+              type="button"
+              onClick={() => {
+                setIsRecording(!isRecording);
+                if (!isRecording) {
+                  setInput('Sold 3 lace fabrics for ₦90,000');
+                }
+              }}
+              className={`p-2 rounded-full transition-colors cursor-pointer shrink-0 ${
+                isRecording
+                  ? 'bg-red-500 text-white animate-pulse'
+                  : 'text-slate-400 hover:text-[#111916] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5'
+              }`}
+              title={isRecording ? 'Listening...' : 'Voice input simulation'}
+            >
+              <Mic className="w-4 h-4" />
+            </button>
+
+            {/* Circular Send Button */}
+            <button
+              type="button"
+              onClick={() => handleSend()}
+              disabled={!input.trim() || isProcessing}
+              className="w-8 h-8 rounded-full flex items-center justify-center bg-[#15803D] dark:bg-[#B8F36B] text-white dark:text-[#08110F] hover:opacity-90 disabled:opacity-30 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:text-slate-500 transition-all shrink-0 cursor-pointer shadow-xs"
+              aria-label="Send message"
+            >
+              <CornerDownLeft className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Discreet Legal/Operating Footnote */}
+          <p className="text-[11px] text-center text-[#69746F] dark:text-slate-500 mt-2 font-sans">
+            Ask Kopa analyzes your live ledger, products, customers, and connected tools.
+          </p>
+        </div>
       </div>
     </div>
   );

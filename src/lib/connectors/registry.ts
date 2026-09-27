@@ -233,6 +233,7 @@ export const CONNECTORS_REGISTRY: Record<ConnectorProviderId, ConnectorMetadata>
     scopes: [
       { id: 'https://www.googleapis.com/auth/spreadsheets', name: 'Google Sheets', description: 'Read and update business ledgers in Google Sheets.', required: true, category: 'write' },
       { id: 'https://www.googleapis.com/auth/drive.file', name: 'Google Drive (App Files)', description: 'Store generated monthly statement PDFs and receipts.', required: false, category: 'write' },
+      { id: 'https://www.googleapis.com/auth/drive', name: 'Google Drive Full Access', description: 'Read, write, and backup business files in Google Drive.', required: false, category: 'write' },
       { id: 'https://www.googleapis.com/auth/userinfo.email', name: 'Email Info', description: 'Identify connected Google account.', required: true, category: 'read' },
     ],
     credentialRequirements: [
@@ -254,6 +255,24 @@ export const CONNECTORS_REGISTRY: Record<ConnectorProviderId, ConnectorMetadata>
       },
     ],
     mcpTools: [
+      {
+        name: 'google_drive_backup_ledger',
+        description: 'Backup all current transactions, inventory records, and customers directly to Google Drive.',
+        parameters: [
+          { name: 'filename', type: 'string', description: 'Backup file name in Google Drive', required: false },
+        ],
+        requiredScopes: ['https://www.googleapis.com/auth/drive.file'],
+        readOnly: false,
+      },
+      {
+        name: 'google_drive_list_files',
+        description: 'List recent financial records, statements, and spreadsheets stored in Google Drive.',
+        parameters: [
+          { name: 'pageSize', type: 'number', description: 'Number of files to retrieve (default 15)', required: false },
+        ],
+        requiredScopes: ['https://www.googleapis.com/auth/drive.file'],
+        readOnly: true,
+      },
       {
         name: 'google_export_to_sheets',
         description: 'Export Kopa transaction history or inventory audit to a new or existing Google Sheet.',

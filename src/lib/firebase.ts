@@ -19,8 +19,9 @@ let firestoreInstance: Firestore | null = null;
 if (isFirebaseConfigured) {
   app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
   authInstance = getAuth(app);
-  firestoreInstance = firebaseConfig.firestoreDatabaseId && firebaseConfig.firestoreDatabaseId !== '(default)'
-    ? getFirestore(app, firebaseConfig.firestoreDatabaseId)
+  const rawConfig = firebaseConfig as any;
+  firestoreInstance = rawConfig.firestoreDatabaseId && rawConfig.firestoreDatabaseId !== '(default)'
+    ? getFirestore(app, rawConfig.firestoreDatabaseId)
     : getFirestore(app);
 }
 

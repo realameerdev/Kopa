@@ -118,10 +118,10 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-heading font-medium tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-heading font-medium tracking-tight text-[#111916] dark:text-white">
             Transactions
           </h1>
-          <p className="text-xs sm:text-sm text-[#69746F] dark:text-slate-400">
+          <p className="text-xs sm:text-sm text-[#48534E] dark:text-slate-400">
             Complete business ledger with audit trail, status tracking, and date filters
           </p>
         </div>
@@ -130,7 +130,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
           <button
             type="button"
             onClick={onOpenRecordSale}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-[#B8F36B] text-[#08110F] hover:bg-[#A5E852] cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-[#15803D] dark:bg-[#B8F36B] text-white dark:text-[#08110F] hover:opacity-90 cursor-pointer shadow-xs"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>Record Sale</span>
@@ -138,12 +138,9 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
           <button
             type="button"
             onClick={onOpenAddExpense}
-            className={`inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium rounded-xl border cursor-pointer ${
-              isDark
-                ? 'bg-[#10251E]/80 border-[#1C382E] text-slate-200 hover:text-white'
-                : 'bg-white border-[#DEE3DE] text-[#111916]'
-            }`}
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl border border-[#DEE3DE] dark:border-[#1C382E] bg-white dark:bg-[#10251E] text-[#111916] dark:text-white hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer shadow-2xs"
           >
+            <Plus className="w-3.5 h-3.5" />
             <span>Add Expense</span>
           </button>
         </div>
@@ -202,10 +199,10 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
                 onClick={() => setTypeFilter(t.value)}
                 className={`px-2.5 py-1.5 text-xs font-medium rounded-xl border whitespace-nowrap cursor-pointer transition-colors ${
                   typeFilter === t.value
-                    ? 'bg-[#B8F36B] text-[#08110F] border-[#B8F36B] font-semibold'
+                    ? 'bg-[#15803D] dark:bg-[#B8F36B] text-white dark:text-[#08110F] border-transparent font-semibold shadow-xs'
                     : isDark
                     ? 'bg-[#10251E]/40 border-[#1C382E] text-slate-300 hover:text-white'
-                    : 'bg-white border-[#DEE3DE] text-[#69746F] hover:text-[#111916]'
+                    : 'bg-white border-[#DEE3DE] text-[#48534E] hover:text-[#111916]'
                 }`}
               >
                 {t.label}
@@ -280,26 +277,26 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
                       <span
                         className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono capitalize ${
                           tx.type === 'sale'
-                            ? 'bg-[#B8F36B]/15 text-[#B8F36B]'
+                            ? 'bg-[#15803D]/15 text-[#15803D] dark:bg-[#B8F36B]/15 dark:text-[#B8F36B] font-semibold'
                             : tx.type === 'expense'
-                            ? 'bg-red-500/15 text-red-400'
+                            ? 'bg-red-500/15 text-red-600 dark:text-red-400 font-semibold'
                             : tx.type === 'payment'
-                            ? 'bg-blue-500/15 text-blue-400'
-                            : 'bg-amber-500/15 text-amber-400'
+                            ? 'bg-blue-500/15 text-blue-600 dark:text-blue-400 font-semibold'
+                            : 'bg-amber-500/15 text-amber-700 dark:text-amber-400 font-semibold'
                         }`}
                       >
                         {tx.type}
                       </span>
                     </td>
-                    <td className="py-3.5 px-4 text-[#69746F] dark:text-slate-300">
+                    <td className="py-3.5 px-4 text-[#48534E] dark:text-slate-300">
                       {tx.customerName || '—'}
                     </td>
                     <td className="py-3.5 px-4 text-right font-mono font-medium">
                       <span
                         className={
                           tx.type === 'expense'
-                            ? 'text-red-400'
-                            : 'text-[#B8F36B] font-semibold'
+                            ? 'text-red-600 dark:text-red-400 font-semibold'
+                            : 'text-[#15803D] dark:text-[#B8F36B] font-bold'
                         }
                       >
                         {tx.type === 'expense' ? '-' : '+'}
@@ -309,12 +306,12 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
                     </td>
                     <td className="py-3.5 px-4 text-center">
                       <span
-                        className={`inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full ${
+                        className={`inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full font-medium ${
                           tx.status === 'completed'
-                            ? 'bg-emerald-500/10 text-emerald-400'
+                            ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400'
                             : tx.status === 'pending'
-                            ? 'bg-amber-500/10 text-amber-400'
-                            : 'bg-red-500/10 text-red-400'
+                            ? 'bg-amber-500/15 text-amber-700 dark:text-amber-400'
+                            : 'bg-red-500/15 text-red-700 dark:text-red-400'
                         }`}
                       >
                         {tx.status === 'completed' ? (
@@ -329,7 +326,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
                       <button
                         type="button"
                         onClick={() => setViewingTx(tx)}
-                        className="p-1 rounded text-slate-400 hover:text-white hover:bg-white/10 mr-1 cursor-pointer"
+                        className="p-1.5 rounded-lg text-slate-500 hover:text-[#111916] hover:bg-black/5 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/10 mr-1 cursor-pointer transition-colors"
                         title="View details"
                       >
                         <Eye className="w-3.5 h-3.5" />
@@ -337,7 +334,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
                       <button
                         type="button"
                         onClick={() => setEditingTx(tx)}
-                        className="p-1 rounded text-slate-400 hover:text-white hover:bg-white/10 mr-1 cursor-pointer"
+                        className="p-1.5 rounded-lg text-slate-500 hover:text-[#111916] hover:bg-black/5 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/10 mr-1 cursor-pointer transition-colors"
                         title="Edit transaction"
                       >
                         <Edit2 className="w-3.5 h-3.5" />
@@ -345,7 +342,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
                       <button
                         type="button"
                         onClick={() => handleDelete(tx.id)}
-                        className="p-1 rounded text-red-400 hover:text-red-300 hover:bg-red-500/10 cursor-pointer"
+                        className="p-1.5 rounded-lg text-red-500 hover:text-red-700 hover:bg-red-500/10 dark:text-red-400 dark:hover:text-red-300 cursor-pointer transition-colors"
                         title="Delete transaction"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -380,13 +377,13 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
           >
             <div className="flex justify-between items-center pb-3 mb-4 border-b border-[#DEE3DE] dark:border-[#1A2E27]">
               <div className="flex items-center gap-2">
-                <Receipt className="w-4 h-4 text-[#B8F36B]" />
-                <h3 className="font-heading font-medium">Transaction Details</h3>
+                <Receipt className={`w-4 h-4 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`} />
+                <h3 className="font-heading font-semibold text-[#111916] dark:text-white">Transaction Details</h3>
               </div>
               <button
                 type="button"
                 onClick={() => setViewingTx(null)}
-                className="p-1 text-slate-400 hover:text-white cursor-pointer"
+                className="p-1 text-slate-500 hover:text-[#111916] dark:text-slate-400 dark:hover:text-white cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -394,20 +391,24 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
 
             <div className="space-y-3 text-xs sm:text-sm">
               <div className="flex justify-between py-1 border-b border-black/5 dark:border-white/5">
-                <span className="text-[#69746F] dark:text-slate-400">Transaction ID</span>
+                <span className="text-[#48534E] dark:text-slate-400">Transaction ID</span>
                 <span className="font-mono text-xs">{viewingTx.id}</span>
               </div>
               <div className="flex justify-between py-1 border-b border-black/5 dark:border-white/5">
-                <span className="text-[#69746F] dark:text-slate-400">Title</span>
+                <span className="text-[#48534E] dark:text-slate-400">Title</span>
                 <span className="font-semibold text-right">{viewingTx.title}</span>
               </div>
               <div className="flex justify-between py-1 border-b border-black/5 dark:border-white/5">
-                <span className="text-[#69746F] dark:text-slate-400">Type</span>
+                <span className="text-[#48534E] dark:text-slate-400">Type</span>
                 <span className="capitalize font-mono">{viewingTx.type}</span>
               </div>
               <div className="flex justify-between py-1 border-b border-black/5 dark:border-white/5">
-                <span className="text-[#69746F] dark:text-slate-400">Amount</span>
-                <span className="font-mono font-bold text-base text-[#B8F36B]">
+                <span className="text-[#48534E] dark:text-slate-400">Amount</span>
+                <span className={`font-mono font-bold text-base ${
+                  viewingTx.type === 'expense'
+                    ? 'text-red-500'
+                    : isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'
+                }`}>
                   {currencySymbol}
                   {viewingTx.amount.toLocaleString()}
                 </span>

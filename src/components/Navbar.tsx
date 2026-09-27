@@ -222,7 +222,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
               layout="position"
               className={`hidden md:flex items-center text-[13.5px] font-medium transition-all duration-300 ${
                 scrolled ? 'gap-5 lg:gap-6' : 'gap-7 lg:gap-8'
-              } ${isDark ? 'text-slate-300' : 'text-[#69746F]'}`}
+              } ${isDark ? 'text-slate-300' : 'text-[#48534E]'}`}
               aria-label="Main Navigation"
             >
               {navLinks.map((link) => (
@@ -235,7 +235,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
                       onOpenDashboard();
                     }
                   }}
-                  className={`relative py-1 transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none rounded after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-[#B8F36B] after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-150 after:origin-left whitespace-nowrap ${
+                  className={`relative py-1 transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none rounded after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-[#15803D] dark:after:bg-[#B8F36B] after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-150 after:origin-left whitespace-nowrap ${
                     isDark ? 'hover:text-white' : 'hover:text-[#111916]'
                   }`}
                 >
@@ -255,7 +255,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
                 <button
                   type="button"
                   onClick={() => onOpenDashboard?.()}
-                  className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#08110F] bg-[#B8F36B] hover:bg-[#A5E852] active:bg-[#97D844] rounded-lg transition-all duration-150 shadow-sm shadow-[#B8F36B]/20 hover:shadow-md hover:shadow-[#B8F36B]/30 whitespace-nowrap cursor-pointer focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none active:scale-[0.98] px-3.5 py-1.5 min-h-[38px]"
+                  className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-white dark:text-[#08110F] bg-[#15803D] dark:bg-[#B8F36B] hover:opacity-90 rounded-lg transition-all duration-150 shadow-sm shadow-[#B8F36B]/20 whitespace-nowrap cursor-pointer focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none active:scale-[0.98] px-3.5 py-1.5 min-h-[38px]"
                 >
                   <Sparkles className="w-3.5 h-3.5" />
                   <span>{currentUser.businessName || 'Workspace'}</span>
@@ -269,10 +269,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
                       if (onOpenAuth) onOpenAuth('login');
                       else onOpenWaitlist?.();
                     }}
-                    className={`text-[13px] font-medium transition-colors duration-150 px-3 py-1.5 min-h-[38px] flex items-center whitespace-nowrap cursor-pointer rounded-lg focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none ${
+                    className={`text-[13px] font-semibold transition-colors duration-150 px-3 py-1.5 min-h-[38px] flex items-center whitespace-nowrap cursor-pointer rounded-lg focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none ${
                       isDark
                         ? 'text-slate-300 hover:text-white hover:bg-white/5'
-                        : 'text-[#69746F] hover:text-[#111916] hover:bg-black/5'
+                        : 'text-[#48534E] hover:text-[#111916] hover:bg-black/5'
                     }`}
                   >
                     Sign in
@@ -284,7 +284,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
                       if (onOpenAuth) onOpenAuth('signup');
                       else onOpenWaitlist?.();
                     }}
-                    className={`inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#08110F] bg-[#B8F36B] hover:bg-[#A5E852] active:bg-[#97D844] rounded-lg transition-all duration-150 shadow-sm shadow-[#B8F36B]/20 hover:shadow-md hover:shadow-[#B8F36B]/30 whitespace-nowrap cursor-pointer focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none active:scale-[0.98] ${
+                    className={`inline-flex items-center gap-1.5 text-[13px] font-semibold text-white dark:text-[#08110F] bg-[#15803D] dark:bg-[#B8F36B] hover:opacity-90 rounded-lg transition-all duration-150 shadow-sm shadow-[#B8F36B]/20 whitespace-nowrap cursor-pointer focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none active:scale-[0.98] ${
                       scrolled ? 'px-3.5 py-1.5 min-h-[38px]' : 'px-4 py-2 min-h-[42px]'
                     }`}
                   >

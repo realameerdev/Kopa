@@ -102,10 +102,10 @@ export const ConnectedAppsView: React.FC = () => {
       {/* Header & Quick Actions */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-heading font-medium tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-heading font-medium tracking-tight text-[#111916] dark:text-white">
             Connected Apps & MCP Integrations
           </h1>
-          <p className="text-xs sm:text-sm text-[#69746F] dark:text-slate-400">
+          <p className="text-xs sm:text-sm text-[#48534E] dark:text-slate-400">
             Link external platforms to automate inventory, synchronize sales orders, and empower Ask Kopa
           </p>
         </div>
@@ -113,24 +113,24 @@ export const ConnectedAppsView: React.FC = () => {
         <div className="flex flex-wrap items-center gap-2.5">
           <button
             onClick={() => setIsChecklistOpen(true)}
-            className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10 transition-colors"
+            className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-xl bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 text-[#111916] dark:text-slate-300 dark:hover:text-white border border-[#DEE3DE] dark:border-white/10 transition-colors"
           >
-            <Terminal className="w-3.5 h-3.5 text-emerald-400" />
+            <Terminal className="w-3.5 h-3.5 text-[#15803D] dark:text-emerald-400" />
             <span>Developer Checklist</span>
           </button>
 
           <button
             onClick={() => setIsLogsOpen(true)}
-            className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10 transition-colors"
+            className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-xl bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 text-[#111916] dark:text-slate-300 dark:hover:text-white border border-[#DEE3DE] dark:border-white/10 transition-colors"
           >
-            <Database className="w-3.5 h-3.5 text-emerald-400" />
+            <Database className="w-3.5 h-3.5 text-[#15803D] dark:text-emerald-400" />
             <span>Sync Logs</span>
           </button>
 
           <button
             onClick={handleSyncAll}
             disabled={isSyncingAll}
-            className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl bg-emerald-500 text-black hover:bg-emerald-400 disabled:opacity-50 transition-all shadow-xs"
+            className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl bg-[#15803D] dark:bg-emerald-500 text-white dark:text-black hover:opacity-90 disabled:opacity-50 transition-all shadow-xs"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isSyncingAll ? 'animate-spin' : ''}`} />
             <span>{isSyncingAll ? 'Syncing...' : 'Sync All'}</span>
@@ -151,40 +151,40 @@ export const ConnectedAppsView: React.FC = () => {
         <div className={`p-4 rounded-2xl border ${
           isDark ? 'bg-[#10251E]/40 border-[#1C382E]' : 'bg-white border-[#DEE3DE]'
         }`}>
-          <span className="text-[11px] text-[#69746F] dark:text-slate-400 uppercase tracking-wider font-mono">
+          <span className="text-[11px] text-[#48534E] dark:text-slate-400 uppercase tracking-wider font-mono font-medium">
             Connected Services
           </span>
           <div className="mt-1 flex items-baseline gap-2">
-            <span className="text-xl sm:text-2xl font-heading font-semibold text-emerald-400">
+            <span className="text-xl sm:text-2xl font-heading font-semibold text-[#15803D] dark:text-emerald-400">
               {connectedCount}
             </span>
-            <span className="text-xs text-slate-400">/ 10 available</span>
+            <span className="text-xs text-[#69746F] dark:text-slate-400">/ 10 available</span>
           </div>
         </div>
 
         <div className={`p-4 rounded-2xl border ${
           isDark ? 'bg-[#10251E]/40 border-[#1C382E]' : 'bg-white border-[#DEE3DE]'
         }`}>
-          <span className="text-[11px] text-[#69746F] dark:text-slate-400 uppercase tracking-wider font-mono">
+          <span className="text-[11px] text-[#48534E] dark:text-slate-400 uppercase tracking-wider font-mono font-medium">
             MCP Tools Active
           </span>
           <div className="mt-1 flex items-baseline gap-2">
-            <span className="text-xl sm:text-2xl font-heading font-semibold text-white">
+            <span className="text-xl sm:text-2xl font-heading font-semibold text-[#111916] dark:text-white">
               {connectors.filter((c) => c.status === 'connected').reduce((acc, c) => acc + (CONNECTORS_REGISTRY[c.provider]?.mcpTools.length || 0), 0)}
             </span>
-            <span className="text-xs text-slate-400">tools for Ask Kopa</span>
+            <span className="text-xs text-[#69746F] dark:text-slate-400">tools for Ask Kopa</span>
           </div>
         </div>
 
         <div className={`col-span-2 sm:col-span-1 p-4 rounded-2xl border ${
           isDark ? 'bg-[#10251E]/40 border-[#1C382E]' : 'bg-white border-[#DEE3DE]'
         }`}>
-          <span className="text-[11px] text-[#69746F] dark:text-slate-400 uppercase tracking-wider font-mono">
+          <span className="text-[11px] text-[#48534E] dark:text-slate-400 uppercase tracking-wider font-mono font-medium">
             Data Isolation
           </span>
-          <div className="mt-1 flex items-center gap-1.5 text-xs text-emerald-400">
+          <div className="mt-1 flex items-center gap-1.5 text-xs text-[#15803D] dark:text-emerald-400">
             <ShieldCheck className="w-4 h-4" />
-            <span className="font-medium">Per-Business Encrypted</span>
+            <span className="font-semibold">Per-Business Encrypted</span>
           </div>
         </div>
       </div>

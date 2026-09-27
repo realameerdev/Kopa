@@ -28,6 +28,7 @@ export class GoogleConnector {
       throw new Error('Google OAuth Access Token is required.');
     }
 
+    // 1. Google Sheets: Read Data
     if (toolName === 'google_read_sheet_data') {
       const { spreadsheetId, range } = args;
       if (!spreadsheetId || !range) {
@@ -50,9 +51,9 @@ export class GoogleConnector {
       };
     }
 
+    // 2. Google Sheets: Export to Sheets
     if (toolName === 'google_export_to_sheets') {
       const { sheetTitle } = args;
-      // Create new spreadsheet
       const createRes = await fetch('https://sheets.googleapis.com/v4/spreadsheets', {
         method: 'POST',
         headers: {
@@ -76,6 +77,81 @@ export class GoogleConnector {
         spreadsheetId: createdData.spreadsheetId,
         spreadsheetUrl: createdData.spreadsheetUrl,
         summary: `Created Google Spreadsheet: ${createdData.properties?.title}. View at ${createdData.spreadsheetUrl}`,
+      };
+    }
+
+    // 3. Google Drive: List Files
+    if (toolName === 'google_drive_list_files') {
+      const pageSize = args.pageSize || 15;
+      const res = await fetch(
+        `https://www.googleapis.com/drive/v3/files?pageSize=${pageSize}&fields=nextPageToken,files(id,name,mimeType,modifiedTime,size,webViewLink)`,
+        {
+          headers: { Authorization: `Bearer ${credentials.accessToken}` },
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error(`Google Drive API error: ${res.statusText}`);
+      }
+
+      const data = await res.json();
+      const files = data.files || [];
+      return {
+        success: true,
+        files,
+        summary: `Found ${files.length} file(s) in connected Google Drive.`,
+        data: files,
+      };
+    }
+
+    // 4. Google Drive: Backup Ledger
+    if (toolName === 'google_drive_backup_ledger') {
+      const { filename = `kopa_business_ledger_backup_${Date.now()}.json`, ledgerData } = args;
+      const fileContent = typeof ledgerData === 'string' ? ledgerData : JSON.stringify(ledgerData || {}, null, 2);
+
+      const boundary = '-------314159265358979323846';
+      const delimiter = `\r\n--${boundary}\r\n`;
+      const closeDelim = `\r\n--${boundary}--`;
+
+      const metadata = {
+        name: filename,
+        mimeType: 'application/json',
+        description: 'Automated Kopa Business Ledger Backup',
+      };
+
+      const multipartRequestBody =
+        delimiter +
+        'Content-Type: application/json; charset=UTF-8\r\n\r\n' +
+        JSON.stringify(metadata) +
+        delimiter +
+        'Content-Type: application/json\r\n\r\n' +
+        fileContent +
+        closeDelim;
+
+      const uploadRes = await fetch(
+        'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name,webViewLink',
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${credentials.accessToken}`,
+            'Content-Type': `multipart/related; boundary=${boundary}`,
+          },
+          body: multipartRequestBody,
+        }
+      );
+
+      if (!uploadRes.ok) {
+        throw new Error(`Google Drive upload error: ${uploadRes.statusText}`);
+      }
+
+      const uploadData = await uploadRes.json();
+      return {
+        success: true,
+        fileId: uploadData.id,
+        fileName: uploadData.name,
+        webViewLink: uploadData.webViewLink,
+        summary: `Successfully backed up Kopa ledger to Google Drive file "${uploadData.name}".`,
+        data: uploadData,
       };
     }
 

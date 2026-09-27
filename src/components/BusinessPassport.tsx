@@ -299,7 +299,9 @@ export const BusinessPassport: React.FC = () => {
                   isDark ? 'bg-[#10251E] border-[#1D3E32] text-white' : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#111916]'
                 }`}>
                   <span>Passport: kopa.so/p/amina-fashion</span>
-                  <span className="text-[#B8F36B] font-semibold">Verified · 12 mos</span>
+                  <span className={`font-semibold ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
+                    Verified · 12 mos
+                  </span>
                 </div>
               </div>
 

@@ -68,7 +68,7 @@ export const PassportView: React.FC = () => {
           <h1 className="text-xl sm:text-2xl font-heading font-semibold tracking-tight text-[#111916] dark:text-white">
             Business Passport
           </h1>
-          <p className="text-xs sm:text-sm text-[#69746F] dark:text-slate-400 mt-0.5">
+          <p className="text-xs sm:text-sm text-[#48534E] dark:text-slate-400 mt-0.5">
             Shareable proof of recorded business activity for suppliers, partners, and institutions.
           </p>
         </div>
@@ -116,7 +116,7 @@ export const PassportView: React.FC = () => {
             </div>
           </div>
 
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#B8F36B]/15 text-[#B8F36B] border border-[#B8F36B]/30 text-xs font-mono font-medium self-start sm:self-auto">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#E8F5D8] dark:bg-[#B8F36B]/15 text-[#14532D] dark:text-[#B8F36B] border border-[#C4E99C] dark:border-[#B8F36B]/30 text-xs font-mono font-semibold self-start sm:self-auto">
             <CheckCircle2 className="w-3.5 h-3.5" />
             <span>VERIFIED ACTIVITY</span>
           </div>
@@ -132,7 +132,7 @@ export const PassportView: React.FC = () => {
             <span className="text-[11px] sm:text-xs text-[#69746F] dark:text-slate-400 block mb-1">
               Recorded Turnover
             </span>
-            <span className="text-lg sm:text-2xl font-mono font-bold text-[#B8F36B] truncate block">
+            <span className="text-lg sm:text-2xl font-mono font-bold text-[#15803D] dark:text-[#B8F36B] truncate block">
               {currencySymbol}
               {recordedRevenue.toLocaleString()}
             </span>
@@ -149,7 +149,7 @@ export const PassportView: React.FC = () => {
             <span className="text-[11px] sm:text-xs text-[#69746F] dark:text-slate-400 block mb-1">
               Transactions
             </span>
-            <span className="text-lg sm:text-2xl font-mono font-bold block">
+            <span className="text-lg sm:text-2xl font-mono font-bold block text-[#111916] dark:text-white">
               {totalTransactions}
             </span>
             <span className="text-[10px] text-[#69746F] dark:text-slate-400 block mt-1">
@@ -165,7 +165,7 @@ export const PassportView: React.FC = () => {
             <span className="text-[11px] sm:text-xs text-[#69746F] dark:text-slate-400 block mb-1">
               Active Customers
             </span>
-            <span className="text-lg sm:text-2xl font-mono font-bold block">
+            <span className="text-lg sm:text-2xl font-mono font-bold block text-[#111916] dark:text-white">
               {customerCount}
             </span>
             <span className="text-[10px] text-[#69746F] dark:text-slate-400 block mt-1">
@@ -181,7 +181,7 @@ export const PassportView: React.FC = () => {
             <span className="text-[11px] sm:text-xs text-[#69746F] dark:text-slate-400 block mb-1">
               Ledger Currency
             </span>
-            <span className="text-lg sm:text-2xl font-mono font-bold text-[#B8F36B] block">
+            <span className="text-lg sm:text-2xl font-mono font-bold text-[#15803D] dark:text-[#B8F36B] block">
               {settings.currency}
             </span>
             <span className="text-[10px] text-[#69746F] dark:text-slate-400 block mt-1">

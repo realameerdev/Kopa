@@ -181,7 +181,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         <button
           type="button"
           onClick={() => onNavigate('ask-kopa')}
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium rounded-xl border border-[#B8F36B]/40 bg-[#B8F36B]/10 text-[#B8F36B] hover:bg-[#B8F36B]/20 transition-colors shrink-0 cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl border border-[#15803D]/30 dark:border-[#B8F36B]/40 bg-[#15803D]/10 dark:bg-[#B8F36B]/10 text-[#15803D] dark:text-[#B8F36B] hover:bg-[#15803D]/15 dark:hover:bg-[#B8F36B]/20 transition-colors shrink-0 cursor-pointer"
         >
           <Sparkles className="w-3.5 h-3.5" />
           <span>Ask Kopa</span>
@@ -205,7 +205,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               <h3 className="text-sm font-heading font-semibold text-[#111916] dark:text-white">
                 Connect your business platforms to Kopa
               </h3>
-              <p className="text-xs text-[#69746F] dark:text-slate-300 mt-0.5 max-w-xl leading-relaxed">
+              <p className="text-xs text-[#48534E] dark:text-slate-300 mt-0.5 max-w-xl leading-relaxed">
                 Link Shopify, Stripe, WhatsApp, Google, QuickBooks, PayPal, Airtable, or Slack to sync sales, stream payments, and unlock real-time MCP intelligence in Ask Kopa.
               </p>
             </div>
@@ -229,9 +229,9 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             isDark ? 'bg-[#10251E]/40 border-[#1C382E]' : 'bg-white border-[#DEE3DE] shadow-xs'
           }`}
         >
-          <div className="flex items-center justify-between text-xs text-[#69746F] dark:text-slate-400 mb-2">
+          <div className="flex items-center justify-between text-xs text-[#48534E] dark:text-slate-400 mb-2 font-medium">
             <span>Total Revenue</span>
-            <span className="p-1.5 rounded-lg bg-[#B8F36B]/15 text-[#B8F36B]">
+            <span className="p-1.5 rounded-lg bg-[#15803D]/10 dark:bg-[#B8F36B]/15 text-[#15803D] dark:text-[#B8F36B]">
               <TrendingUp className="w-4 h-4" />
             </span>
           </div>
@@ -239,7 +239,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             {currencySymbol}
             {metrics.totalRevenue.toLocaleString()}
           </div>
-          <p className="text-[11px] text-[#69746F] dark:text-slate-400 mt-2 flex items-center gap-1">
+          <p className="text-[11px] text-[#48534E] dark:text-slate-400 mt-2 flex items-center gap-1">
             <span>Recorded sales in selected period</span>
           </p>
         </div>
@@ -271,27 +271,27 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             isDark ? 'bg-[#10251E]/40 border-[#1C382E]' : 'bg-white border-[#DEE3DE] shadow-xs'
           }`}
         >
-          <div className="flex items-center justify-between text-xs text-[#69746F] dark:text-slate-400 mb-2">
+          <div className="flex items-center justify-between text-xs text-[#48534E] dark:text-slate-400 mb-2 font-medium">
             <div className="flex items-center gap-1">
               <span>Estimated Gross Profit</span>
             </div>
-            <span className="p-1.5 rounded-lg bg-[#B8F36B]/15 text-[#B8F36B]">
+            <span className="p-1.5 rounded-lg bg-[#15803D]/10 dark:bg-[#B8F36B]/15 text-[#15803D] dark:text-[#B8F36B]">
               <DollarSign className="w-4 h-4" />
             </span>
           </div>
-          <div className="text-2xl sm:text-3xl font-heading font-semibold tracking-tight">
+          <div className="text-2xl sm:text-3xl font-heading font-semibold tracking-tight text-[#15803D] dark:text-[#B8F36B]">
             {currencySymbol}
             {metrics.estimatedGrossProfit.toLocaleString()}
           </div>
           {metrics.hasIncompleteCostData ? (
-            <p className="text-[11px] text-amber-500 dark:text-amber-400 mt-2 flex items-center gap-1">
+            <p className="text-[11px] text-amber-700 dark:text-amber-400 mt-2 flex items-center gap-1 font-medium">
               <AlertTriangle className="w-3 h-3 shrink-0" />
               <span>
                 Cost not set on {metrics.itemsWithMissingCostCount} sold item(s). Excluded from profit.
               </span>
             </p>
           ) : (
-            <p className="text-[11px] text-[#69746F] dark:text-slate-400 mt-2">
+            <p className="text-[11px] text-[#48534E] dark:text-slate-400 mt-2">
               Based on verified costed inventory
             </p>
           )}
@@ -377,7 +377,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             </div>
             <div className="flex items-center gap-4 text-xs font-mono">
               <span className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#B8F36B]" />
+                <span className={`w-2.5 h-2.5 rounded-full ${isDark ? 'bg-[#B8F36B]' : 'bg-[#15803D]'}`} />
                 <span>Revenue</span>
               </span>
               <span className="flex items-center gap-1.5">
@@ -392,7 +392,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             <div>
               <div className="flex justify-between text-xs font-medium mb-1.5">
                 <span>Revenue</span>
-                <span className="font-mono text-[#B8F36B]">
+                <span className={`font-mono font-bold ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
                   {currencySymbol}
                   {metrics.totalRevenue.toLocaleString()}
                 </span>
@@ -411,7 +411,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                     }%`,
                   }}
                   transition={{ duration: 0.8, ease: 'easeOut' }}
-                  className="h-full bg-[#B8F36B] rounded-full"
+                  className={`h-full rounded-full ${isDark ? 'bg-[#B8F36B]' : 'bg-[#15803D]'}`}
                 />
               </div>
             </div>
@@ -419,7 +419,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             <div>
               <div className="flex justify-between text-xs font-medium mb-1.5">
                 <span>Expenses</span>
-                <span className="font-mono text-red-400">
+                <span className="font-mono text-red-500 font-semibold">
                   {currencySymbol}
                   {metrics.totalExpenses.toLocaleString()}
                 </span>
@@ -449,17 +449,17 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               }`}
             >
               <div>
-                <span className="text-[#69746F] dark:text-slate-400 block">Operating Net Flow</span>
+                <span className="text-[#48534E] dark:text-slate-400 block font-medium">Operating Net Flow</span>
                 <span className="text-base font-semibold font-mono">
                   {currencySymbol}
                   {(metrics.totalRevenue - metrics.totalExpenses).toLocaleString()}
                 </span>
               </div>
               <div className="text-right">
-                <span className="text-[11px] text-[#69746F] dark:text-slate-400 block">Status</span>
+                <span className="text-[11px] text-[#48534E] dark:text-slate-400 block">Status</span>
                 <span
-                  className={`font-medium ${
-                    metrics.totalRevenue >= metrics.totalExpenses ? 'text-[#B8F36B]' : 'text-red-400'
+                  className={`font-semibold ${
+                    metrics.totalRevenue >= metrics.totalExpenses ? isDark ? 'text-[#B8F36B]' : 'text-[#15803D]' : 'text-red-500'
                   }`}
                 >
                   {metrics.totalRevenue >= metrics.totalExpenses ? 'Cash Positive' : 'Deficit'}
@@ -478,12 +478,12 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           <div className="flex items-center justify-between mb-4">
             <div>
               <h2 className="text-sm sm:text-base font-heading font-medium">Most Profitable Items</h2>
-              <p className="text-xs text-[#69746F] dark:text-slate-400">Strictly where cost data exists</p>
+              <p className="text-xs text-[#48534E] dark:text-slate-400">Strictly where cost data exists</p>
             </div>
             <button
               type="button"
               onClick={() => onNavigate('products')}
-              className="text-xs text-[#B8F36B] hover:underline cursor-pointer"
+              className={`text-xs hover:underline cursor-pointer font-semibold ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}
             >
               View all
             </button>
@@ -500,29 +500,29 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 >
                   <div>
                     <span className="font-semibold block">{p.name}</span>
-                    <span className="text-[11px] text-[#69746F] dark:text-slate-400">
+                    <span className="text-[11px] text-[#48534E] dark:text-slate-400">
                       Sold {p.salesCount} × Margin: {currencySymbol}
                       {p.unitProfit.toLocaleString()}
                     </span>
                   </div>
                   <div className="text-right">
-                    <span className="font-mono font-semibold text-[#B8F36B] block">
+                    <span className={`font-mono font-bold block ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
                       +{currencySymbol}
                       {p.totalProfit.toLocaleString()}
                     </span>
-                    <span className="text-[10px] text-[#69746F] dark:text-slate-400">Verified profit</span>
+                    <span className="text-[10px] text-[#48534E] dark:text-slate-400">Verified profit</span>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="py-8 text-center text-xs text-[#69746F] dark:text-slate-400">
+            <div className="py-8 text-center text-xs text-[#48534E] dark:text-slate-400">
               <AlertTriangle className="w-6 h-6 mx-auto mb-2 text-amber-500" />
               <p>No products have verified cost prices yet.</p>
               <button
                 type="button"
                 onClick={() => onNavigate('products')}
-                className="mt-2 text-[#B8F36B] hover:underline cursor-pointer"
+                className={`mt-2 hover:underline cursor-pointer font-semibold ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}
               >
                 Set product costs to calculate profit
               </button>
@@ -549,7 +549,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               <button
                 type="button"
                 onClick={() => onNavigate('products')}
-                className="text-xs text-[#B8F36B] hover:underline cursor-pointer"
+                className={`text-xs hover:underline cursor-pointer font-semibold ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}
               >
                 Restock
               </button>
@@ -566,18 +566,18 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                   >
                     <div>
                       <span className="font-medium">{p.name}</span>
-                      <span className="text-[11px] text-[#69746F] dark:text-slate-400 block">
+                      <span className="text-[11px] text-[#48534E] dark:text-slate-400 block">
                         Threshold: {p.minStockAlert} units
                       </span>
                     </div>
-                    <span className="font-mono px-2 py-0.5 rounded text-amber-400 bg-amber-500/10 font-semibold">
+                    <span className="font-mono px-2 py-0.5 rounded text-amber-700 dark:text-amber-400 bg-amber-500/10 font-bold">
                       {p.stock} left
                     </span>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-xs text-[#69746F] dark:text-slate-400">All product stock levels healthy.</p>
+              <p className="text-xs text-[#48534E] dark:text-slate-400">All product stock levels healthy.</p>
             )}
           </div>
 
@@ -595,7 +595,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               <button
                 type="button"
                 onClick={() => onNavigate('customers')}
-                className="text-xs text-[#B8F36B] hover:underline cursor-pointer"
+                className={`text-xs hover:underline cursor-pointer font-semibold ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}
               >
                 View all
               </button>
@@ -612,16 +612,16 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                   >
                     <div>
                       <span className="font-medium">{c.name}</span>
-                      <span className="text-[11px] text-[#69746F] dark:text-slate-400 block">{c.phone}</span>
+                      <span className="text-[11px] text-[#48534E] dark:text-slate-400 block">{c.phone}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="font-mono text-amber-400 font-semibold">
+                      <span className="font-mono text-amber-700 dark:text-amber-400 font-bold">
                         ₦{c.outstandingBalance.toLocaleString()}
                       </span>
                       <button
                         type="button"
                         onClick={onOpenRecordPayment}
-                        className="px-2 py-1 text-[11px] rounded bg-[#B8F36B] text-[#08110F] font-semibold hover:bg-[#A5E852] cursor-pointer"
+                        className="px-2.5 py-1 text-[11px] rounded bg-[#B8F36B] text-[#08110F] font-semibold hover:bg-[#A5E852] cursor-pointer shadow-2xs"
                       >
                         Collect
                       </button>
@@ -630,7 +630,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 ))}
               </div>
             ) : (
-              <p className="text-xs text-[#69746F] dark:text-slate-400">No outstanding customer debts.</p>
+              <p className="text-xs text-[#48534E] dark:text-slate-400">No outstanding customer debts.</p>
             )}
           </div>
         </div>
@@ -644,12 +644,12 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-sm font-heading font-medium">Recent Transactions</h3>
-              <p className="text-xs text-[#69746F] dark:text-slate-400">Latest recorded business activity</p>
+              <p className="text-xs text-[#48534E] dark:text-slate-400">Latest recorded business activity</p>
             </div>
             <button
               type="button"
               onClick={() => onNavigate('transactions')}
-              className="text-xs text-[#B8F36B] hover:underline cursor-pointer"
+              className={`text-xs hover:underline cursor-pointer font-semibold ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}
             >
               All transactions →
             </button>
@@ -666,37 +666,37 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 >
                   <div>
                     <span className="font-medium block">{tx.title}</span>
-                    <span className="text-[11px] text-[#69746F] dark:text-slate-400">
+                    <span className="text-[11px] text-[#48534E] dark:text-slate-400">
                       {new Date(tx.date).toLocaleDateString()} · {tx.category}
                     </span>
                   </div>
                   <div className="text-right">
                     <span
-                      className={`font-mono font-semibold block ${
+                      className={`font-mono font-bold block ${
                         tx.type === 'sale' || tx.type === 'payment'
-                          ? 'text-[#B8F36B]'
+                          ? isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'
                           : tx.type === 'expense'
-                          ? 'text-red-400'
-                          : 'text-amber-400'
+                          ? 'text-red-500'
+                          : 'text-amber-500'
                       }`}
                     >
                       {tx.type === 'expense' ? '-' : '+'}
                       {currencySymbol}
                       {tx.amount.toLocaleString()}
                     </span>
-                    <span className="text-[10px] text-[#69746F] dark:text-slate-400 capitalize">
+                    <span className="text-[10px] text-[#48534E] dark:text-slate-400 capitalize">
                       {tx.type}
                     </span>
                   </div>
                 </div>
               ))
             ) : (
-              <div className="py-8 text-center text-xs text-[#69746F] dark:text-slate-400">
-                <Receipt className="w-8 h-8 mx-auto mb-2 opacity-30 text-[#B8F36B]" />
+              <div className="py-8 text-center text-xs text-[#48534E] dark:text-slate-400">
+                <Receipt className={`w-8 h-8 mx-auto mb-2 opacity-30 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`} />
                 <p className="font-medium text-[#111916] dark:text-slate-200">
                   Your business activity will appear here once you start recording it.
                 </p>
-                <p className="text-[11px] mt-1 text-[#69746F] dark:text-slate-400">
+                <p className="text-[11px] mt-1 text-[#48534E] dark:text-slate-400">
                   Record sales, log operational expenses, or ask Kopa in plain natural language.
                 </p>
               </div>

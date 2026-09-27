@@ -81,14 +81,14 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Settings Navigation Tabs */}
-      <div className="flex items-center gap-2 p-1 rounded-2xl bg-white/5 border border-[#1C382E]/40 w-fit">
+      <div className="flex items-center gap-2 p-1 rounded-2xl bg-black/5 dark:bg-white/5 border border-[#DEE3DE] dark:border-[#1C382E]/40 w-fit">
         <button
           type="button"
           onClick={() => setActiveTab('profile')}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${
             activeTab === 'profile'
-              ? 'bg-emerald-500 text-black font-semibold shadow-xs'
-              : 'text-slate-400 hover:text-white'
+              ? 'bg-[#15803D] dark:bg-emerald-500 text-white dark:text-black font-semibold shadow-xs'
+              : 'text-[#48534E] dark:text-slate-400 hover:text-[#111916] dark:hover:text-white'
           }`}
         >
           <Settings className="w-4 h-4" />
@@ -100,8 +100,8 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
           onClick={() => setActiveTab('connectors')}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${
             activeTab === 'connectors'
-              ? 'bg-emerald-500 text-black font-semibold shadow-xs'
-              : 'text-slate-400 hover:text-white'
+              ? 'bg-[#15803D] dark:bg-emerald-500 text-white dark:text-black font-semibold shadow-xs'
+              : 'text-[#48534E] dark:text-slate-400 hover:text-[#111916] dark:hover:text-white'
           }`}
         >
           <Layers className="w-4 h-4" />
@@ -115,16 +115,16 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
         <div className="space-y-8">
           {/* Header */}
           <div>
-            <h1 className="text-xl sm:text-2xl font-heading font-medium tracking-tight">
+            <h1 className="text-xl sm:text-2xl font-heading font-medium tracking-tight text-[#111916] dark:text-white">
               Settings & Preferences
             </h1>
-            <p className="text-xs sm:text-sm text-[#69746F] dark:text-slate-400">
+            <p className="text-xs sm:text-sm text-[#48534E] dark:text-slate-400">
               Manage your business profile, operating currency, notification alerts, and account security
             </p>
           </div>
 
           {savedSuccess && (
-            <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-xs text-emerald-400 flex items-center gap-2">
+            <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-xs text-[#15803D] dark:text-emerald-400 flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4" />
               <span>Settings updated successfully.</span>
             </div>
@@ -138,8 +138,8 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
               }`}
             >
               <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#DEE3DE] dark:border-[#1A2E27]">
-                <Building className="w-4 h-4 text-[#B8F36B]" />
-                <h2 className="text-sm font-heading font-medium">Business Profile</h2>
+                <Building className="w-4 h-4 text-[#15803D] dark:text-[#B8F36B]" />
+                <h2 className="text-sm font-heading font-semibold text-[#111916] dark:text-white">Business Profile</h2>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
@@ -242,15 +242,15 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
               }`}
             >
               <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#DEE3DE] dark:border-[#1A2E27]">
-                <Bell className="w-4 h-4 text-[#B8F36B]" />
-                <h2 className="text-sm font-heading font-medium">Alert Notifications</h2>
+                <Bell className="w-4 h-4 text-[#15803D] dark:text-[#B8F36B]" />
+                <h2 className="text-sm font-heading font-semibold text-[#111916] dark:text-white">Alert Notifications</h2>
               </div>
 
               <div className="space-y-3">
-                <label className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 cursor-pointer">
+                <label className="flex items-center justify-between p-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer">
                   <div>
-                    <span className="text-xs sm:text-sm font-medium">Low Stock Alerts</span>
-                    <p className="text-xs text-[#69746F] dark:text-slate-400">
+                    <span className="text-xs sm:text-sm font-semibold text-[#111916] dark:text-slate-200">Low Stock Alerts</span>
+                    <p className="text-xs text-[#48534E] dark:text-slate-400">
                       Notify when inventory reaches minimum restock thresholds
                     </p>
                   </div>
@@ -258,14 +258,14 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
                     type="checkbox"
                     checked={formData.notifyLowStock}
                     onChange={(e) => handleChange('notifyLowStock', e.target.checked)}
-                    className="w-4 h-4 rounded text-emerald-500 focus:ring-emerald-500"
+                    className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 cursor-pointer"
                   />
                 </label>
 
-                <label className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 cursor-pointer">
+                <label className="flex items-center justify-between p-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer">
                   <div>
-                    <span className="text-xs sm:text-sm font-medium">Debtor & Receivables Reminders</span>
-                    <p className="text-xs text-[#69746F] dark:text-slate-400">
+                    <span className="text-xs sm:text-sm font-semibold text-[#111916] dark:text-slate-200">Debtor & Receivables Reminders</span>
+                    <p className="text-xs text-[#48534E] dark:text-slate-400">
                       Alert on overdue customer credit balances and payments
                     </p>
                   </div>
@@ -273,14 +273,14 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
                     type="checkbox"
                     checked={formData.notifyDebts}
                     onChange={(e) => handleChange('notifyDebts', e.target.checked)}
-                    className="w-4 h-4 rounded text-emerald-500 focus:ring-emerald-500"
+                    className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 cursor-pointer"
                   />
                 </label>
 
-                <label className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 cursor-pointer">
+                <label className="flex items-center justify-between p-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer">
                   <div>
-                    <span className="text-xs sm:text-sm font-medium">Daily Performance Summary</span>
-                    <p className="text-xs text-[#69746F] dark:text-slate-400">
+                    <span className="text-xs sm:text-sm font-semibold text-[#111916] dark:text-slate-200">Daily Performance Summary</span>
+                    <p className="text-xs text-[#48534E] dark:text-slate-400">
                       Receive end-of-day revenue, cash inflow, and gross profit breakdown
                     </p>
                   </div>
@@ -288,7 +288,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
                     type="checkbox"
                     checked={formData.notifyDailySummary}
                     onChange={(e) => handleChange('notifyDailySummary', e.target.checked)}
-                    className="w-4 h-4 rounded text-emerald-500 focus:ring-emerald-500"
+                    className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 cursor-pointer"
                   />
                 </label>
               </div>
@@ -302,19 +302,19 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-sm font-heading font-medium">Appearance & Theme</h2>
-                  <p className="text-xs text-[#69746F] dark:text-slate-400">
+                  <h2 className="text-sm font-heading font-semibold text-[#111916] dark:text-white">Appearance & Theme</h2>
+                  <p className="text-xs text-[#48534E] dark:text-slate-400">
                     Switch between Kopa Deep Forest Dark mode and Warm Ivory Light mode
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => toggleTheme()}
-                  className={`p-2.5 rounded-xl border flex items-center gap-2 text-xs font-medium cursor-pointer ${
+                  className={`p-2.5 rounded-xl border flex items-center gap-2 text-xs font-semibold cursor-pointer ${
                     isDark ? 'bg-[#08110F] border-[#1C382E] text-white' : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#111916]'
                   }`}
                 >
-                  {isDark ? <Sun className="w-4 h-4 text-[#B8F36B]" /> : <Moon className="w-4 h-4 text-[#111916]" />}
+                  {isDark ? <Sun className="w-4 h-4 text-[#B8F36B]" /> : <Moon className="w-4 h-4 text-[#15803D]" />}
                   <span>{isDark ? 'Dark Mode' : 'Light Mode'}</span>
                 </button>
               </div>
@@ -324,7 +324,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
             <div className="flex justify-end">
               <button
                 type="submit"
-                className="min-h-[44px] px-6 py-2.5 text-xs sm:text-sm font-semibold text-[#08110F] bg-[#B8F36B] hover:bg-[#A5E852] rounded-xl transition-all shadow-xs cursor-pointer"
+                className="min-h-[44px] px-6 py-2.5 text-xs sm:text-sm font-semibold text-white dark:text-[#08110F] bg-[#15803D] dark:bg-[#B8F36B] hover:opacity-90 rounded-xl transition-all shadow-xs cursor-pointer"
               >
                 Save Changes
               </button>

@@ -550,11 +550,15 @@ export const ConnectedTools: React.FC = () => {
               <div>
                 <div className="flex items-center gap-1.5">
                   <span className="text-xs font-heading font-bold">{mobileDetailTool.name}</span>
-                  <span className="text-[10px] font-mono text-[#B8F36B] bg-[#B8F36B]/15 px-1.5 py-0.2 rounded border border-[#B8F36B]/30">
+                  <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded border font-semibold ${
+                    isDark
+                      ? 'text-[#B8F36B] bg-[#B8F36B]/15 border-[#B8F36B]/30'
+                      : 'text-[#15803D] bg-[#15803D]/10 border-[#15803D]/25'
+                  }`}>
                     {mobileDetailTool.category}
                   </span>
                 </div>
-                <p className={`text-[11px] mt-1 leading-snug ${isDark ? 'text-slate-300' : 'text-[#69746F]'}`}>
+                <p className={`text-[11px] mt-1 leading-snug ${isDark ? 'text-slate-300' : 'text-[#48534E]'}`}>
                   {mobileDetailTool.detail}
                 </p>
               </div>
@@ -562,7 +566,7 @@ export const ConnectedTools: React.FC = () => {
 
             <button
               onClick={() => setMobileDetailTool(null)}
-              className="p-1 rounded-md text-slate-400 hover:text-white cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="p-1 rounded-md text-slate-500 hover:text-[#111916] dark:text-slate-400 dark:hover:text-white cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors"
               aria-label="Close integration info"
             >
               <X className="w-4 h-4" />
@@ -573,8 +577,8 @@ export const ConnectedTools: React.FC = () => {
 
       {/* Accessible reassurance caption */}
       <div className="max-w-4xl mx-auto px-4 text-center mt-6 sm:mt-8">
-        <div className={`inline-flex items-center gap-2 text-[11px] font-mono ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
-          <CheckCircle2 className="w-3.5 h-3.5 text-[#B8F36B]" />
+        <div className={`inline-flex items-center gap-2 text-[11px] font-mono ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
+          <CheckCircle2 className={`w-3.5 h-3.5 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`} />
           <span>Unified seamlessly into your single Kopa ledger</span>
         </div>
       </div>

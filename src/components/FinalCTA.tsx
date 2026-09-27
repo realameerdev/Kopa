@@ -76,18 +76,18 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenWaitlist }) => {
 
         {/* Subtle trust markers */}
         <div className={`flex flex-wrap items-center justify-center gap-6 text-xs font-sans ${
-          isDark ? 'text-slate-400' : 'text-[#69746F]'
+          isDark ? 'text-slate-400' : 'text-[#48534E]'
         }`}>
           <span className="flex items-center gap-1.5">
-            <CheckCircle2 className={`w-4 h-4 ${isDark ? 'text-[#B8F36B]' : 'text-[#10251E]'}`} />
+            <CheckCircle2 className={`w-4 h-4 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`} />
             Works directly on WhatsApp
           </span>
           <span className="flex items-center gap-1.5">
-            <CheckCircle2 className={`w-4 h-4 ${isDark ? 'text-[#B8F36B]' : 'text-[#10251E]'}`} />
+            <CheckCircle2 className={`w-4 h-4 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`} />
             Free during early access
           </span>
           <span className="flex items-center gap-1.5">
-            <CheckCircle2 className={`w-4 h-4 ${isDark ? 'text-[#B8F36B]' : 'text-[#10251E]'}`} />
+            <CheckCircle2 className={`w-4 h-4 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`} />
             Encrypted & private
           </span>
         </div>

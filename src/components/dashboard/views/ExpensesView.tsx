@@ -52,10 +52,10 @@ export const ExpensesView: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-heading font-medium tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-heading font-medium tracking-tight text-[#111916] dark:text-white">
             Expenses & Payouts
           </h1>
-          <p className="text-xs sm:text-sm text-[#69746F] dark:text-slate-400">
+          <p className="text-xs sm:text-sm text-[#48534E] dark:text-slate-400">
             Track operational costs, recurring bills, supplier purchases, and category breakdowns
           </p>
         </div>
@@ -63,7 +63,7 @@ export const ExpensesView: React.FC = () => {
         <button
           type="button"
           onClick={() => setIsModalOpen(true)}
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-[#B8F36B] text-[#08110F] hover:bg-[#A5E852] cursor-pointer self-start sm:self-auto"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-[#15803D] dark:bg-[#B8F36B] text-white dark:text-[#08110F] hover:opacity-90 cursor-pointer self-start sm:self-auto shadow-xs"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>Add Expense</span>
@@ -78,8 +78,8 @@ export const ExpensesView: React.FC = () => {
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
           <div>
-            <h2 className="text-sm font-heading font-medium">Category Breakdown</h2>
-            <p className="text-xs text-[#69746F] dark:text-slate-400">Total Recorded: {currencySymbol}{totalExpenseAmount.toLocaleString()}</p>
+            <h2 className="text-sm font-heading font-semibold text-[#111916] dark:text-white">Category Breakdown</h2>
+            <p className="text-xs text-[#48534E] dark:text-slate-400 font-medium">Total Recorded: {currencySymbol}{totalExpenseAmount.toLocaleString()}</p>
           </div>
         </div>
 
@@ -158,7 +158,7 @@ export const ExpensesView: React.FC = () => {
           <table className="w-full text-left text-xs sm:text-sm">
             <thead
               className={`border-b text-[11px] font-mono uppercase tracking-wider ${
-                isDark ? 'bg-[#08110F] border-[#1C382E] text-slate-400' : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#69746F]'
+                isDark ? 'bg-[#08110F] border-[#1C382E] text-slate-400' : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#48534E]'
               }`}
             >
               <tr>
@@ -179,33 +179,33 @@ export const ExpensesView: React.FC = () => {
                       isDark ? 'hover:bg-white/5' : 'hover:bg-black/5'
                     }`}
                   >
-                    <td className="py-3.5 px-4 font-mono text-[11px] text-[#69746F] dark:text-slate-400 whitespace-nowrap">
+                    <td className="py-3.5 px-4 font-mono text-[11px] text-[#48534E] dark:text-slate-400 whitespace-nowrap">
                       {new Date(exp.date).toLocaleDateString()}
                     </td>
-                    <td className="py-3.5 px-4 font-medium">
+                    <td className="py-3.5 px-4 font-medium text-[#111916] dark:text-white">
                       {exp.description}
                     </td>
-                    <td className="py-3.5 px-4 text-[#69746F] dark:text-slate-300">
+                    <td className="py-3.5 px-4 text-[#48534E] dark:text-slate-300">
                       {exp.category}
                     </td>
                     <td className="py-3.5 px-4 text-center">
                       {exp.isRecurring ? (
-                        <span className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400">
+                        <span className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-700 dark:text-blue-400 font-medium">
                           <Repeat className="w-3 h-3" />
                           <span>Recurring</span>
                         </span>
                       ) : (
-                        <span className="text-[11px] text-[#69746F] dark:text-slate-400">One-off</span>
+                        <span className="text-[11px] text-[#48534E] dark:text-slate-400">One-off</span>
                       )}
                     </td>
-                    <td className="py-3.5 px-4 text-right font-mono font-semibold text-red-400 whitespace-nowrap">
+                    <td className="py-3.5 px-4 text-right font-mono font-semibold text-red-600 dark:text-red-400 whitespace-nowrap">
                       -{currencySymbol}{exp.amount.toLocaleString()}
                     </td>
                     <td className="py-3.5 px-4 text-right">
                       <button
                         type="button"
                         onClick={() => handleDelete(exp.id)}
-                        className="p-1 rounded text-red-400 hover:text-red-300 hover:bg-red-500/10 cursor-pointer"
+                        className="p-1.5 rounded-lg text-red-500 hover:text-red-700 hover:bg-red-500/10 dark:text-red-400 dark:hover:text-red-300 cursor-pointer transition-colors"
                         title="Delete expense"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
