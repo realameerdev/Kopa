@@ -312,12 +312,21 @@ export const AuthSection: React.FC = () => {
                 {/* Unauthorized Domain Helper Card */}
                 {unauthorizedDomain && (
                   <div className="mb-5 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-xs">
-                    <div className="flex items-center gap-2 font-semibold text-amber-500 dark:text-amber-400 mb-1.5">
-                      <Globe className="w-4 h-4 shrink-0" />
-                      <span>Google Sign-In Domain Authorization</span>
+                    <div className="flex items-center justify-between gap-2 font-semibold text-amber-500 dark:text-amber-400 mb-1.5">
+                      <div className="flex items-center gap-1.5">
+                        <Globe className="w-4 h-4 shrink-0" />
+                        <span>Firebase Authentication Setup Required</span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={clearDomainError}
+                        className="text-slate-400 hover:text-white text-[11px] font-medium cursor-pointer"
+                      >
+                        ✕ Dismiss
+                      </button>
                     </div>
                     <p className="text-[#69746F] dark:text-slate-300 leading-relaxed mb-2.5">
-                      To use Google Sign-In on this live environment, add this domain to Firebase Authorized Domains:
+                      To allow Google Sign-In on this applet URL, add this exact hostname in Firebase:
                     </p>
                     <div className="flex items-center gap-2 p-2 rounded-xl bg-black/10 dark:bg-black/40 border border-amber-500/20 mb-3 font-mono text-[11px]">
                       <span className="truncate flex-1 select-all">{unauthorizedDomain}</span>
@@ -337,22 +346,26 @@ export const AuthSection: React.FC = () => {
                           href={`https://console.firebase.google.com/project/${firebaseProjectId}/authentication/settings`}
                           target="_blank"
                           rel="noreferrer"
-                          className="text-[#B8F36B] hover:underline font-medium inline-flex items-center gap-0.5"
+                          className="text-[#B8F36B] hover:underline font-semibold inline-flex items-center gap-0.5"
                         >
-                          Firebase Settings <ExternalLink className="w-3 h-3" />
+                          Firebase Authentication Settings <ExternalLink className="w-3 h-3" />
                         </a>
                       </p>
-                      <p>2. Under <strong>Authorized domains</strong>, click <strong>Add domain</strong> and paste.</p>
+                      <p>2. Scroll down to <strong>Authorized domains</strong> &gt; Click <strong>Add domain</strong> &gt; Paste hostname.</p>
+                      <p>
+                        3. Also verify that <strong>Google</strong> is enabled under{' '}
+                        <a
+                          href={`https://console.firebase.google.com/project/${firebaseProjectId}/authentication/providers`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-[#B8F36B] hover:underline font-semibold inline-flex items-center gap-0.5"
+                        >
+                          Sign-in method <ExternalLink className="w-3 h-3" />
+                        </a>
+                      </p>
                     </div>
-                    <div className="pt-2 border-t border-amber-500/20 flex items-center justify-between text-[11px]">
-                      <span className="text-[#69746F] dark:text-slate-400">Or register with email below:</span>
-                      <button
-                        type="button"
-                        onClick={clearDomainError}
-                        className="text-amber-500 dark:text-amber-400 hover:underline font-medium cursor-pointer"
-                      >
-                        Dismiss
-                      </button>
+                    <div className="pt-2 border-t border-amber-500/20 text-[11px] text-[#69746F] dark:text-slate-400">
+                      💡 <em>Tip: You can always create an account or sign in directly with Email & Password below.</em>
                     </div>
                   </div>
                 )}
@@ -696,12 +709,21 @@ export const AuthSection: React.FC = () => {
                     {/* Unauthorized Domain Helper Card */}
                     {unauthorizedDomain && (
                       <div className="mb-5 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-xs">
-                        <div className="flex items-center gap-2 font-semibold text-amber-500 dark:text-amber-400 mb-1.5">
-                          <Globe className="w-4 h-4 shrink-0" />
-                          <span>Google Sign-In Domain Authorization</span>
+                        <div className="flex items-center justify-between gap-2 font-semibold text-amber-500 dark:text-amber-400 mb-1.5">
+                          <div className="flex items-center gap-1.5">
+                            <Globe className="w-4 h-4 shrink-0" />
+                            <span>Firebase Authentication Setup Required</span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={clearDomainError}
+                            className="text-slate-400 hover:text-white text-[11px] font-medium cursor-pointer"
+                          >
+                            ✕ Dismiss
+                          </button>
                         </div>
                         <p className="text-[#69746F] dark:text-slate-300 leading-relaxed mb-2.5">
-                          To use Google Sign-In on this live environment, add this domain to Firebase Authorized Domains:
+                          To allow Google Sign-In on this applet URL, add this exact hostname in Firebase:
                         </p>
                         <div className="flex items-center gap-2 p-2 rounded-xl bg-black/10 dark:bg-black/40 border border-amber-500/20 mb-3 font-mono text-[11px]">
                           <span className="truncate flex-1 select-all">{unauthorizedDomain}</span>
@@ -721,22 +743,26 @@ export const AuthSection: React.FC = () => {
                               href={`https://console.firebase.google.com/project/${firebaseProjectId}/authentication/settings`}
                               target="_blank"
                               rel="noreferrer"
-                              className="text-[#B8F36B] hover:underline font-medium inline-flex items-center gap-0.5"
+                              className="text-[#B8F36B] hover:underline font-semibold inline-flex items-center gap-0.5"
                             >
-                              Firebase Settings <ExternalLink className="w-3 h-3" />
+                              Firebase Authentication Settings <ExternalLink className="w-3 h-3" />
                             </a>
                           </p>
-                          <p>2. Under <strong>Authorized domains</strong>, click <strong>Add domain</strong> and paste.</p>
+                          <p>2. Scroll down to <strong>Authorized domains</strong> &gt; Click <strong>Add domain</strong> &gt; Paste hostname.</p>
+                          <p>
+                            3. Also verify that <strong>Google</strong> is enabled under{' '}
+                            <a
+                              href={`https://console.firebase.google.com/project/${firebaseProjectId}/authentication/providers`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-[#B8F36B] hover:underline font-semibold inline-flex items-center gap-0.5"
+                            >
+                              Sign-in method <ExternalLink className="w-3 h-3" />
+                            </a>
+                          </p>
                         </div>
-                        <div className="pt-2 border-t border-amber-500/20 flex items-center justify-between text-[11px]">
-                          <span className="text-[#69746F] dark:text-slate-400">Or sign in with email below:</span>
-                          <button
-                            type="button"
-                            onClick={clearDomainError}
-                            className="text-amber-500 dark:text-amber-400 hover:underline font-medium cursor-pointer"
-                          >
-                            Dismiss
-                          </button>
+                        <div className="pt-2 border-t border-amber-500/20 text-[11px] text-[#69746F] dark:text-slate-400">
+                          💡 <em>Tip: You can always sign in directly with Email & Password below.</em>
                         </div>
                       </div>
                     )}

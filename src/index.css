@@ -11,7 +11,7 @@
   --color-soft-mint: #E8F5D8;
   --color-warm-ivory: #F7F6F0;
   --color-ink: #111916;
-  --color-muted-slate: #69746F;
+  --color-muted-slate: #4A5652;
   --color-soft-border: #DEE3DE;
 }
 
@@ -33,8 +33,8 @@
     --kopa-light-border: #DEE3DE;
 
     --kopa-text-primary: #111916;
-    --kopa-text-muted: #69746F;
-    --kopa-text-subtle: #98A39E;
+    --kopa-text-muted: #4A5652;
+    --kopa-text-subtle: #73807B;
 
     --font-heading: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -42,10 +42,24 @@
   }
 }
 
+html.dark body,
+html.dark {
+  background-color: #08110F;
+  color: #F8FAFC;
+  color-scheme: dark;
+}
+
+html.light body,
+html:not(.dark) body,
+html.light,
+html:not(.dark) {
+  background-color: #F7F6F0;
+  color: #111916;
+  color-scheme: light;
+}
+
 body {
   font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: #08110F;
-  color: #FFFFFF;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -63,19 +77,19 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   font-family: 'JetBrains Mono', monospace !important;
 }
 
-/* Custom background grid textures matching the reference's subtle ambient lines */
+/* Custom background grid textures */
 .bg-grid-dark {
   background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
 }
 
 .bg-grid-light {
   background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, rgba(16, 37, 30, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(16, 37, 30, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(16, 37, 30, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 37, 30, 0.06) 1px, transparent 1px);
 }
 
 /* Subtle glow utilities */
