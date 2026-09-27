@@ -230,28 +230,28 @@ export const AuthSection: React.FC = () => {
   return (
     <div
       className={`fixed inset-0 z-50 overflow-y-auto min-h-screen flex flex-col transition-colors duration-200 ${
-        isDark ? 'bg-[#08110F] text-white' : 'bg-[#F7F6F0] text-[#111916]'
+        isDark ? 'bg-[#07111F] text-[#F8FBFF]' : 'bg-[#F7FAFC] text-[#0F172A]'
       }`}
     >
       {/* Background ambient gradient glow */}
       <div
         className={`fixed top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[360px] rounded-full blur-[140px] pointer-events-none ${
-          isDark ? 'bg-[#B8F36B]/5' : 'bg-[#B8F36B]/12'
+          isDark ? 'bg-[#3B82F6]/5' : 'bg-[#2563EB]/10'
         }`}
       />
 
       {/* Top Navigation Bar */}
       <header
         className={`sticky top-0 z-10 w-full border-b backdrop-blur-xl transition-colors ${
-          isDark ? 'bg-[#08110F]/85 border-[#1A2E27]' : 'bg-[#F7F6F0]/85 border-[#DEE3DE]'
+          isDark ? 'bg-[#07111F]/85 border-[#243B56]' : 'bg-[#F7FAFC]/85 border-[#DCE6F0]'
         }`}
       >
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <button
             type="button"
             onClick={closeAuth}
-            className={`inline-flex items-center gap-2 text-xs sm:text-sm font-medium transition-colors cursor-pointer px-2.5 py-1.5 rounded-lg focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#B8F36B] ${
-              isDark ? 'text-slate-300 hover:text-white' : 'text-[#69746F] hover:text-[#111916]'
+            className={`inline-flex items-center gap-2 text-xs sm:text-sm font-medium transition-colors cursor-pointer px-2.5 py-1.5 rounded-lg focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#2563EB] ${
+              isDark ? 'text-[#D5E2F0] hover:text-white' : 'text-[#64748B] hover:text-[#0F172A]'
             }`}
           >
             <ArrowLeft className="w-4 h-4" />
@@ -292,19 +292,19 @@ export const AuthSection: React.FC = () => {
                 transition={{ duration: 0.25, ease: 'easeOut' }}
                 className={`rounded-2xl border p-6 sm:p-8 shadow-xl ${
                   isDark
-                    ? 'bg-[#10251E]/50 border-[#1A2E27] shadow-black/40'
-                    : 'bg-white border-[#DEE3DE] shadow-black/5'
+                    ? 'bg-[#0D1B2E]/80 border-[#243B56] shadow-black/40'
+                    : 'bg-white border-[#DCE6F0] shadow-black/5'
                 }`}
               >
                 <div className="mb-6 text-left">
                   <h1
                     className={`text-2xl sm:text-[26px] font-heading font-medium tracking-tight mb-2 ${
-                      isDark ? 'text-white' : 'text-[#111916]'
+                      isDark ? 'text-white' : 'text-[#0F172A]'
                     }`}
                   >
                     Create your account
                   </h1>
-                  <p className="text-sm font-normal text-[#69746F] dark:text-slate-400">
+                  <p className="text-sm font-normal text-[#64748B] dark:text-[#9FB1C5]">
                     Start running your business by simply talking to it.
                   </p>
                 </div>
@@ -385,12 +385,12 @@ export const AuthSection: React.FC = () => {
                     disabled={isLoading}
                     className={`w-full min-h-[44px] flex items-center justify-center gap-3 py-2.5 px-4 text-xs sm:text-sm font-medium rounded-xl border transition-all cursor-pointer ${
                       isDark
-                        ? 'bg-[#08110F] hover:bg-[#152e25] border-[#1C382E] text-white hover:border-[#B8F36B]/40'
-                        : 'bg-white hover:bg-slate-50 border-[#DEE3DE] text-[#111916] hover:border-black/30'
+                        ? 'bg-[#07111F] hover:bg-[#132640] border-[#243B56] text-[#F8FBFF] hover:border-[#60A5FA]/40'
+                        : 'bg-white hover:bg-[#EAF2FF]/50 border-[#DCE6F0] text-[#0F172A] hover:border-[#2563EB]/30'
                     } disabled:opacity-50 disabled:cursor-not-allowed`}
                   >
                     {isLoading ? (
-                      <Loader2 className="w-4 h-4 animate-spin text-[#B8F36B]" />
+                      <Loader2 className="w-4 h-4 animate-spin text-[#2563EB] dark:text-[#60A5FA]" />
                     ) : (
                       <GoogleIcon />
                     )}
@@ -401,7 +401,7 @@ export const AuthSection: React.FC = () => {
                     <div className="absolute inset-0 flex items-center">
                       <div
                         className={`w-full border-t ${
-                          isDark ? 'border-[#1A2E27]' : 'border-[#DEE3DE]'
+                          isDark ? 'border-[#243B56]' : 'border-[#DCE6F0]'
                         }`}
                       />
                     </div>
@@ -409,8 +409,8 @@ export const AuthSection: React.FC = () => {
                       <span
                         className={`px-2.5 ${
                           isDark
-                            ? 'bg-[#10251E] text-slate-400'
-                            : 'bg-white text-[#69746F]'
+                            ? 'bg-[#0D1B2E] text-[#9FB1C5]'
+                            : 'bg-white text-[#64748B]'
                         }`}
                       >
                         or continue with email

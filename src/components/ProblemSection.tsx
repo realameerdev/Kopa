@@ -95,7 +95,7 @@ export const ProblemSection: React.FC = () => {
     <section
       id="problem"
       className={`py-24 sm:py-32 transition-colors duration-200 relative overflow-hidden border-t ${
-        isDark ? 'bg-[#08110F] text-white border-[#182E26]' : 'bg-[#F7F6F0] text-[#111916] border-[#DEE3DE]'
+        isDark ? 'bg-[#07111F] text-[#F8FBFF] border-[#243B56]' : 'bg-[#F7FAFC] text-[#0F172A] border-[#DCE6F0]'
       }`}
     >
       {/* Background subtle texture */}
@@ -106,46 +106,46 @@ export const ProblemSection: React.FC = () => {
         {/* Section Header */}
         <div className="max-w-3xl mb-14 sm:mb-16">
           <div className={`inline-flex items-center gap-2 text-[11px] sm:text-[12px] font-semibold tracking-widest uppercase mb-3 font-mono ${
-            isDark ? 'text-[#B8F36B]' : 'text-[#10251E]'
+            isDark ? 'text-[#60A5FA]' : 'text-[#0F3B82]'
           }`}>
-            <span className={`w-1.5 h-1.5 rounded-full ${isDark ? 'bg-[#B8F36B]' : 'bg-[#10251E]'}`} />
+            <span className={`w-1.5 h-1.5 rounded-full ${isDark ? 'bg-[#60A5FA]' : 'bg-[#2563EB]'}`} />
             <span>THE FRAGMENTED REALITY</span>
           </div>
 
           <h2 
             className={`text-3xl sm:text-5xl lg:text-[3.25rem] font-heading font-medium tracking-tight leading-[1.1] mb-3 ${
-              isDark ? 'text-white' : 'text-[#111916]'
+              isDark ? 'text-[#F8FBFF]' : 'text-[#0F172A]'
             }`}
             style={{ textWrap: 'balance' }}
           >
             Your business already creates data.{' '}
-            <span className={`font-semibold ${isDark ? 'text-[#B8F36B]' : 'text-[#10251E] underline decoration-[#B8F36B] decoration-4 underline-offset-8'}`}>
+            <span className={`font-semibold ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB] underline decoration-[#2563EB]/40 decoration-4 underline-offset-8'}`}>
               It’s just scattered everywhere.
             </span>
           </h2>
 
-          <p className={`text-base sm:text-lg font-normal pt-2 font-sans ${isDark ? 'text-slate-300' : 'text-[#69746F]'}`}>
+          <p className={`text-base sm:text-lg font-normal pt-2 font-sans ${isDark ? 'text-[#D5E2F0]' : 'text-[#475569]'}`}>
             Kopa brings everyday scattered activity together into structured financial intelligence.
           </p>
         </div>
 
         {/* Animated Convergence Diagram (matching reference card styling) */}
         <div className={`rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden border transition-colors ${
-          isDark ? 'bg-[#10251E] border-[#1C3E32]' : 'bg-white border-[#DEE3DE]'
+          isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0]'
         }`}>
           
           {/* Header Banner indicating the transformation */}
           <div className={`flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 mb-8 border-b gap-3 ${
-            isDark ? 'border-[#183126]' : 'border-[#EAEFEA]'
+            isDark ? 'border-[#243B56]' : 'border-[#DCE6F0]'
           }`}>
-            <div className={`flex items-center gap-2 text-xs font-mono ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
-              <span className={`font-medium ${isDark ? 'text-white' : 'text-[#111916]'}`}>SCATTERED ACTIVITY</span>
+            <div className={`flex items-center gap-2 text-xs font-mono ${isDark ? 'text-[#9FB1C5]' : 'text-[#64748B]'}`}>
+              <span className={`font-medium ${isDark ? 'text-[#F8FBFF]' : 'text-[#0F172A]'}`}>SCATTERED ACTIVITY</span>
               <span>→</span>
-              <span className={`font-bold ${isDark ? 'text-[#B8F36B]' : 'text-[#10251E]'}`}>KOPA PROTOCOL</span>
+              <span className={`font-bold ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`}>KOPA PROTOCOL</span>
               <span>→</span>
-              <span className={`font-medium ${isDark ? 'text-white' : 'text-[#10251E]'}`}>STRUCTURED INTELLIGENCE</span>
+              <span className={`font-medium ${isDark ? 'text-[#F8FBFF]' : 'text-[#0F172A]'}`}>STRUCTURED INTELLIGENCE</span>
             </div>
-            <div className={`text-[11px] font-mono ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+            <div className={`text-[11px] font-mono ${isDark ? 'text-[#9FB1C5]' : 'text-[#64748B]'}`}>
               Auto-reconciles across 6 native channels
             </div>
           </div>
@@ -155,7 +155,7 @@ export const ProblemSection: React.FC = () => {
             
             {/* Left Column: 6 Scattered Channels */}
             <div className="lg:col-span-5 space-y-2">
-              <div className={`text-[11px] font-mono uppercase tracking-wider mb-2 font-medium ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+              <div className={`text-[11px] font-mono uppercase tracking-wider mb-2 font-medium ${isDark ? 'text-[#9FB1C5]' : 'text-[#64748B]'}`}>
                 Daily fragmented sources:
               </div>
               
@@ -167,26 +167,26 @@ export const ProblemSection: React.FC = () => {
                     type="button"
                     aria-pressed={isActive}
                     onClick={() => setActiveNodeId(node.id)}
-                    className={`w-full text-left p-3 min-h-[46px] rounded-xl transition-all duration-200 cursor-pointer border focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none ${
+                    className={`w-full text-left p-3 min-h-[46px] rounded-xl transition-all duration-200 cursor-pointer border focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:outline-none ${
                       isActive
                         ? isDark
-                          ? 'bg-[#08110F] text-white border-[#B8F36B]/60 shadow-sm translate-x-1.5'
-                          : 'bg-[#10251E] text-white border-[#10251E] shadow-sm translate-x-1.5'
+                          ? 'bg-[#07111F] text-white border-[#60A5FA]/60 shadow-sm translate-x-1.5'
+                          : 'bg-[#2563EB] text-white border-[#2563EB] shadow-sm translate-x-1.5'
                         : isDark
-                        ? 'bg-[#0E1F1A] hover:bg-[#122822] border-[#183126] text-white'
-                        : 'bg-[#F7F6F0]/80 hover:bg-[#F7F6F0] border-[#DEE3DE] text-[#111916]'
+                        ? 'bg-[#132640] hover:bg-[#1A3356] border-[#243B56] text-white'
+                        : 'bg-[#F7FAFC] hover:bg-[#EAF2FF] border-[#DCE6F0] text-[#0F172A]'
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2.5">
-                        <div className={`p-1.5 rounded-lg ${isActive ? isDark ? 'bg-[#10251E]' : 'bg-[#08110F]' : isDark ? 'bg-[#08110F]' : 'bg-white shadow-2xs'}`}>
+                        <div className={`p-1.5 rounded-lg ${isActive ? isDark ? 'bg-[#132640]' : 'bg-[#0F3B82]' : isDark ? 'bg-[#07111F]' : 'bg-white shadow-2xs'}`}>
                           {node.icon}
                         </div>
                         <span className="text-xs sm:text-sm font-semibold">
                           {node.name}
                         </span>
                       </div>
-                      <span className={`text-[11px] font-mono ${isActive ? 'text-[#B8F36B]' : isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+                      <span className={`text-[11px] font-mono ${isActive ? 'text-[#60A5FA] dark:text-[#60A5FA]' : isDark ? 'text-[#9FB1C5]' : 'text-[#64748B]'}`}>
                         {node.channel}
                       </span>
                     </div>
@@ -199,12 +199,12 @@ export const ProblemSection: React.FC = () => {
             <div className="hidden lg:flex lg:col-span-2 flex-col items-center justify-center space-y-3">
               <div className={`w-10 h-10 rounded-full flex items-center justify-center border animate-pulse ${
                 isDark
-                  ? 'bg-[#B8F36B]/20 text-[#B8F36B] border-[#B8F36B]/30'
-                  : 'bg-[#15803D]/10 text-[#15803D] border-[#15803D]/30'
+                  ? 'bg-[#102B4D] text-[#60A5FA] border-[#243B56]'
+                  : 'bg-[#EAF2FF] text-[#2563EB] border-[#DCE6F0]'
               }`}>
                 <ArrowRight className="w-5 h-5" />
               </div>
-              <span className={`text-[10px] font-mono text-center max-w-[80px] ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
+              <span className={`text-[10px] font-mono text-center max-w-[80px] ${isDark ? 'text-[#9FB1C5]' : 'text-[#64748B]'}`}>
                 Continuous unification
               </span>
             </div>
@@ -212,24 +212,24 @@ export const ProblemSection: React.FC = () => {
             {/* Right Column: Unified Structured Ledger Card */}
             <div className="lg:col-span-5">
               <div className={`p-5 sm:p-6 rounded-2xl border transition-all ${
-                isDark ? 'bg-[#08110F] border-[#1E3B30]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
+                isDark ? 'bg-[#07111F] border-[#243B56]' : 'bg-[#F7FAFC] border-[#DCE6F0]'
               }`}>
                 <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-inherit">
                   <div className="flex items-center gap-2.5">
                     <KopaLogo variant="symbol" theme={isDark ? 'dark' : 'light'} size="sm" />
                     <div>
-                      <span className={`text-xs font-semibold block ${isDark ? 'text-white' : 'text-[#111916]'}`}>
+                      <span className={`text-xs font-semibold block ${isDark ? 'text-[#F8FBFF]' : 'text-[#0F172A]'}`}>
                         Single Structured Ledger
                       </span>
-                      <span className={`text-[10px] font-mono ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
+                      <span className={`text-[10px] font-mono ${isDark ? 'text-[#9FB1C5]' : 'text-[#64748B]'}`}>
                         Automated double-entry
                       </span>
                     </div>
                   </div>
                   <span className={`text-[10px] font-mono px-2 py-0.5 rounded border font-semibold ${
                     isDark
-                      ? 'text-[#B8F36B] bg-[#B8F36B]/15 border-[#B8F36B]/30'
-                      : 'text-[#15803D] bg-[#15803D]/10 border-[#15803D]/25'
+                      ? 'text-[#60A5FA] bg-[#102B4D] border-[#243B56]'
+                      : 'text-[#2563EB] bg-[#EAF2FF] border-[#DCE6F0]'
                   }`}>
                     Live Sync
                   </span>
@@ -246,28 +246,28 @@ export const ProblemSection: React.FC = () => {
                     className="space-y-3.5"
                   >
                     <div>
-                      <span className={`text-[10px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
+                      <span className={`text-[10px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-[#9FB1C5]' : 'text-[#64748B]'}`}>
                         Raw input ({activeNode.name})
                       </span>
                       <div className={`p-3 rounded-xl border text-xs sm:text-sm font-medium ${
-                        isDark ? 'bg-[#10251E] border-[#183126] text-white' : 'bg-white border-[#DEE3DE] text-[#111916]'
+                        isDark ? 'bg-[#132640] border-[#243B56] text-[#F8FBFF]' : 'bg-white border-[#DCE6F0] text-[#0F172A]'
                       }`}>
                         {activeNode.sample}
                       </div>
                     </div>
 
-                    <div className={`flex justify-center font-bold ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
+                    <div className={`flex justify-center font-bold ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`}>
                       ↓
                     </div>
 
                     <div>
-                      <span className={`text-[10px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
+                      <span className={`text-[10px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`}>
                         Structured Kopa intelligence
                       </span>
                       <div className={`p-3 rounded-xl border text-xs sm:text-sm font-semibold flex items-center gap-2 ${
-                        isDark ? 'bg-[#10251E] border-[#224738] text-[#B8F36B]' : 'bg-[#E8F5D8] border-[#A3D977] text-[#0A261B]'
+                        isDark ? 'bg-[#102B4D] border-[#243B56] text-[#60A5FA]' : 'bg-[#EAF2FF] border-[#DCE6F0] text-[#0F3B82]'
                       }`}>
-                        <CheckCircle2 className={`w-4 h-4 shrink-0 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`} />
+                        <CheckCircle2 className={`w-4 h-4 shrink-0 ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`} />
                         <span>{activeNode.structuredTag}</span>
                       </div>
                     </div>
@@ -275,7 +275,7 @@ export const ProblemSection: React.FC = () => {
                 </AnimatePresence>
 
                 <div className={`mt-5 pt-3.5 border-t text-[11px] font-mono flex items-center justify-between ${
-                  isDark ? 'border-[#182F26] text-slate-400' : 'border-[#DEE3DE] text-[#48534E]'
+                  isDark ? 'border-[#243B56] text-[#9FB1C5]' : 'border-[#DCE6F0] text-[#64748B]'
                 }`}>
                   <span>Zero manual spreadsheets</span>
                   <span>100% private & encrypted</span>

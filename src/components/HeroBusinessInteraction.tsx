@@ -125,24 +125,24 @@ export const HeroBusinessInteraction: React.FC = () => {
     <div className="w-full relative">
       {/* Background ambient halo */}
       <div className={`absolute -inset-4 rounded-3xl blur-2xl pointer-events-none transition-opacity duration-300 ${
-        isDark ? 'bg-[#B8F36B]/6' : 'bg-[#B8F36B]/15'
+        isDark ? 'bg-[#3B82F6]/10' : 'bg-[#2563EB]/15'
       }`} />
 
       {/* Main Elevated Reference Card */}
       <div
         className={`relative rounded-3xl p-5 sm:p-7 shadow-2xl transition-all duration-200 border ${
           isDark
-            ? 'bg-[#0E1F1A] border-[#1C382E] text-white'
-            : 'bg-white border-[#DEE3DE] text-[#111916]'
+            ? 'bg-[#0D1B2E] border-[#243B56] text-[#F8FBFF]'
+            : 'bg-white border-[#DCE6F0] text-[#0F172A]'
         }`}
       >
         {/* Top bar: live status & scenario selector */}
         <div className={`flex flex-wrap items-center justify-between pb-4 mb-4 border-b gap-3 ${
-          isDark ? 'border-[#182E26]' : 'border-[#EAEFEA]'
+          isDark ? 'border-[#243B56]' : 'border-[#DCE6F0]'
         }`}>
           <div className="flex items-center gap-2.5">
-            <span className="flex h-2 w-2 rounded-full bg-[#B8F36B] animate-pulse" />
-            <span className={`text-xs font-semibold tracking-tight ${isDark ? 'text-white' : 'text-[#111916]'}`}>
+            <span className="flex h-2 w-2 rounded-full bg-[#2563EB] dark:bg-[#60A5FA] animate-pulse" />
+            <span className={`text-xs font-semibold tracking-tight ${isDark ? 'text-[#F8FBFF]' : 'text-[#0F172A]'}`}>
               Kopa Conversational Engine
             </span>
           </div>
@@ -159,10 +159,10 @@ export const HeroBusinessInteraction: React.FC = () => {
                 }}
                 className={`text-[11px] px-2.5 py-1 rounded-lg transition-all cursor-pointer font-medium ${
                   selectedScenarioIndex === idx
-                    ? 'bg-[#B8F36B] text-[#08110F] font-semibold shadow-xs'
+                    ? 'bg-[#2563EB] text-white dark:bg-[#3B82F6] font-semibold shadow-xs'
                     : isDark
-                    ? 'text-slate-400 hover:text-white bg-[#08110F] hover:bg-[#12241E] border border-[#162B23]'
-                    : 'text-[#69746F] hover:text-[#111916] bg-[#F7F6F0] hover:bg-[#EEEFEA] border border-[#DEE3DE]'
+                    ? 'text-[#9FB1C5] hover:text-white bg-[#07111F] hover:bg-[#132640] border border-[#243B56]'
+                    : 'text-[#475569] hover:text-[#0F172A] bg-[#F7FAFC] hover:bg-[#EAF2FF] border border-[#DCE6F0]'
                 }`}
               >
                 {s.label}
@@ -172,7 +172,7 @@ export const HeroBusinessInteraction: React.FC = () => {
             <button
               onClick={() => setReplayKey((k) => k + 1)}
               className={`p-1.5 rounded-lg transition-colors cursor-pointer ml-1 ${
-                isDark ? 'hover:bg-white/5 text-slate-400 hover:text-white' : 'hover:bg-black/5 text-[#69746F] hover:text-[#111916]'
+                isDark ? 'hover:bg-white/5 text-[#9FB1C5] hover:text-white' : 'hover:bg-black/5 text-[#64748B] hover:text-[#0F172A]'
               }`}
               title="Replay transaction animation"
               aria-label="Replay animation"
@@ -184,42 +184,42 @@ export const HeroBusinessInteraction: React.FC = () => {
 
         {/* Step 1: User Natural Language Inbound Message */}
         <div className={`rounded-2xl p-4 mb-4 border transition-colors ${
-          isDark ? 'bg-[#08110F] border-[#182E26]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
+          isDark ? 'bg-[#07111F] border-[#243B56]' : 'bg-[#F7FAFC] border-[#DCE6F0]'
         }`}>
           <div className="flex items-center justify-between mb-1.5">
-            <span className={`text-[11px] font-mono uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
+            <span className={`text-[11px] font-mono uppercase tracking-wider ${isDark ? 'text-[#9FB1C5]' : 'text-[#64748B]'}`}>
               Inbound activity ({scenario.channel})
             </span>
             <span className={`text-[10px] font-mono px-2 py-0.5 rounded border font-semibold ${
               isDark
-                ? 'text-[#B8F36B] bg-[#B8F36B]/10 border-[#B8F36B]/20'
-                : 'text-[#15803D] bg-[#15803D]/10 border-[#15803D]/25'
+                ? 'text-[#60A5FA] bg-[#102B4D] border-[#243B56]'
+                : 'text-[#2563EB] bg-[#EAF2FF] border-[#DCE6F0]'
             }`}>
               Voice / Chat
             </span>
           </div>
 
-          <div className={`text-base sm:text-lg font-medium min-h-[28px] flex items-center ${isDark ? 'text-white' : 'text-[#111916]'}`}>
+          <div className={`text-base sm:text-lg font-medium min-h-[28px] flex items-center ${isDark ? 'text-[#F8FBFF]' : 'text-[#0F172A]'}`}>
             <span>"{displayInput}"</span>
             {isTyping && (
-              <span className={`inline-block w-1.5 h-4 ml-1.5 animate-pulse ${isDark ? 'bg-[#B8F36B]' : 'bg-[#15803D]'}`} />
+              <span className={`inline-block w-1.5 h-4 ml-1.5 animate-pulse ${isDark ? 'bg-[#60A5FA]' : 'bg-[#2563EB]'}`} />
             )}
           </div>
         </div>
 
         {/* Step 2: Three-Phase Progress Indicator */}
         <div className={`py-2 px-3 mb-4 rounded-xl border flex items-center justify-between text-[10px] sm:text-[11px] font-mono ${
-          isDark ? 'bg-[#08110F] border-[#162C23]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
+          isDark ? 'bg-[#07111F] border-[#243B56]' : 'bg-[#F7FAFC] border-[#DCE6F0]'
         }`}>
-          <span className={stage === 'input' ? isDark ? 'text-[#B8F36B] font-bold' : 'text-[#15803D] font-bold' : isDark ? 'text-slate-500' : 'text-slate-500'}>
+          <span className={stage === 'input' ? isDark ? 'text-[#60A5FA] font-bold' : 'text-[#2563EB] font-bold' : isDark ? 'text-[#9FB1C5]' : 'text-[#64748B]'}>
             1. NATURAL SPEECH
           </span>
-          <span className={isDark ? 'text-slate-700' : 'text-slate-400'}>→</span>
-          <span className={stage === 'processing' ? isDark ? 'text-[#B8F36B] font-bold animate-pulse' : 'text-[#15803D] font-bold animate-pulse' : isDark ? 'text-slate-500' : 'text-slate-500'}>
+          <span className={isDark ? 'text-[#243B56]' : 'text-[#DCE6F0]'}>→</span>
+          <span className={stage === 'processing' ? isDark ? 'text-[#60A5FA] font-bold animate-pulse' : 'text-[#2563EB] font-bold animate-pulse' : isDark ? 'text-[#9FB1C5]' : 'text-[#64748B]'}>
             2. PARSING ENTITIES
           </span>
-          <span className={isDark ? 'text-slate-700' : 'text-slate-400'}>→</span>
-          <span className={stage === 'structured' ? isDark ? 'text-[#B8F36B] font-bold' : 'text-[#15803D] font-bold' : isDark ? 'text-slate-500' : 'text-slate-500'}>
+          <span className={isDark ? 'text-[#243B56]' : 'text-[#DCE6F0]'}>→</span>
+          <span className={stage === 'structured' ? isDark ? 'text-[#60A5FA] font-bold' : 'text-[#2563EB] font-bold' : isDark ? 'text-[#9FB1C5]' : 'text-[#64748B]'}>
             3. STRUCTURED DATA
           </span>
         </div>
@@ -234,65 +234,65 @@ export const HeroBusinessInteraction: React.FC = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className={`rounded-2xl p-4 sm:p-5 border ${
-                isDark ? 'bg-[#10251E] border-[#224438]' : 'bg-white border-[#DEE3DE] shadow-xs'
+                isDark ? 'bg-[#132640] border-[#243B56]' : 'bg-white border-[#DCE6F0] shadow-xs'
               }`}
             >
               {/* Header Status Stamp */}
               <div className={`flex items-center justify-between pb-3 mb-3.5 border-b ${
-                isDark ? 'border-[#183126]' : 'border-[#EAEFEA]'
+                isDark ? 'border-[#243B56]' : 'border-[#DCE6F0]'
               }`}>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className={`w-4 h-4 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`} />
-                  <span className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-[#111916]'}`}>
+                  <CheckCircle2 className={`w-4 h-4 ${isDark ? 'text-[#4ADE80]' : 'text-[#16A34A]'}`} />
+                  <span className={`text-sm font-semibold ${isDark ? 'text-[#F8FBFF]' : 'text-[#0F172A]'}`}>
                     {scenario.status}
                   </span>
                 </div>
                 <span className={`text-[10px] font-mono px-2 py-0.5 rounded border font-medium ${
                   isDark
-                    ? 'text-[#B8F36B] bg-[#B8F36B]/10 border-[#B8F36B]/20'
-                    : 'text-[#15803D] bg-[#15803D]/10 border-[#15803D]/25'
+                    ? 'text-[#60A5FA] bg-[#102B4D] border-[#243B56]'
+                    : 'text-[#2563EB] bg-[#EAF2FF] border-[#DCE6F0]'
                 }`}>
-                  Cryptographic checksum verified
+                  Verified in ledger
                 </span>
               </div>
 
               {/* Revenue & Profit Display */}
               <div className="grid grid-cols-2 gap-3 mb-3.5">
                 <div className={`p-3.5 rounded-xl border ${
-                  isDark ? 'bg-[#08110F] border-[#162C23]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
+                  isDark ? 'bg-[#07111F] border-[#243B56]' : 'bg-[#F7FAFC] border-[#DCE6F0]'
                 }`}>
-                  <span className={`text-[11px] font-mono block mb-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
+                  <span className={`text-[11px] font-mono block mb-1 ${isDark ? 'text-[#9FB1C5]' : 'text-[#64748B]'}`}>
                     Recorded Revenue
                   </span>
-                  <span className={`text-2xl font-bold tabular-nums block ${isDark ? 'text-white' : 'text-[#111916]'}`}>
+                  <span className={`text-2xl font-bold tabular-nums block ${isDark ? 'text-[#F8FBFF]' : 'text-[#0F172A]'}`}>
                     {scenario.revenue}
                   </span>
                 </div>
 
                 <div className={`p-3.5 rounded-xl border ${
-                  isDark ? 'bg-[#08110F] border-[#162C23]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
+                  isDark ? 'bg-[#07111F] border-[#243B56]' : 'bg-[#F7FAFC] border-[#DCE6F0]'
                 }`}>
-                  <span className={`text-[11px] font-mono block mb-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
+                  <span className={`text-[11px] font-mono block mb-1 ${isDark ? 'text-[#9FB1C5]' : 'text-[#64748B]'}`}>
                     Gross Profit
                   </span>
                   {hasAddedCost ? (
                     <div>
-                      <span className={`text-2xl font-bold tabular-nums block ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
+                      <span className={`text-2xl font-bold tabular-nums block ${isDark ? 'text-[#4ADE80]' : 'text-[#16A34A]'}`}>
                         {scenario.grossProfit}
                       </span>
                       {scenario.margin && (
-                        <span className={`text-[10px] font-mono ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
+                        <span className={`text-[10px] font-mono ${isDark ? 'text-[#9FB1C5]' : 'text-[#64748B]'}`}>
                           Margin: {scenario.margin}
                         </span>
                       )}
                     </div>
                   ) : (
                     <div>
-                      <div className="flex items-center gap-1.5 text-amber-600 dark:text-amber-500 font-semibold text-xs mb-0.5">
+                      <div className="flex items-center gap-1.5 text-amber-600 dark:text-amber-400 font-semibold text-xs mb-0.5">
                         <AlertCircle className="w-3.5 h-3.5" />
                         <span>Cost not set</span>
                       </div>
-                      <p className={`text-[10px] leading-tight ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
+                      <p className={`text-[10px] leading-tight ${isDark ? 'text-[#9FB1C5]' : 'text-[#64748B]'}`}>
                         Add product cost to calculate gross profit.
                       </p>
                     </div>
@@ -303,18 +303,18 @@ export const HeroBusinessInteraction: React.FC = () => {
               {/* Cost notice banner when cost not set */}
               {!hasAddedCost && (
                 <div className={`mb-3.5 p-3 rounded-xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 ${
-                  isDark ? 'bg-[#08110F] border-amber-500/20 text-slate-300' : 'bg-amber-50/70 border-amber-200 text-amber-950'
+                  isDark ? 'bg-[#07111F] border-amber-500/30 text-[#D5E2F0]' : 'bg-amber-50/70 border-amber-200 text-amber-950'
                 }`}>
                   <div className="text-xs">
                     <span className="font-semibold block sm:inline">Kopa rule: </span>
-                    <span className={isDark ? 'text-slate-400' : 'text-amber-900'}>
+                    <span className={isDark ? 'text-[#9FB1C5]' : 'text-amber-900'}>
                       Never invent profit. Set product unit cost to unlock verified margin.
                     </span>
                   </div>
                   <button
                     type="button"
                     onClick={() => setHasAddedCost(true)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#B8F36B] text-[#08110F] hover:bg-[#A5E852] transition-colors cursor-pointer shrink-0"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#2563EB] text-white hover:bg-[#1D4ED8] dark:bg-[#3B82F6] transition-colors cursor-pointer shrink-0"
                   >
                     <PlusCircle className="w-3.5 h-3.5" />
                     <span>Set unit cost: ₦9,000</span>
@@ -325,25 +325,25 @@ export const HeroBusinessInteraction: React.FC = () => {
               {/* Breakdown Rows */}
               <div className="space-y-2 text-xs">
                 <div className={`flex items-center justify-between py-2 px-3 rounded-lg border ${
-                  isDark ? 'bg-[#08110F] border-[#162C23]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
+                  isDark ? 'bg-[#07111F] border-[#243B56]' : 'bg-[#F7FAFC] border-[#DCE6F0]'
                 }`}>
                   <div className="flex items-center gap-2">
-                    <Package className={`w-3.5 h-3.5 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`} />
+                    <Package className={`w-3.5 h-3.5 ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`} />
                     <span className="font-medium">{scenario.items}</span>
                   </div>
-                  <span className={`text-[11px] font-mono ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
+                  <span className={`text-[11px] font-mono ${isDark ? 'text-[#9FB1C5]' : 'text-[#64748B]'}`}>
                     {scenario.inventory}
                   </span>
                 </div>
 
                 <div className={`flex items-center justify-between py-2 px-3 rounded-lg border ${
-                  isDark ? 'bg-[#08110F] border-[#162C23]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
+                  isDark ? 'bg-[#07111F] border-[#243B56]' : 'bg-[#F7FAFC] border-[#DCE6F0]'
                 }`}>
                   <div className="flex items-center gap-2">
-                    <User className={`w-3.5 h-3.5 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`} />
+                    <User className={`w-3.5 h-3.5 ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`} />
                     <span className="font-medium">{scenario.customer}</span>
                   </div>
-                  <span className={`text-[11px] font-mono font-medium ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
+                  <span className={`text-[11px] font-mono font-medium ${isDark ? 'text-[#4ADE80]' : 'text-[#16A34A]'}`}>
                     Activity logged in ledger
                   </span>
                 </div>
@@ -351,16 +351,16 @@ export const HeroBusinessInteraction: React.FC = () => {
             </motion.div>
           ) : (
             <div className={`h-[180px] rounded-2xl border flex flex-col items-center justify-center p-4 text-center ${
-              isDark ? 'bg-[#08110F] border-[#162C23] text-slate-400' : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#48534E]'
+              isDark ? 'bg-[#07111F] border-[#243B56] text-[#9FB1C5]' : 'bg-[#F7FAFC] border-[#DCE6F0] text-[#64748B]'
             }`}>
               {stage === 'processing' ? (
-                <div className={`flex flex-col items-center gap-2 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
+                <div className={`flex flex-col items-center gap-2 ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`}>
                   <Sparkles className="w-5 h-5 animate-spin" />
                   <span className="text-xs font-mono">Parsing items, units, price & customer entity...</span>
                 </div>
               ) : (
                 <div className="flex flex-col items-center gap-2 text-xs">
-                  <span className={`w-2.5 h-2.5 rounded-full animate-ping ${isDark ? 'bg-[#B8F36B]' : 'bg-[#15803D]'}`} />
+                  <span className={`w-2.5 h-2.5 rounded-full animate-ping ${isDark ? 'bg-[#60A5FA]' : 'bg-[#2563EB]'}`} />
                   <span>Awaiting natural language input...</span>
                 </div>
               )}
@@ -370,7 +370,7 @@ export const HeroBusinessInteraction: React.FC = () => {
 
         {/* Footer reassurance */}
         <div className={`mt-3.5 pt-3 border-t flex items-center justify-between text-[11px] font-mono ${
-          isDark ? 'border-[#182E26] text-slate-500' : 'border-[#EAEFEA] text-[#69746F]'
+          isDark ? 'border-[#243B56] text-[#9FB1C5]' : 'border-[#DCE6F0] text-[#64748B]'
         }`}>
           <span>Latency: 0.28s</span>
           <span>Zero accounting knowledge needed</span>

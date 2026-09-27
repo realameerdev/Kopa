@@ -182,10 +182,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`p-2.5 min-w-[42px] min-h-[42px] flex items-center justify-center rounded-xl border transition-colors focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none cursor-pointer active:scale-95 ${
+              className={`p-2.5 min-w-[42px] min-h-[42px] flex items-center justify-center rounded-xl border transition-colors focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:outline-none cursor-pointer active:scale-95 ${
                 isDark
-                  ? 'border-[#1C382E] text-slate-100 bg-[#10251E] hover:bg-[#152e25]'
-                  : 'border-[#DEE3DE] text-[#111916] bg-white hover:bg-slate-100'
+                  ? 'border-[#243B56] text-[#F8FBFF] bg-[#0D1B2E] hover:bg-[#132640]'
+                  : 'border-[#DCE6F0] text-[#0F172A] bg-white hover:bg-[#EAF2FF]/50'
               }`}
               aria-label={mobileMenuOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
               aria-expanded={mobileMenuOpen}
@@ -206,7 +206,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.22, ease: 'easeOut' }}
               className={`md:hidden border-t py-4 overflow-hidden ${
-                isDark ? 'border-[#1A2E27]' : 'border-[#DEE3DE]'
+                isDark ? 'border-[#243B56]' : 'border-[#DCE6F0]'
               }`}
             >
               <nav className="flex flex-col space-y-1" aria-label="Mobile Navigation">
@@ -221,10 +221,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
                         onOpenDashboard();
                       }
                     }}
-                    className={`px-3.5 py-2.5 min-h-[44px] flex items-center text-sm font-medium rounded-xl transition-colors focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none ${
+                    className={`px-3.5 py-2.5 min-h-[44px] flex items-center text-sm font-medium rounded-xl transition-colors focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:outline-none ${
                       isDark
-                        ? 'text-slate-100 hover:text-white hover:bg-white/5'
-                        : 'text-[#111916] hover:bg-black/5'
+                        ? 'text-[#D5E2F0] hover:text-[#F8FBFF] hover:bg-white/5'
+                        : 'text-[#0F172A] hover:bg-black/5'
                     }`}
                   >
                     {link.label}
@@ -234,7 +234,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
 
               <div
                 className={`pt-3 mt-3 border-t flex flex-col gap-2.5 ${
-                  isDark ? 'border-[#1A2E27]' : 'border-[#DEE3DE]'
+                  isDark ? 'border-[#243B56]' : 'border-[#DCE6F0]'
                 }`}
               >
                 {currentUser ? (
@@ -244,9 +244,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
                       setMobileMenuOpen(false);
                       onOpenDashboard?.();
                     }}
-                    className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-[#08110F] bg-[#B8F36B] hover:bg-[#A5E852] active:bg-[#97D844] rounded-xl shadow-sm cursor-pointer"
+                    className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] rounded-xl shadow-sm cursor-pointer"
                   >
-                    <Sparkles className="w-4 h-4 text-[#08110F]" />
+                    <Sparkles className="w-4 h-4 text-white" />
                     <span>Enter Workspace ({currentUser.businessName})</span>
                   </button>
                 ) : (
@@ -260,8 +260,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
                       }}
                       className={`w-full min-h-[44px] flex items-center justify-center py-2.5 text-sm font-semibold rounded-xl border cursor-pointer transition-colors ${
                         isDark
-                          ? 'text-slate-100 hover:text-white border-[#1C382E] bg-[#10251E]'
-                          : 'text-[#111916] border-[#DEE3DE] bg-white'
+                          ? 'text-[#D5E2F0] hover:text-[#F8FBFF] border-[#243B56] bg-[#0D1B2E]'
+                          : 'text-[#0F172A] border-[#DCE6F0] bg-white'
                       }`}
                     >
                       Sign in
@@ -274,7 +274,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
                         if (onOpenAuth) onOpenAuth('signup');
                         else onOpenWaitlist?.();
                       }}
-                      className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-[#08110F] bg-[#B8F36B] hover:bg-[#A5E852] active:bg-[#97D844] rounded-xl shadow-sm cursor-pointer"
+                      className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] rounded-xl shadow-sm cursor-pointer"
                     >
                       <span>Start with Kopa</span>
                       <ArrowUpRight className="w-4 h-4" />

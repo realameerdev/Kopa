@@ -66,31 +66,31 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ onOpenWaitlist }) => {
       id="faq"
       aria-labelledby={sectionTitleId}
       className={`py-20 sm:py-28 transition-colors duration-200 border-t ${
-        isDark ? 'bg-[#08110F] text-white border-[#182E26]' : 'bg-[#F7F6F0] text-[#111916] border-[#DEE3DE]'
+        isDark ? 'bg-[#07111F] text-[#F8FBFF] border-[#243B56]' : 'bg-[#F7FAFC] text-[#0F172A] border-[#DCE6F0]'
       }`}
     >
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         
         {/* Simple, understated header */}
         <div className="mb-10 sm:mb-12">
-          <p className="text-xs font-mono uppercase tracking-widest text-[#48534E] dark:text-slate-400 mb-2 font-medium">
+          <p className="text-xs font-mono uppercase tracking-widest text-[#64748B] dark:text-[#9FB1C5] mb-2 font-medium">
             Questions & Answers
           </p>
           <h2
             id={sectionTitleId}
             className={`text-2xl sm:text-3xl lg:text-4xl font-heading font-medium tracking-tight ${
-              isDark ? 'text-white' : 'text-[#111916]'
+              isDark ? 'text-[#F8FBFF]' : 'text-[#0F172A]'
             }`}
           >
             Frequently asked questions
           </h2>
-          <p className="text-sm sm:text-base font-normal text-[#48534E] dark:text-slate-400 mt-2">
+          <p className="text-sm sm:text-base font-normal text-[#475569] dark:text-[#9FB1C5] mt-2">
             Simple answers to common questions about Kopa, data privacy, and daily usage.
           </p>
         </div>
 
         {/* Clean hairline accordion list */}
-        <div className="divide-y divide-[#DEE3DE] dark:divide-[#1A2E27] border-y border-[#DEE3DE] dark:border-[#1A2E27]">
+        <div className="divide-[#DCE6F0] dark:divide-[#243B56] border-y border-[#DCE6F0] dark:border-[#243B56]">
           {FAQ_ITEMS.map((item) => {
             const isOpen = openId === item.id;
             const buttonId = `faq-btn-${item.id}`;
@@ -105,17 +105,17 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ onOpenWaitlist }) => {
                     aria-expanded={isOpen}
                     aria-controls={contentId}
                     onClick={() => toggleItem(item.id)}
-                    className="w-full py-4.5 sm:py-5 flex items-center justify-between gap-4 text-left cursor-pointer group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#B8F36B] transition-colors"
+                    className="w-full py-4.5 sm:py-5 flex items-center justify-between gap-4 text-left cursor-pointer group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#2563EB] dark:focus-visible:ring-[#60A5FA] transition-colors"
                   >
                     <span
                       className={`text-[15.5px] sm:text-[16.5px] font-semibold transition-colors ${
                         isOpen
                           ? isDark
-                            ? 'text-[#B8F36B]'
-                            : 'text-[#15803D]'
+                            ? 'text-[#60A5FA]'
+                            : 'text-[#2563EB]'
                           : isDark
-                          ? 'text-slate-200 group-hover:text-white'
-                          : 'text-[#111916] group-hover:text-black'
+                          ? 'text-[#D5E2F0] group-hover:text-white'
+                          : 'text-[#0F172A] group-hover:text-black'
                       }`}
                     >
                       {item.question}
@@ -125,9 +125,9 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ onOpenWaitlist }) => {
                       className={`shrink-0 w-6 h-6 flex items-center justify-center rounded-full transition-colors ${
                         isOpen
                           ? isDark
-                            ? 'text-[#B8F36B]'
-                            : 'text-[#15803D]'
-                          : 'text-[#48534E] dark:text-slate-400 group-hover:text-black dark:group-hover:text-white'
+                            ? 'text-[#60A5FA]'
+                            : 'text-[#2563EB]'
+                          : 'text-[#475569] dark:text-[#9FB1C5] group-hover:text-black dark:group-hover:text-white'
                       }`}
                     >
                       {isOpen ? (
@@ -145,13 +145,13 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ onOpenWaitlist }) => {
                       id={contentId}
                       role="region"
                       aria-labelledby={buttonId}
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
                       transition={{ duration: 0.2, ease: 'easeOut' }}
                       className="overflow-hidden"
                     >
-                      <p className="text-sm sm:text-[14.5px] font-normal leading-relaxed text-[#3B4641] dark:text-slate-200 pb-5 sm:pb-6 pr-6">
+                      <p className="text-sm sm:text-[14.5px] font-normal leading-relaxed text-[#475569] dark:text-[#D5E2F0] pb-5 sm:pb-6 pr-6">
                         {item.answer}
                       </p>
                     </motion.div>
@@ -163,7 +163,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ onOpenWaitlist }) => {
         </div>
 
         {/* Quiet footer link */}
-        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs sm:text-sm text-[#48534E] dark:text-slate-400">
+        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs sm:text-sm text-[#475569] dark:text-[#9FB1C5]">
           <p>
             Have a question that isn't answered here?
           </p>
@@ -171,7 +171,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ onOpenWaitlist }) => {
             <button
               type="button"
               onClick={onOpenWaitlist}
-              className="inline-flex items-center gap-1 font-semibold text-[#15803D] dark:text-[#B8F36B] hover:underline cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#B8F36B]"
+              className="inline-flex items-center gap-1 font-semibold text-[#2563EB] dark:text-[#60A5FA] hover:underline cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#2563EB]"
             >
               <span>Contact our team</span>
               <ArrowUpRight className="w-3.5 h-3.5" />

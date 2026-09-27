@@ -103,30 +103,30 @@ export const Hero: React.FC<HeroProps> = ({ onOpenWaitlist }) => {
             </div>
 
             {/* Proof Metrics matching reference lower bar */}
-            <div className={`pt-6 border-t grid grid-cols-3 gap-4 ${isDark ? 'border-[#182E26]' : 'border-[#DEE3DE]'}`}>
+            <div className={`pt-6 border-t grid grid-cols-3 gap-4 ${isDark ? 'border-[#243B56]' : 'border-[#DCE6F0]'}`}>
               <div>
-                <div className={`text-xl sm:text-2xl font-heading font-semibold tabular-nums ${isDark ? 'text-white' : 'text-[#111916]'}`}>
+                <div className={`text-xl sm:text-2xl font-heading font-semibold tabular-nums ${isDark ? 'text-[#F8FBFF]' : 'text-[#0F172A]'}`}>
                   ₦4.2B+
                 </div>
-                <div className={`text-[11px] font-mono mt-0.5 ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+                <div className={`text-[11px] font-mono mt-0.5 ${isDark ? 'text-[#9FB1C5]' : 'text-[#64748B]'}`}>
                   Activity tracked
                 </div>
               </div>
 
               <div>
-                <div className={`text-xl sm:text-2xl font-heading font-semibold tabular-nums ${isDark ? 'text-white' : 'text-[#111916]'}`}>
+                <div className={`text-xl sm:text-2xl font-heading font-semibold tabular-nums ${isDark ? 'text-[#F8FBFF]' : 'text-[#0F172A]'}`}>
                   12,000+
                 </div>
-                <div className={`text-[11px] font-mono mt-0.5 ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+                <div className={`text-[11px] font-mono mt-0.5 ${isDark ? 'text-[#9FB1C5]' : 'text-[#64748B]'}`}>
                   African merchants
                 </div>
               </div>
 
               <div>
-                <div className={`text-xl sm:text-2xl font-heading font-semibold tabular-nums ${isDark ? 'text-[#B8F36B]' : 'text-[#10251E]'}`}>
+                <div className={`text-xl sm:text-2xl font-heading font-semibold tabular-nums ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`}>
                   0.3s
                 </div>
-                <div className={`text-[11px] font-mono mt-0.5 ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>
+                <div className={`text-[11px] font-mono mt-0.5 ${isDark ? 'text-[#9FB1C5]' : 'text-[#64748B]'}`}>
                   Reconciliation
                 </div>
               </div>

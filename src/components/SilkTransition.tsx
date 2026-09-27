@@ -36,13 +36,13 @@ export const SilkTransition: React.FC = () => {
         className="absolute inset-0"
         style={{
           background: isTargetDark
-            ? `radial-gradient(circle at ${origin.x}px ${origin.y}px, #10251E 0%, #0D201A 40%, #08110F 85%)`
-            : `radial-gradient(circle at ${origin.x}px ${origin.y}px, #FFFFFF 0%, #FAF8F2 45%, #F7F6F0 90%)`,
+            ? `radial-gradient(circle at ${origin.x}px ${origin.y}px, #132640 0%, #0D1B2E 40%, #07111F 85%)`
+            : `radial-gradient(circle at ${origin.x}px ${origin.y}px, #FFFFFF 0%, #EAF2FF 45%, #F7FAFC 90%)`,
         }}
       />
 
       {/* 
-        Silk Wave 2: Liquid Fabric Fold Ripples (Soft Mint & Deep Forest Highlighting)
+        Silk Wave 2: Liquid Fabric Fold Ripples (Soft Silk Blue & Deep Silk Highlighting)
         Creates the distinctive multi-crease organic ripples of luxurious drapery
       */}
       <motion.div
@@ -63,8 +63,8 @@ export const SilkTransition: React.FC = () => {
         className="absolute inset-0 backdrop-blur-[1.5px]"
         style={{
           background: isTargetDark
-            ? 'linear-gradient(135deg, rgba(184, 243, 107, 0.12) 0%, rgba(16, 37, 30, 0.85) 30%, rgba(8, 17, 15, 0.98) 100%)'
-            : 'linear-gradient(135deg, rgba(232, 245, 216, 0.45) 0%, rgba(255, 255, 255, 0.85) 35%, rgba(247, 246, 240, 0.98) 100%)',
+            ? 'linear-gradient(135deg, rgba(96, 165, 250, 0.15) 0%, rgba(19, 38, 64, 0.85) 30%, rgba(7, 17, 31, 0.98) 100%)'
+            : 'linear-gradient(135deg, rgba(234, 242, 255, 0.7) 0%, rgba(255, 255, 255, 0.85) 35%, rgba(247, 250, 252, 0.98) 100%)',
         }}
       />
 
@@ -88,8 +88,8 @@ export const SilkTransition: React.FC = () => {
         className="absolute inset-0"
         style={{
           boxShadow: isTargetDark
-            ? 'inset 0 0 80px rgba(184, 243, 107, 0.15)'
-            : 'inset 0 0 80px rgba(184, 243, 107, 0.25)',
+            ? 'inset 0 0 80px rgba(96, 165, 250, 0.2)'
+            : 'inset 0 0 80px rgba(37, 99, 235, 0.2)',
         }}
       />
     </div>
