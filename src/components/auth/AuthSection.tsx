@@ -317,7 +317,7 @@ export const AuthSection: React.FC = () => {
                       <span>Google Sign-In Domain Authorization</span>
                     </div>
                     <p className="text-[#69746F] dark:text-slate-300 leading-relaxed mb-2.5">
-                      To use Google Sign-In on this environment, add this domain to Firebase Authorized Domains:
+                      To use Google Sign-In on this live environment, add this domain to Firebase Authorized Domains:
                     </p>
                     <div className="flex items-center gap-2 p-2 rounded-xl bg-black/10 dark:bg-black/40 border border-amber-500/20 mb-3 font-mono text-[11px]">
                       <span className="truncate flex-1 select-all">{unauthorizedDomain}</span>
@@ -701,7 +701,7 @@ export const AuthSection: React.FC = () => {
                           <span>Google Sign-In Domain Authorization</span>
                         </div>
                         <p className="text-[#69746F] dark:text-slate-300 leading-relaxed mb-2.5">
-                          To use Google Sign-In on this environment, add this domain to Firebase Authorized Domains:
+                          To use Google Sign-In on this live environment, add this domain to Firebase Authorized Domains:
                         </p>
                         <div className="flex items-center gap-2 p-2 rounded-xl bg-black/10 dark:bg-black/40 border border-amber-500/20 mb-3 font-mono text-[11px]">
                           <span className="truncate flex-1 select-all">{unauthorizedDomain}</span>

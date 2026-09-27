@@ -71,6 +71,7 @@ interface AuthContextType {
   }) => Promise<void>;
   loginUser: (email: string, password?: string) => Promise<boolean>;
   signInWithGoogle: () => Promise<boolean>;
+  loginDemoUser: () => void;
   resetPassword: (email: string) => Promise<{ success: boolean; message: string }>;
   logoutUser: () => Promise<void>;
 }
@@ -250,7 +251,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => unsubscribe();
   }, []);
 
-  // Hash change and route protection listener
+  // Initial route listener (read-only, does not rewrite URL on navigation)
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash.toLowerCase();
@@ -283,38 +284,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (currentUserRef.current || (auth && auth.currentUser)) {
           setIsDashboardOpen(true);
           setCurrentAuthMode(null);
-        } else if (isAuthReady) {
-          setIsDashboardOpen(false);
-          setCurrentAuthMode('login');
-          setAuthError('Please sign in to access your business workspace.');
-          window.location.hash = 'login';
         }
-      } else {
-        setIsDashboardOpen(false);
-        setCurrentAuthMode(null);
       }
     };
 
     handleHash();
     window.addEventListener('hashchange', handleHash);
     return () => window.removeEventListener('hashchange', handleHash);
-  }, [currentUser, isAuthReady]);
+  }, []);
 
   const openAuth = (mode: AuthMode) => {
     setAuthError(null);
     setUnauthorizedDomain(null);
     setIsDashboardOpen(false);
     setCurrentAuthMode(mode);
-    window.location.hash = mode;
   };
 
   const closeAuth = () => {
     setAuthError(null);
     setUnauthorizedDomain(null);
     setCurrentAuthMode(null);
-    if (window.location.hash) {
-      history.pushState('', document.title, window.location.pathname + window.location.search);
-    }
   };
 
   const openDashboard = () => {
@@ -327,17 +316,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUnauthorizedDomain(null);
     setCurrentAuthMode(null);
     setIsDashboardOpen(true);
-    window.location.hash = 'dashboard';
   };
 
   const closeDashboard = () => {
     setIsDashboardOpen(false);
-    if (window.location.hash) {
-      history.pushState('', document.title, window.location.pathname + window.location.search);
-    }
   };
 
-  // Ultra-Fast Google Sign-In implementation
+  // Google Sign-In implementation
   const signInWithGoogle = async (): Promise<boolean> => {
     setIsLoading(true);
     setAuthError(null);
@@ -355,7 +340,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      // Optimistic Instant Profile setup
+      // Profile setup
       const rawName = user.displayName || user.email?.split('@')[0] || 'Business Owner';
       const initialProfile: UserBusinessProfile = {
         uid: user.uid,
@@ -372,17 +357,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       };
 
       applyUserProfile(initialProfile);
-
-      // Instant UI transition
       setIsLoading(false);
-      closeAuth();
-      setIsDashboardOpen(true);
-      window.location.hash = 'dashboard';
 
-      // Background sync with Firestore
-      syncFirebaseUserProfile(user).then((fullProfile) => {
-        applyUserProfile(fullProfile);
-      });
+      // Background check if user already completed onboarding
+      const fullProfile = await syncFirebaseUserProfile(user);
+      applyUserProfile(fullProfile);
+
+      if (!fullProfile.onboardingAnswers) {
+        setPendingUser(fullProfile);
+        setCurrentAuthMode('onboarding');
+      } else {
+        closeAuth();
+        setIsDashboardOpen(true);
+      }
 
       return true;
     } catch (err: any) {
@@ -396,7 +383,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const host = typeof window !== 'undefined' ? window.location.hostname : 'current domain';
         setUnauthorizedDomain(host);
         setAuthError(
-          `Domain "${host}" is not yet in your Firebase Authorized Domains list. Add it in Firebase Console or use Email + Password below.`
+          `Domain "${host}" is not authorized in Firebase. Add it to Firebase Console -> Authentication -> Settings -> Authorized domains.`
+        );
+        return false;
+      } else if (err.code === 'auth/operation-not-allowed') {
+        setAuthError(
+          `Google Sign-In is disabled in Firebase project (${firebaseProjectId}). Enable Google under Firebase Console -> Authentication -> Sign-in method.`
         );
         return false;
       } else if (err.code === 'auth/popup-blocked') {
@@ -412,7 +404,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  // Instant Sign-Up with Firebase Authentication (Blazing Fast)
+  // Demo Merchant Login (kept clean for tests without url shifts)
+  const loginDemoUser = () => {
+    const demoProfile: UserBusinessProfile = {
+      uid: 'demo_merchant_aminabello',
+      fullName: 'Amina Bello',
+      businessName: 'Amina Fashion & Fabrics',
+      email: 'amina@fashion.ng',
+      businessCategory: 'Fashion & Apparel',
+      country: 'Nigeria',
+      currency: 'NGN',
+      currencySymbol: '₦',
+      description: 'Handmade traditional textiles, adire fabrics, and ready-to-wear garments.',
+      provider: 'demo',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    applyUserProfile(demoProfile);
+    closeAuth();
+    setIsDashboardOpen(true);
+  };
+
+  // Sign-Up with Firebase Authentication + Onboarding Transition
   const completeSignup = async (data: {
     fullName: string;
     businessName: string;
@@ -453,14 +466,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         updatedAt: new Date().toISOString(),
       };
 
-      // 3. Instant local state transition (< 50ms)
+      // Set user as pending and activate onboarding questionnaire
+      setPendingUser({
+        ...profile,
+        password,
+      });
       applyUserProfile(profile);
       setIsLoading(false);
-      closeAuth();
-      setIsDashboardOpen(true);
-      window.location.hash = 'dashboard';
+      setCurrentAuthMode('onboarding');
 
-      // 4. Background non-blocking persistence
+      // Background non-blocking persistence
       if (fullName) {
         updateProfile(user, { displayName: fullName }).catch(() => {});
       }
@@ -484,7 +499,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  // Instant Sign-In with Firebase Authentication (Blazing Fast)
+  // Sign-In with Firebase Authentication
   const loginUser = async (email: string, password?: string): Promise<boolean> => {
     setIsLoading(true);
     setAuthError(null);
@@ -506,7 +521,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const cred = await signInWithEmailAndPassword(auth, email.trim(), password);
       const user = cred.user;
 
-      // Optimistic instant profile
+      // Profile load
       const rawName = user.displayName || user.email?.split('@')[0] || 'Business Owner';
       const initialProfile: UserBusinessProfile = {
         uid: user.uid,
@@ -521,12 +536,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       };
 
       applyUserProfile(initialProfile);
-
-      // Instant transition
       setIsLoading(false);
       closeAuth();
       setIsDashboardOpen(true);
-      window.location.hash = 'dashboard';
 
       // Background Firestore lookup & sync
       syncFirebaseUserProfile(user).then((fullProfile) => {
@@ -617,7 +629,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(false);
     closeAuth();
     setIsDashboardOpen(true);
-    window.location.hash = 'dashboard';
   };
 
   const resetPassword = async (email: string): Promise<{ success: boolean; message: string }> => {
@@ -682,9 +693,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     db.unbindUser();
     setIsDashboardOpen(false);
     setIsLoading(false);
-    if (window.location.hash) {
-      history.pushState('', document.title, window.location.pathname + window.location.search);
-    }
   };
 
   return (
@@ -712,6 +720,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         completeOnboarding,
         loginUser,
         signInWithGoogle,
+        loginDemoUser,
         resetPassword,
         logoutUser,
       }}
