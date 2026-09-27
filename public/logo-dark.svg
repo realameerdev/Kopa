@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#08110F" />
+  <circle cx="980" cy="180" r="280" fill="#B8F36B" opacity="0.06" filter="blur(60px)" />
+  <circle cx="220" cy="450" r="320" fill="#19C37D" opacity="0.04" filter="blur(70px)" />
+  
+  <g transform="translate(180, 215)">
+    <!-- Kopa Logo Symbol -->
+    <g transform="scale(1.15)">
+      <path d="M0 0 H34 V67.5 L92 0 H138 L75.5 74.5 L138 173 H97 L51 102 L34 122 H0 Z" fill="#FFFFFF" />
+      <circle cx="17" cy="156" r="17" fill="#B8F36B" />
+    </g>
+    
+    <!-- Kopa Wordmark -->
+    <text x="200" y="142" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="118" fill="#FFFFFF" letter-spacing="-0.04em">Kopa</text>
+  </g>
+  
+  <text x="180" y="475" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-weight="500" font-size="28" fill="#8E9B95" letter-spacing="-0.01em">AI Operating System for African Business</text>
+  <rect x="180" y="525" width="260" height="4" rx="2" fill="#B8F36B" />
+</svg>

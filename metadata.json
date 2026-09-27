@@ -1,0 +1,6 @@
+{
+  "name": "Kopa — AI Operating System for African Business",
+  "description": "Kopa turns everyday voice and text messages into structured financial intelligence, automated bookkeeping, and a portable Business Passport for African enterprises.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
