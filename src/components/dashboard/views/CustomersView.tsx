@@ -118,7 +118,7 @@ export const CustomersView: React.FC = () => {
                 <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#DEE3DE] dark:divide-[#1A2E27]">
+            <tbody className="divide-y divide-[#DCE6F0] dark:divide-[#243B56]">
               {filteredCustomers.length > 0 ? (
                 filteredCustomers.map((c) => {
                   const hasDebt = c.outstandingBalance > 0;
@@ -138,15 +138,15 @@ export const CustomersView: React.FC = () => {
                           </span>
                         )}
                       </td>
-                      <td className="py-3.5 px-4 text-[#69746F] dark:text-slate-300">
+                      <td className="py-3.5 px-4 text-[#475569] dark:text-slate-300">
                         <div className="space-y-0.5">
                           <span className="flex items-center gap-1 font-mono text-[11px]">
-                            <Phone className="w-3 h-3 text-[#69746F]" />
+                            <Phone className="w-3 h-3 text-[#64748B] dark:text-[#9FB1C5]" />
                             {c.phone}
                           </span>
                           {c.email && (
                             <span className="flex items-center gap-1 text-[11px]">
-                              <Mail className="w-3 h-3 text-[#69746F]" />
+                              <Mail className="w-3 h-3 text-[#64748B] dark:text-[#9FB1C5]" />
                               {c.email}
                             </span>
                           )}
@@ -163,10 +163,10 @@ export const CustomersView: React.FC = () => {
                             {c.outstandingBalance.toLocaleString()}
                           </span>
                         ) : (
-                          <span className="text-emerald-700 dark:text-emerald-400 font-medium text-xs">Settled</span>
+                          <span className="text-[#16A34A] dark:text-[#4ADE80] font-medium text-xs">Settled</span>
                         )}
                       </td>
-                      <td className="py-3.5 px-4 text-xs text-[#69746F] dark:text-slate-400">
+                      <td className="py-3.5 px-4 text-xs text-[#475569] dark:text-slate-400">
                         {new Date(c.lastActivity).toLocaleDateString()}
                       </td>
                       <td className="py-3.5 px-4 text-right whitespace-nowrap">
@@ -174,7 +174,7 @@ export const CustomersView: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => handleOpenPayment(c.id)}
-                            className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-lg bg-[#15803D] dark:bg-[#B8F36B] text-white dark:text-[#08110F] hover:opacity-90 mr-2 cursor-pointer shadow-xs"
+                            className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-lg bg-[#2563EB] dark:bg-[#3B82F6] text-white dark:text-[#07111F] hover:opacity-90 mr-2 cursor-pointer shadow-xs"
                           >
                             <DollarSign className="w-3 h-3" />
                             <span>Collect</span>
@@ -183,7 +183,7 @@ export const CustomersView: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => handleEdit(c)}
-                          className="p-1.5 rounded-lg text-slate-500 hover:text-[#111916] hover:bg-black/5 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/10 mr-1 cursor-pointer transition-colors"
+                          className="p-1.5 rounded-lg text-slate-500 hover:text-[#0F172A] hover:bg-black/5 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/10 mr-1 cursor-pointer transition-colors"
                           title="Edit customer"
                         >
                           <Edit2 className="w-3.5 h-3.5" />
@@ -202,11 +202,11 @@ export const CustomersView: React.FC = () => {
                 })
               ) : (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-xs text-[#69746F] dark:text-slate-400">
-                    <p className="font-medium text-sm text-[#111916] dark:text-slate-200">
+                  <td colSpan={6} className="py-12 text-center text-xs text-[#475569] dark:text-slate-400">
+                    <p className="font-medium text-sm text-[#0F172A] dark:text-slate-200">
                       Your business activity will appear here once you start recording it.
                     </p>
-                    <p className="text-[11px] mt-1 text-[#69746F] dark:text-slate-400">
+                    <p className="text-[11px] mt-1 text-[#475569] dark:text-slate-400">
                       No customers recorded yet. Click "Add Customer" or record a sale to a customer.
                     </p>
                   </td>

@@ -47,22 +47,22 @@ export const AfricaSection: React.FC = () => {
   ];
 
   return (
-    <section id="built-for-africa" className="py-24 sm:py-32 bg-[#07110F] text-white relative overflow-hidden">
+    <section id="built-for-africa" className="py-24 sm:py-32 bg-[#07111F] text-white relative overflow-hidden">
       {/* Background accents */}
-      <div className="absolute inset-0 bg-subtle-grid-dark opacity-35 pointer-events-none" />
-      <div className="absolute top-1/3 right-1/4 w-[600px] h-[400px] bg-[#19C37D]/8 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-dark opacity-20 pointer-events-none" />
+      <div className="absolute top-1/3 right-1/4 w-[600px] h-[400px] bg-[#60A5FA]/8 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="max-w-3xl mb-16 sm:mb-20">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-wide text-[#19C37D] uppercase mb-3">
-            <span className="w-2 h-2 rounded-full bg-[#19C37D]" />
+          <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-wide text-[#60A5FA] uppercase mb-3 font-mono">
+            <span className="w-2 h-2 rounded-full bg-[#60A5FA]" />
             <span>Infrastructure Grounded in Reality</span>
           </div>
 
           <h2 
-            className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-white tracking-tight leading-[1.12] mb-5"
+            className="text-3xl sm:text-4xl lg:text-5xl font-heading font-medium text-white tracking-tight leading-[1.12] mb-5"
             style={{ textWrap: 'balance' }}
           >
             Built for the way Africa actually does business.
@@ -81,13 +81,13 @@ export const AfricaSection: React.FC = () => {
           {pillars.map((pillar, idx) => (
             <div
               key={idx}
-              className="p-6 rounded-2xl bg-[#0C1B17] border border-[#18342A] flex flex-col justify-between"
+              className="p-6 rounded-2xl bg-[#0D1B2E] border border-[#243B56] flex flex-col justify-between"
             >
               <div>
-                <div className="text-[11px] font-semibold text-[#19C37D] uppercase tracking-wider mb-2">
+                <div className="text-[11px] font-semibold text-[#60A5FA] uppercase tracking-wider mb-2 font-mono">
                   {pillar.tag}
                 </div>
-                <h3 className="text-lg font-display font-bold text-white mb-3">
+                <h3 className="text-lg font-heading font-semibold text-white mb-3">
                   {pillar.title}
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
@@ -99,13 +99,13 @@ export const AfricaSection: React.FC = () => {
         </div>
 
         {/* Commercial Hub Network Interactive Preview */}
-        <div className="rounded-2xl bg-[#0A1814] border border-[#1D3E32] p-6 sm:p-8 relative">
-          <div className="flex flex-col md:flex-row md:items-center justify-between pb-6 mb-6 border-b border-[#182F26] gap-4">
+        <div className="rounded-2xl bg-[#0D1B2E] border border-[#243B56] p-6 sm:p-8 relative">
+          <div className="flex flex-col md:flex-row md:items-center justify-between pb-6 mb-6 border-b border-[#243B56] gap-4">
             <div>
-              <span className="text-xs text-[#19C37D] font-mono uppercase tracking-wider block mb-1">
+              <span className="text-xs text-[#60A5FA] font-mono uppercase tracking-wider block mb-1">
                 Regional Commercial Velocity
               </span>
-              <h3 className="text-xl font-display font-bold text-white">
+              <h3 className="text-xl font-heading font-semibold text-white">
                 Active Trade Hubs Connected to Kopa Protocol
               </h3>
             </div>
@@ -118,8 +118,8 @@ export const AfricaSection: React.FC = () => {
                   onClick={() => setActiveHubIndex(index)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                     activeHubIndex === index
-                      ? 'bg-[#19C37D] text-[#07110F]'
-                      : 'bg-[#122620] text-slate-300 hover:text-white border border-[#1D382E]'
+                      ? 'bg-[#60A5FA] text-[#07111F]'
+                      : 'bg-[#102B4D] text-slate-300 hover:text-white border border-[#243B56]'
                   }`}
                 >
                   {hub.city}
@@ -130,35 +130,35 @@ export const AfricaSection: React.FC = () => {
 
           {/* Hub Dynamic Details */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="p-4 rounded-xl bg-[#07120F] border border-[#162A22]">
+            <div className="p-4 rounded-xl bg-[#07111F] border border-[#243B56]">
               <span className="text-xs text-slate-400 block mb-1">Selected Trade Node</span>
-              <span className="text-xl font-display font-bold text-white block">
+              <span className="text-xl font-heading font-semibold text-white block">
                 {activeHub.city}, {activeHub.country}
               </span>
-              <span className="text-xs text-[#19C37D] block mt-1">Native Currency: {activeHub.currency}</span>
+              <span className="text-xs text-[#60A5FA] block mt-1 font-mono">Native Currency: {activeHub.currency}</span>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#07120F] border border-[#162A22]">
+            <div className="p-4 rounded-xl bg-[#07111F] border border-[#243B56]">
               <span className="text-xs text-slate-400 block mb-1">Primary Commerce Sectors</span>
               <span className="text-sm font-semibold text-slate-200 block line-clamp-2">
                 {activeHub.tradeType}
               </span>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#07120F] border border-[#162A22]">
-              <span className="text-xs text-slate-400 block mb-1">Daily Recorded Velocity</span>
-              <span className="text-xl font-display font-extrabold text-[#19C37D] tabular-nums block">
+            <div className="p-4 rounded-xl bg-[#07111F] border border-[#243B56]">
+              <span className="text-xs text-slate-400 block mb-1 font-mono">Daily Recorded Velocity</span>
+              <span className="text-xl font-heading font-semibold text-[#60A5FA] tabular-nums block">
                 {activeHub.dailyVelocity}
               </span>
               <span className="text-[11px] text-slate-400 block mt-1">Across verified merchants</span>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#07120F] border border-[#162A22]">
-              <span className="text-xs text-slate-400 block mb-1">Active Merchants</span>
-              <span className="text-xl font-display font-extrabold text-white tabular-nums block">
+            <div className="p-4 rounded-xl bg-[#07111F] border border-[#243B56]">
+              <span className="text-xs text-slate-400 block mb-1 font-mono">Active Merchants</span>
+              <span className="text-xl font-heading font-semibold text-white tabular-nums block">
                 {activeHub.activeBusinesses}
               </span>
-              <span className="text-[11px] text-[#19C37D] block mt-1">Growing 24% MoM</span>
+              <span className="text-[11px] text-[#60A5FA] block mt-1 font-mono">Growing 24% MoM</span>
             </div>
           </div>
         </div>

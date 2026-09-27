@@ -103,18 +103,20 @@ export const RecordSaleModal: React.FC<RecordSaleModalProps> = ({
     >
       <div
         className={`w-full max-w-md max-h-[90vh] overflow-y-auto rounded-2xl border p-5 sm:p-6 shadow-2xl transition-all ${
-          isDark ? 'bg-[#08110F] border-[#1C382E] text-white' : 'bg-white border-[#DEE3DE] text-[#111916]'
+          isDark ? 'bg-[#0D1B2E] border-[#243B56] text-white' : 'bg-white border-[#DCE6F0] text-[#0F172A]'
         }`}
       >
-        <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#DEE3DE] dark:border-[#1A2E27]">
+        <div className={`flex items-center justify-between pb-4 mb-4 border-b ${isDark ? 'border-[#243B56]' : 'border-[#DCE6F0]'}`}>
           <div>
-            <h2 className="text-lg font-heading font-medium tracking-tight">Record Sale</h2>
-            <p className="text-xs text-[#69746F] dark:text-slate-400">Add a verified sale to your business ledger</p>
+            <h2 className="text-lg font-heading font-semibold tracking-tight">Record Sale</h2>
+            <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-[#64748B]'}`}>Add a verified sale to your business ledger</p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 cursor-pointer"
+            className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+              isDark ? 'text-slate-400 hover:text-white hover:bg-white/5' : 'text-slate-500 hover:text-[#0F172A] hover:bg-black/5'
+            }`}
           >
             <X className="w-5 h-5" />
           </button>
@@ -130,7 +132,7 @@ export const RecordSaleModal: React.FC<RecordSaleModalProps> = ({
         <form onSubmit={handleSubmit} className="space-y-4 text-xs sm:text-sm">
           {/* Select Product */}
           <div>
-            <label className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-300">
+            <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-slate-300' : 'text-[#0F172A]'}`}>
               Product sold
             </label>
             <select
@@ -140,20 +142,20 @@ export const RecordSaleModal: React.FC<RecordSaleModalProps> = ({
                 setCustomAmount('');
                 setError('');
               }}
-              className={`w-full px-3.5 py-2.5 rounded-xl border outline-none cursor-pointer ${
+              className={`w-full px-3.5 py-2.5 rounded-xl border outline-none cursor-pointer font-sans ${
                 isDark
-                  ? 'bg-[#10251E]/60 border-[#1C382E] text-white focus:border-[#B8F36B]'
-                  : 'bg-[#F7F6F0]/70 border-[#DEE3DE] text-[#111916] focus:border-[#10251E]'
+                  ? 'bg-[#07111F] border-[#243B56] text-white focus:border-[#60A5FA] focus:ring-1 focus:ring-[#60A5FA]'
+                  : 'bg-white border-[#DCE6F0] text-[#0F172A] focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
               }`}
             >
               {products.map((p) => (
-                <option key={p.id} value={p.id} className={isDark ? 'bg-[#08110F]' : 'bg-white'}>
+                <option key={p.id} value={p.id} className={isDark ? 'bg-[#0D1B2E]' : 'bg-white'}>
                   {p.name} — ₦{p.sellingPrice.toLocaleString()} ({p.stock} in stock)
                 </option>
               ))}
             </select>
             {selectedProduct && selectedProduct.costPrice === null && (
-              <p className="text-[11px] text-amber-500 dark:text-amber-400 mt-1 flex items-center gap-1">
+              <p className="text-[11px] text-amber-500 dark:text-amber-400 mt-1 flex items-center gap-1 font-mono">
                 <span>Cost not set for this product. Revenue will record, but gross profit will show "Cost not set".</span>
               </p>
             )}
@@ -162,7 +164,7 @@ export const RecordSaleModal: React.FC<RecordSaleModalProps> = ({
           {/* Quantity & Unit Amount */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-300">
+              <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-slate-300' : 'text-[#0F172A]'}`}>
                 Quantity
               </label>
               <input
@@ -173,15 +175,15 @@ export const RecordSaleModal: React.FC<RecordSaleModalProps> = ({
                   setQuantity(Math.max(1, parseInt(e.target.value) || 1));
                   setError('');
                 }}
-                className={`w-full px-3.5 py-2.5 rounded-xl border outline-none ${
+                className={`w-full px-3.5 py-2.5 rounded-xl border outline-none font-sans ${
                   isDark
-                    ? 'bg-[#10251E]/60 border-[#1C382E] text-white focus:border-[#B8F36B]'
-                    : 'bg-[#F7F6F0]/70 border-[#DEE3DE] text-[#111916] focus:border-[#10251E]'
+                    ? 'bg-[#07111F] border-[#243B56] text-white focus:border-[#60A5FA] focus:ring-1 focus:ring-[#60A5FA]'
+                    : 'bg-white border-[#DCE6F0] text-[#0F172A] focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
                 }`}
               />
             </div>
             <div>
-              <label className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-300">
+              <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-slate-300' : 'text-[#0F172A]'}`}>
                 Total amount (₦)
               </label>
               <input
@@ -189,10 +191,10 @@ export const RecordSaleModal: React.FC<RecordSaleModalProps> = ({
                 placeholder={computedAmount ? `${computedAmount}` : '0'}
                 value={customAmount}
                 onChange={(e) => setCustomAmount(e.target.value)}
-                className={`w-full px-3.5 py-2.5 rounded-xl border outline-none ${
+                className={`w-full px-3.5 py-2.5 rounded-xl border outline-none font-sans ${
                   isDark
-                    ? 'bg-[#10251E]/60 border-[#1C382E] text-white focus:border-[#B8F36B]'
-                    : 'bg-[#F7F6F0]/70 border-[#DEE3DE] text-[#111916] focus:border-[#10251E]'
+                    ? 'bg-[#07111F] border-[#243B56] text-white focus:border-[#60A5FA] focus:ring-1 focus:ring-[#60A5FA]'
+                    : 'bg-white border-[#DCE6F0] text-[#0F172A] focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
                 }`}
               />
             </div>
@@ -200,21 +202,21 @@ export const RecordSaleModal: React.FC<RecordSaleModalProps> = ({
 
           {/* Customer (Optional or required if debt) */}
           <div>
-            <label className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-300">
+            <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-slate-300' : 'text-[#0F172A]'}`}>
               Customer (optional)
             </label>
             <select
               value={selectedCustomerId}
               onChange={(e) => setSelectedCustomerId(e.target.value)}
-              className={`w-full px-3.5 py-2.5 rounded-xl border outline-none cursor-pointer ${
+              className={`w-full px-3.5 py-2.5 rounded-xl border outline-none cursor-pointer font-sans ${
                 isDark
-                  ? 'bg-[#10251E]/60 border-[#1C382E] text-white focus:border-[#B8F36B]'
-                  : 'bg-[#F7F6F0]/70 border-[#DEE3DE] text-[#111916] focus:border-[#10251E]'
+                  ? 'bg-[#07111F] border-[#243B56] text-white focus:border-[#60A5FA] focus:ring-1 focus:ring-[#60A5FA]'
+                  : 'bg-white border-[#DCE6F0] text-[#0F172A] focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
               }`}
             >
               <option value="">Walk-in / anonymous customer</option>
               {customers.map((c) => (
-                <option key={c.id} value={c.id} className={isDark ? 'bg-[#08110F]' : 'bg-white'}>
+                <option key={c.id} value={c.id} className={isDark ? 'bg-[#0D1B2E]' : 'bg-white'}>
                   {c.name} {c.outstandingBalance > 0 ? `(Owes ₦${c.outstandingBalance.toLocaleString()})` : ''}
                 </option>
               ))}
@@ -223,19 +225,21 @@ export const RecordSaleModal: React.FC<RecordSaleModalProps> = ({
 
           {/* Payment Status */}
           <div>
-            <label className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-300">
+            <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-slate-300' : 'text-[#0F172A]'}`}>
               Payment mode
             </label>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2 font-sans">
               <button
                 type="button"
                 onClick={() => setPaymentStatus('completed')}
                 className={`py-2 px-3 rounded-xl border text-xs font-medium cursor-pointer transition-colors ${
                   paymentStatus === 'completed'
-                    ? 'bg-[#B8F36B] text-[#08110F] border-[#B8F36B] font-semibold'
+                    ? isDark
+                      ? 'bg-[#60A5FA] text-[#07111F] border-[#60A5FA] font-bold shadow-xs'
+                      : 'bg-[#2563EB] text-white border-[#2563EB] font-bold shadow-xs'
                     : isDark
-                    ? 'border-[#1C382E] text-slate-300 hover:bg-white/5'
-                    : 'border-[#DEE3DE] text-[#69746F] hover:bg-black/5'
+                    ? 'border-[#243B56] text-slate-300 hover:bg-white/5'
+                    : 'border-[#DCE6F0] text-[#475569] hover:bg-black/5'
                 }`}
               >
                 Paid in Full (Cash/Transfer)
@@ -245,10 +249,10 @@ export const RecordSaleModal: React.FC<RecordSaleModalProps> = ({
                 onClick={() => setPaymentStatus('debt')}
                 className={`py-2 px-3 rounded-xl border text-xs font-medium cursor-pointer transition-colors ${
                   paymentStatus === 'debt'
-                    ? 'bg-amber-400 text-[#08110F] border-amber-400 font-semibold'
+                    ? 'bg-amber-500 text-[#07111F] border-amber-500 font-bold shadow-xs'
                     : isDark
-                    ? 'border-[#1C382E] text-slate-300 hover:bg-white/5'
-                    : 'border-[#DEE3DE] text-[#69746F] hover:bg-black/5'
+                    ? 'border-[#243B56] text-slate-300 hover:bg-white/5'
+                    : 'border-[#DCE6F0] text-[#475569] hover:bg-black/5'
                 }`}
               >
                 On Credit / Unpaid Debt
@@ -258,7 +262,7 @@ export const RecordSaleModal: React.FC<RecordSaleModalProps> = ({
 
           {/* Notes */}
           <div>
-            <label className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-300">
+            <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-slate-300' : 'text-[#0F172A]'}`}>
               Notes (optional)
             </label>
             <input
@@ -266,10 +270,10 @@ export const RecordSaleModal: React.FC<RecordSaleModalProps> = ({
               placeholder="e.g. Paid via GTBank transfer, delivery included"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              className={`w-full px-3.5 py-2.5 rounded-xl border outline-none ${
+              className={`w-full px-3.5 py-2.5 rounded-xl border outline-none font-sans ${
                 isDark
-                  ? 'bg-[#10251E]/60 border-[#1C382E] text-white focus:border-[#B8F36B]'
-                  : 'bg-[#F7F6F0]/70 border-[#DEE3DE] text-[#111916] focus:border-[#10251E]'
+                  ? 'bg-[#07111F] border-[#243B56] text-white focus:border-[#60A5FA] focus:ring-1 focus:ring-[#60A5FA]'
+                  : 'bg-white border-[#DCE6F0] text-[#0F172A] focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
               }`}
             />
           </div>
@@ -278,7 +282,7 @@ export const RecordSaleModal: React.FC<RecordSaleModalProps> = ({
           <div className="pt-2">
             <button
               type="submit"
-              className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-[#08110F] bg-[#B8F36B] hover:bg-[#A5E852] active:bg-[#97D844] rounded-xl transition-all shadow-sm shadow-[#B8F36B]/20 cursor-pointer"
+              className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB] rounded-xl transition-all shadow-sm shadow-[#2563EB]/20 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]"
             >
               <span>Record ₦{finalAmount.toLocaleString()} Sale</span>
             </button>

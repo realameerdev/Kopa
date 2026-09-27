@@ -81,14 +81,14 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Settings Navigation Tabs */}
-      <div className="flex items-center gap-2 p-1 rounded-2xl bg-black/5 dark:bg-white/5 border border-[#DEE3DE] dark:border-[#1C382E]/40 w-fit">
+      <div className="flex items-center gap-2 p-1 rounded-2xl bg-black/5 dark:bg-white/5 border border-[#DCE6F0] dark:border-[#243B56] w-fit">
         <button
           type="button"
           onClick={() => setActiveTab('profile')}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${
             activeTab === 'profile'
-              ? 'bg-[#15803D] dark:bg-emerald-500 text-white dark:text-black font-semibold shadow-xs'
-              : 'text-[#48534E] dark:text-slate-400 hover:text-[#111916] dark:hover:text-white'
+              ? 'bg-[#2563EB] dark:bg-[#3B82F6] text-white dark:text-black font-semibold shadow-xs'
+              : 'text-[#475569] dark:text-slate-400 hover:text-[#0F172A] dark:hover:text-white'
           }`}
         >
           <Settings className="w-4 h-4" />
@@ -100,8 +100,8 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
           onClick={() => setActiveTab('connectors')}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${
             activeTab === 'connectors'
-              ? 'bg-[#15803D] dark:bg-emerald-500 text-white dark:text-black font-semibold shadow-xs'
-              : 'text-[#48534E] dark:text-slate-400 hover:text-[#111916] dark:hover:text-white'
+              ? 'bg-[#2563EB] dark:bg-[#3B82F6] text-white dark:text-black font-semibold shadow-xs'
+              : 'text-[#475569] dark:text-slate-400 hover:text-[#0F172A] dark:hover:text-white'
           }`}
         >
           <Layers className="w-4 h-4" />
@@ -115,16 +115,16 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
         <div className="space-y-8">
           {/* Header */}
           <div>
-            <h1 className="text-xl sm:text-2xl font-heading font-medium tracking-tight text-[#111916] dark:text-white">
+            <h1 className="text-xl sm:text-2xl font-heading font-medium tracking-tight text-[#0F172A] dark:text-white">
               Settings & Preferences
             </h1>
-            <p className="text-xs sm:text-sm text-[#48534E] dark:text-slate-400">
+            <p className="text-xs sm:text-sm text-[#475569] dark:text-slate-400">
               Manage your business profile, operating currency, notification alerts, and account security
             </p>
           </div>
 
           {savedSuccess && (
-            <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-xs text-[#15803D] dark:text-emerald-400 flex items-center gap-2">
+            <div className="p-3.5 rounded-xl bg-[#16A34A]/10 border border-[#16A34A]/30 text-xs text-[#16A34A] dark:text-[#4ADE80] flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4" />
               <span>Settings updated successfully.</span>
             </div>
@@ -134,39 +134,39 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
             {/* 1. Business Profile */}
             <div
               className={`p-6 rounded-2xl border ${
-                isDark ? 'bg-[#10251E]/40 border-[#1C382E]' : 'bg-white border-[#DEE3DE] shadow-xs'
+                isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0] shadow-xs'
               }`}
             >
-              <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#DEE3DE] dark:border-[#1A2E27]">
-                <Building className="w-4 h-4 text-[#15803D] dark:text-[#B8F36B]" />
-                <h2 className="text-sm font-heading font-semibold text-[#111916] dark:text-white">Business Profile</h2>
+              <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#DCE6F0] dark:border-[#243B56]">
+                <Building className="w-4 h-4 text-[#2563EB] dark:text-[#60A5FA]" />
+                <h2 className="text-sm font-heading font-semibold text-[#0F172A] dark:text-white">Business Profile</h2>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
                 <div>
-                  <label className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-300">
+                  <label className="block text-xs font-medium mb-1.5 text-[#0F172A] dark:text-slate-300">
                     Business Name
                   </label>
                   <input
                     type="text"
                     value={formData.businessName}
                     onChange={(e) => handleChange('businessName', e.target.value)}
-                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs sm:text-sm focus:outline-hidden focus:ring-1 focus:ring-[#B8F36B] ${
-                      isDark ? 'bg-[#08110F] border-[#1C382E] text-white' : 'bg-white border-[#DEE3DE] text-[#111916]'
+                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs sm:text-sm focus:outline-hidden focus:ring-1 focus:ring-[#2563EB] dark:focus:ring-[#60A5FA] ${
+                      isDark ? 'bg-[#07111F] border-[#243B56] text-white' : 'bg-white border-[#DCE6F0] text-[#0F172A]'
                     }`}
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-300">
+                  <label className="block text-xs font-medium mb-1.5 text-[#0F172A] dark:text-slate-300">
                     Primary Industry / Category
                   </label>
                   <select
                     value={formData.category}
                     onChange={(e) => handleChange('category', e.target.value)}
-                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs sm:text-sm focus:outline-hidden focus:ring-1 focus:ring-[#B8F36B] ${
-                      isDark ? 'bg-[#08110F] border-[#1C382E] text-white' : 'bg-white border-[#DEE3DE] text-[#111916]'
+                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs sm:text-sm focus:outline-hidden focus:ring-1 focus:ring-[#2563EB] dark:focus:ring-[#60A5FA] ${
+                      isDark ? 'bg-[#07111F] border-[#243B56] text-white' : 'bg-white border-[#DCE6F0] text-[#0F172A]'
                     }`}
                   >
                     {categories.map((cat) => (
@@ -178,21 +178,21 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-300">
+                  <label className="block text-xs font-medium mb-1.5 text-[#0F172A] dark:text-slate-300">
                     Operating Country
                   </label>
                   <input
                     type="text"
                     value={formData.country}
                     onChange={(e) => handleChange('country', e.target.value)}
-                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs sm:text-sm focus:outline-hidden focus:ring-1 focus:ring-[#B8F36B] ${
-                      isDark ? 'bg-[#08110F] border-[#1C382E] text-white' : 'bg-white border-[#DEE3DE] text-[#111916]'
+                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs sm:text-sm focus:outline-hidden focus:ring-1 focus:ring-[#2563EB] dark:focus:ring-[#60A5FA] ${
+                      isDark ? 'bg-[#07111F] border-[#243B56] text-white' : 'bg-white border-[#DCE6F0] text-[#0F172A]'
                     }`}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-300">
+                  <label className="block text-xs font-medium mb-1.5 text-[#0F172A] dark:text-slate-300">
                     Primary Currency
                   </label>
                   <select
@@ -207,8 +207,8 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
                         }));
                       }
                     }}
-                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs sm:text-sm focus:outline-hidden focus:ring-1 focus:ring-[#B8F36B] ${
-                      isDark ? 'bg-[#08110F] border-[#1C382E] text-white' : 'bg-white border-[#DEE3DE] text-[#111916]'
+                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs sm:text-sm focus:outline-hidden focus:ring-1 focus:ring-[#2563EB] dark:focus:ring-[#60A5FA] ${
+                      isDark ? 'bg-[#07111F] border-[#243B56] text-white' : 'bg-white border-[#DCE6F0] text-[#0F172A]'
                     }`}
                   >
                     {currencies.map((c) => (
@@ -220,15 +220,15 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-300">
+                  <label className="block text-xs font-medium mb-1.5 text-[#0F172A] dark:text-slate-300">
                     Owner Name
                   </label>
                   <input
                     type="text"
                     value={formData.ownerName}
                     onChange={(e) => handleChange('ownerName', e.target.value)}
-                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs sm:text-sm focus:outline-hidden focus:ring-1 focus:ring-[#B8F36B] ${
-                      isDark ? 'bg-[#08110F] border-[#1C382E] text-white' : 'bg-white border-[#DEE3DE] text-[#111916]'
+                    className={`w-full px-3.5 py-2.5 rounded-xl border text-xs sm:text-sm focus:outline-hidden focus:ring-1 focus:ring-[#2563EB] dark:focus:ring-[#60A5FA] ${
+                      isDark ? 'bg-[#07111F] border-[#243B56] text-white' : 'bg-white border-[#DCE6F0] text-[#0F172A]'
                     }`}
                   />
                 </div>
@@ -238,19 +238,19 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
             {/* 2. Notification Preferences */}
             <div
               className={`p-6 rounded-2xl border ${
-                isDark ? 'bg-[#10251E]/40 border-[#1C382E]' : 'bg-white border-[#DEE3DE] shadow-xs'
+                isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0] shadow-xs'
               }`}
             >
-              <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#DEE3DE] dark:border-[#1A2E27]">
-                <Bell className="w-4 h-4 text-[#15803D] dark:text-[#B8F36B]" />
-                <h2 className="text-sm font-heading font-semibold text-[#111916] dark:text-white">Alert Notifications</h2>
+              <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#DCE6F0] dark:border-[#243B56]">
+                <Bell className="w-4 h-4 text-[#2563EB] dark:text-[#60A5FA]" />
+                <h2 className="text-sm font-heading font-semibold text-[#0F172A] dark:text-white">Alert Notifications</h2>
               </div>
 
               <div className="space-y-3">
                 <label className="flex items-center justify-between p-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer">
                   <div>
-                    <span className="text-xs sm:text-sm font-semibold text-[#111916] dark:text-slate-200">Low Stock Alerts</span>
-                    <p className="text-xs text-[#48534E] dark:text-slate-400">
+                    <span className="text-xs sm:text-sm font-semibold text-[#0F172A] dark:text-slate-200">Low Stock Alerts</span>
+                    <p className="text-xs text-[#475569] dark:text-slate-400">
                       Notify when inventory reaches minimum restock thresholds
                     </p>
                   </div>
@@ -258,14 +258,14 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
                     type="checkbox"
                     checked={formData.notifyLowStock}
                     onChange={(e) => handleChange('notifyLowStock', e.target.checked)}
-                    className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 cursor-pointer"
+                    className="w-4 h-4 rounded text-[#2563EB] focus:ring-[#2563EB] dark:text-[#60A5FA] dark:focus:ring-[#60A5FA] cursor-pointer"
                   />
                 </label>
 
                 <label className="flex items-center justify-between p-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer">
                   <div>
-                    <span className="text-xs sm:text-sm font-semibold text-[#111916] dark:text-slate-200">Debtor & Receivables Reminders</span>
-                    <p className="text-xs text-[#48534E] dark:text-slate-400">
+                    <span className="text-xs sm:text-sm font-semibold text-[#0F172A] dark:text-slate-200">Debtor & Receivables Reminders</span>
+                    <p className="text-xs text-[#475569] dark:text-slate-400">
                       Alert on overdue customer credit balances and payments
                     </p>
                   </div>
@@ -273,14 +273,14 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
                     type="checkbox"
                     checked={formData.notifyDebts}
                     onChange={(e) => handleChange('notifyDebts', e.target.checked)}
-                    className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 cursor-pointer"
+                    className="w-4 h-4 rounded text-[#2563EB] focus:ring-[#2563EB] dark:text-[#60A5FA] dark:focus:ring-[#60A5FA] cursor-pointer"
                   />
                 </label>
 
                 <label className="flex items-center justify-between p-3 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer">
                   <div>
-                    <span className="text-xs sm:text-sm font-semibold text-[#111916] dark:text-slate-200">Daily Performance Summary</span>
-                    <p className="text-xs text-[#48534E] dark:text-slate-400">
+                    <span className="text-xs sm:text-sm font-semibold text-[#0F172A] dark:text-slate-200">Daily Performance Summary</span>
+                    <p className="text-xs text-[#475569] dark:text-slate-400">
                       Receive end-of-day revenue, cash inflow, and gross profit breakdown
                     </p>
                   </div>
@@ -288,7 +288,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
                     type="checkbox"
                     checked={formData.notifyDailySummary}
                     onChange={(e) => handleChange('notifyDailySummary', e.target.checked)}
-                    className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 cursor-pointer"
+                    className="w-4 h-4 rounded text-[#2563EB] focus:ring-[#2563EB] dark:text-[#60A5FA] dark:focus:ring-[#60A5FA] cursor-pointer"
                   />
                 </label>
               </div>
@@ -297,24 +297,24 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
             {/* 3. Appearance */}
             <div
               className={`p-6 rounded-2xl border ${
-                isDark ? 'bg-[#10251E]/40 border-[#1C382E]' : 'bg-white border-[#DEE3DE] shadow-xs'
+                isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0] shadow-xs'
               }`}
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-sm font-heading font-semibold text-[#111916] dark:text-white">Appearance & Theme</h2>
-                  <p className="text-xs text-[#48534E] dark:text-slate-400">
-                    Switch between Kopa Deep Forest Dark mode and Warm Ivory Light mode
+                  <h2 className="text-sm font-heading font-semibold text-[#0F172A] dark:text-white">Appearance & Theme</h2>
+                  <p className="text-xs text-[#475569] dark:text-slate-400">
+                    Switch between Kopa Premium Blue + White Silk visual style
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => toggleTheme()}
                   className={`p-2.5 rounded-xl border flex items-center gap-2 text-xs font-semibold cursor-pointer ${
-                    isDark ? 'bg-[#08110F] border-[#1C382E] text-white' : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#111916]'
+                    isDark ? 'bg-[#07111F] border-[#243B56] text-white' : 'bg-[#F7FAFC] border-[#DCE6F0] text-[#0F172A]'
                   }`}
                 >
-                  {isDark ? <Sun className="w-4 h-4 text-[#B8F36B]" /> : <Moon className="w-4 h-4 text-[#15803D]" />}
+                  {isDark ? <Sun className="w-4 h-4 text-[#60A5FA]" /> : <Moon className="w-4 h-4 text-[#2563EB]" />}
                   <span>{isDark ? 'Dark Mode' : 'Light Mode'}</span>
                 </button>
               </div>
@@ -324,7 +324,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onLogout, defaultTab
             <div className="flex justify-end">
               <button
                 type="submit"
-                className="min-h-[44px] px-6 py-2.5 text-xs sm:text-sm font-semibold text-white dark:text-[#08110F] bg-[#15803D] dark:bg-[#B8F36B] hover:opacity-90 rounded-xl transition-all shadow-xs cursor-pointer"
+                className="min-h-[44px] px-6 py-2.5 text-xs sm:text-sm font-semibold text-white dark:text-[#07111F] bg-[#2563EB] dark:bg-[#3B82F6] hover:opacity-90 rounded-xl transition-all shadow-xs cursor-pointer"
               >
                 Save Changes
               </button>

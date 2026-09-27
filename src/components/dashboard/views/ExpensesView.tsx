@@ -120,7 +120,7 @@ export const ExpensesView: React.FC = () => {
       {/* Search and Category Filter */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
-          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#69746F] dark:text-slate-400" />
+          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#64748B] dark:text-[#9FB1C5]" />
           <input
             type="text"
             placeholder="Search expenses by description or category..."
@@ -128,8 +128,8 @@ export const ExpensesView: React.FC = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             className={`w-full pl-9 pr-4 py-2.5 rounded-xl border text-xs sm:text-sm outline-none ${
               isDark
-                ? 'bg-[#10251E]/60 border-[#1C382E] text-white focus:border-[#B8F36B]'
-                : 'bg-white border-[#DEE3DE] text-[#111916] focus:border-[#10251E]'
+                ? 'bg-[#0D1B2E] border-[#243B56] text-white focus:border-[#60A5FA]'
+                : 'bg-white border-[#DCE6F0] text-[#0F172A] focus:border-[#2563EB]'
             }`}
           />
         </div>
@@ -138,7 +138,7 @@ export const ExpensesView: React.FC = () => {
           value={categoryFilter}
           onChange={(e) => setCategoryFilter(e.target.value)}
           className={`px-3 py-2 text-xs font-medium rounded-xl border cursor-pointer outline-none ${
-            isDark ? 'bg-[#10251E]/60 border-[#1C382E] text-white' : 'bg-white border-[#DEE3DE] text-[#111916]'
+            isDark ? 'bg-[#0D1B2E] border-[#243B56] text-white' : 'bg-white border-[#DCE6F0] text-[#0F172A]'
           }`}
         >
           <option value="all">All Categories</option>
@@ -151,14 +151,14 @@ export const ExpensesView: React.FC = () => {
       {/* Expenses Table */}
       <div
         className={`rounded-2xl border overflow-hidden ${
-          isDark ? 'bg-[#10251E]/30 border-[#1C382E]' : 'bg-white border-[#DEE3DE] shadow-xs'
+          isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0] shadow-xs'
         }`}
       >
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs sm:text-sm">
             <thead
               className={`border-b text-[11px] font-mono uppercase tracking-wider ${
-                isDark ? 'bg-[#08110F] border-[#1C382E] text-slate-400' : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#48534E]'
+                isDark ? 'bg-[#132640] border-[#243B56] text-[#9FB1C5]' : 'bg-[#F7FAFC] border-[#DCE6F0] text-[#475569]'
               }`}
             >
               <tr>
@@ -170,7 +170,7 @@ export const ExpensesView: React.FC = () => {
                 <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#DEE3DE] dark:divide-[#1A2E27]">
+            <tbody className="divide-y divide-[#DCE6F0] dark:divide-[#243B56]">
               {filteredExpenses.length > 0 ? (
                 filteredExpenses.map((exp) => (
                   <tr
@@ -179,13 +179,13 @@ export const ExpensesView: React.FC = () => {
                       isDark ? 'hover:bg-white/5' : 'hover:bg-black/5'
                     }`}
                   >
-                    <td className="py-3.5 px-4 font-mono text-[11px] text-[#48534E] dark:text-slate-400 whitespace-nowrap">
+                    <td className="py-3.5 px-4 font-mono text-[11px] text-[#475569] dark:text-[#D5E2F0] whitespace-nowrap">
                       {new Date(exp.date).toLocaleDateString()}
                     </td>
-                    <td className="py-3.5 px-4 font-medium text-[#111916] dark:text-white">
+                    <td className="py-3.5 px-4 font-medium text-[#0F172A] dark:text-white">
                       {exp.description}
                     </td>
-                    <td className="py-3.5 px-4 text-[#48534E] dark:text-slate-300">
+                    <td className="py-3.5 px-4 text-[#475569] dark:text-[#9FB1C5]">
                       {exp.category}
                     </td>
                     <td className="py-3.5 px-4 text-center">
@@ -195,7 +195,7 @@ export const ExpensesView: React.FC = () => {
                           <span>Recurring</span>
                         </span>
                       ) : (
-                        <span className="text-[11px] text-[#48534E] dark:text-slate-400">One-off</span>
+                        <span className="text-[11px] text-[#475569] dark:text-slate-400">One-off</span>
                       )}
                     </td>
                     <td className="py-3.5 px-4 text-right font-mono font-semibold text-red-600 dark:text-red-400 whitespace-nowrap">
@@ -215,11 +215,11 @@ export const ExpensesView: React.FC = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-xs text-[#69746F] dark:text-slate-400">
-                    <p className="font-medium text-sm text-[#111916] dark:text-slate-200">
+                  <td colSpan={6} className="py-12 text-center text-xs text-[#64748B] dark:text-slate-400">
+                    <p className="font-medium text-sm text-[#0F172A] dark:text-slate-200">
                       Your business activity will appear here once you start recording it.
                     </p>
-                    <p className="text-[11px] mt-1 text-[#69746F] dark:text-slate-400">
+                    <p className="text-[11px] mt-1 text-[#64748B] dark:text-slate-400">
                       No operational expenses recorded yet. Click "Add Expense" to log your first cost.
                     </p>
                   </td>

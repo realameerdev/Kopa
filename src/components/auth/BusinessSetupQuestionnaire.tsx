@@ -182,7 +182,7 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
   return (
     <div
       className={`rounded-2xl border p-5 sm:p-7 shadow-xl transition-all ${
-        isDark ? 'bg-[#10251E]/90 border-[#1C382E]' : 'bg-white border-[#DEE3DE]'
+        isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0]'
       }`}
     >
       {/* Header & Step Tracker */}
@@ -199,11 +199,11 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
                   onClick={() => setCurrentStep(s.num)}
                   className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
                     isActive
-                      ? 'bg-[#B8F36B] text-[#08110F] font-semibold'
+                      ? 'bg-[#2563EB] text-white dark:bg-[#3B82F6] dark:text-[#07111F] font-semibold'
                       : isPast
                       ? isDark
-                        ? 'bg-white/10 text-[#B8F36B]'
-                        : 'bg-black/5 text-[#111916]'
+                        ? 'bg-white/10 text-[#60A5FA]'
+                        : 'bg-black/5 text-[#0F172A]'
                       : isDark
                       ? 'text-slate-400 hover:text-white'
                       : 'text-slate-500 hover:text-black'
@@ -222,12 +222,12 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
         {/* Progress Bar */}
         <div className="w-full h-1.5 bg-black/10 dark:bg-white/10 rounded-full overflow-hidden mb-4">
           <div
-            className="h-full bg-[#B8F36B] transition-all duration-300 rounded-full"
+            className="h-full bg-[#2563EB] dark:bg-[#60A5FA] transition-all duration-300 rounded-full"
             style={{ width: `${(currentStep / 3) * 100}%` }}
           />
         </div>
 
-        <h2 className="text-xl sm:text-2xl font-heading font-medium tracking-tight text-[#111916] dark:text-white">
+        <h2 className="text-xl sm:text-2xl font-heading font-medium tracking-tight text-[#0F172A] dark:text-white">
           {currentStep === 1 && `Welcome to Kopa, ${businessName}`}
           {currentStep === 2 && 'Location & Ledger Currency'}
           {currentStep === 3 && 'Add Your First Product or Service'}
@@ -252,7 +252,7 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
               className="space-y-4"
             >
               <div>
-                <label className="block text-xs font-semibold mb-1.5 text-[#111916] dark:text-slate-200">
+                <label className="block text-xs font-semibold mb-1.5 text-[#0F172A] dark:text-slate-200">
                   Business Industry
                 </label>
                 <select
@@ -260,12 +260,12 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
                   onChange={(e) => setCategory(e.target.value)}
                   className={`w-full px-3.5 py-2.5 rounded-xl text-sm border outline-none cursor-pointer ${
                     isDark
-                      ? 'bg-[#08110F] border-[#1C382E] text-white focus:border-[#B8F36B]'
-                      : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#111916] focus:border-[#10251E]'
+                      ? 'bg-[#07111F] border-[#243B56] text-white focus:border-[#3B82F6]'
+                      : 'bg-[#F7FAFC] border-[#DCE6F0] text-[#0F172A] focus:border-[#2563EB]'
                   }`}
                 >
                   {categories.map((cat) => (
-                    <option key={cat} value={cat} className={isDark ? 'bg-[#08110F]' : 'bg-white'}>
+                    <option key={cat} value={cat} className={isDark ? 'bg-[#07111F]' : 'bg-white'}>
                       {cat}
                     </option>
                   ))}
@@ -273,7 +273,7 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
               </div>
 
               <div>
-                <label className="block text-xs font-semibold mb-2 text-[#111916] dark:text-slate-200">
+                <label className="block text-xs font-semibold mb-2 text-[#0F172A] dark:text-slate-200">
                   What type of business is this?
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -318,35 +318,35 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
                         }
                         className={`p-3.5 rounded-xl border text-left flex items-start justify-between gap-3 transition-all cursor-pointer ${
                           isSelected
-                            ? 'border-[#B8F36B] bg-[#B8F36B]/15 ring-1 ring-[#B8F36B]'
+                            ? 'border-[#2563EB] bg-[#2563EB]/10 ring-1 ring-[#2563EB] dark:border-[#60A5FA] dark:bg-[#3B82F6]/10 dark:ring-1 dark:ring-[#60A5FA]'
                             : isDark
-                            ? 'border-[#1C382E] bg-[#08110F]/60 hover:border-slate-400'
-                            : 'border-[#DEE3DE] bg-[#F7F6F0]/60 hover:border-slate-400'
+                            ? 'border-[#243B56] bg-[#07111F]/60 hover:border-slate-400'
+                            : 'border-[#DCE6F0] bg-[#F7FAFC]/60 hover:border-slate-400'
                         }`}
                       >
                         <div className="flex items-start gap-2.5">
                           <div
                             className={`p-2 rounded-lg shrink-0 ${
                               isSelected
-                                ? 'bg-[#B8F36B] text-[#08110F]'
+                                ? 'bg-[#2563EB] text-white dark:bg-[#3B82F6] dark:text-[#07111F]'
                                 : isDark
                                 ? 'bg-white/5 text-slate-300'
-                                : 'bg-black/5 text-[#111916]'
+                                : 'bg-black/5 text-[#0F172A]'
                             }`}
                           >
                             <Icon className="w-4 h-4" />
                           </div>
                           <div>
-                            <div className="text-xs font-semibold text-[#111916] dark:text-white">
+                            <div className="text-xs font-semibold text-[#0F172A] dark:text-white">
                               {item.title}
                             </div>
-                            <div className="text-[11px] text-[#69746F] dark:text-slate-400 mt-0.5 leading-snug">
+                            <div className="text-[11px] text-[#475569] dark:text-slate-400 mt-0.5 leading-snug">
                               {item.desc}
                             </div>
                           </div>
                         </div>
                         {isSelected && (
-                          <CheckCircle2 className="w-4 h-4 text-[#B8F36B] shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-[#2563EB] dark:text-[#60A5FA] shrink-0 mt-0.5" />
                         )}
                       </button>
                     );
@@ -355,7 +355,7 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
               </div>
 
               <div>
-                <label className="block text-xs font-semibold mb-1.5 text-[#111916] dark:text-slate-200">
+                <label className="block text-xs font-semibold mb-1.5 text-[#0F172A] dark:text-slate-200">
                   Brief description of your products or services
                 </label>
                 <input
@@ -365,8 +365,8 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
                   placeholder="e.g. Handmade garments, fabrics, and ready-to-wear fashion"
                   className={`w-full px-3.5 py-2.5 rounded-xl text-sm border outline-none ${
                     isDark
-                      ? 'bg-[#08110F] border-[#1C382E] text-white focus:border-[#B8F36B]'
-                      : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#111916] focus:border-[#10251E]'
+                      ? 'bg-[#07111F] border-[#243B56] text-white focus:border-[#3B82F6]'
+                      : 'bg-[#F7FAFC] border-[#DCE6F0] text-[#0F172A] focus:border-[#2563EB]'
                   }`}
                 />
               </div>
@@ -385,7 +385,7 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="block text-xs font-semibold mb-1.5 text-[#111916] dark:text-slate-200">
+                  <label className="block text-xs font-semibold mb-1.5 text-[#0F172A] dark:text-slate-200">
                     Country of Operation
                   </label>
                   <select
@@ -393,12 +393,12 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
                     onChange={(e) => setCountry(e.target.value)}
                     className={`w-full px-3.5 py-2.5 rounded-xl text-sm border outline-none cursor-pointer ${
                       isDark
-                        ? 'bg-[#08110F] border-[#1C382E] text-white focus:border-[#B8F36B]'
-                        : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#111916] focus:border-[#10251E]'
+                        ? 'bg-[#07111F] border-[#243B56] text-white focus:border-[#3B82F6]'
+                        : 'bg-[#F7FAFC] border-[#DCE6F0] text-[#0F172A] focus:border-[#2563EB]'
                     }`}
                   >
                     {countries.map((c) => (
-                      <option key={c} value={c} className={isDark ? 'bg-[#08110F]' : 'bg-white'}>
+                      <option key={c} value={c} className={isDark ? 'bg-[#07111F]' : 'bg-white'}>
                         {c}
                       </option>
                     ))}
@@ -406,7 +406,7 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold mb-1.5 text-[#111916] dark:text-slate-200">
+                  <label className="block text-xs font-semibold mb-1.5 text-[#0F172A] dark:text-slate-200">
                     Primary Currency
                   </label>
                   <select
@@ -414,12 +414,12 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
                     onChange={(e) => setCurrency(e.target.value)}
                     className={`w-full px-3.5 py-2.5 rounded-xl text-sm border outline-none cursor-pointer ${
                       isDark
-                        ? 'bg-[#08110F] border-[#1C382E] text-white focus:border-[#B8F36B]'
-                        : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#111916] focus:border-[#10251E]'
+                        ? 'bg-[#07111F] border-[#243B56] text-white focus:border-[#3B82F6]'
+                        : 'bg-[#F7FAFC] border-[#DCE6F0] text-[#0F172A] focus:border-[#2563EB]'
                     }`}
                   >
                     {currencies.map((curr) => (
-                      <option key={curr.value} value={curr.value} className={isDark ? 'bg-[#08110F]' : 'bg-white'}>
+                      <option key={curr.value} value={curr.value} className={isDark ? 'bg-[#07111F]' : 'bg-white'}>
                         {curr.label}
                       </option>
                     ))}
@@ -428,7 +428,7 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
               </div>
 
               <div>
-                <label className="block text-xs font-semibold mb-2 text-[#111916] dark:text-slate-200">
+                <label className="block text-xs font-semibold mb-2 text-[#0F172A] dark:text-slate-200">
                   Do customers ever buy on credit / pay later?
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
@@ -445,16 +445,16 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
                         onClick={() => setAnswers({ ...answers, allowCredit: opt.id as any })}
                         className={`p-3 rounded-xl border text-left cursor-pointer transition-all ${
                           isSelected
-                            ? 'border-[#B8F36B] bg-[#B8F36B]/15 ring-1 ring-[#B8F36B]'
+                            ? 'border-[#2563EB] bg-[#2563EB]/10 ring-1 ring-[#2563EB] dark:border-[#60A5FA] dark:bg-[#3B82F6]/10 dark:ring-1 dark:ring-[#60A5FA]'
                             : isDark
-                            ? 'border-[#1C382E] bg-[#08110F]/60'
-                            : 'border-[#DEE3DE] bg-[#F7F6F0]/60'
+                            ? 'border-[#243B56] bg-[#07111F]/60'
+                            : 'border-[#DCE6F0] bg-[#F7FAFC]/60'
                         }`}
                       >
-                        <div className="text-xs font-semibold text-[#111916] dark:text-white">
+                        <div className="text-xs font-semibold text-[#0F172A] dark:text-white">
                           {opt.label}
                         </div>
-                        <div className="text-[11px] text-[#69746F] dark:text-slate-400 mt-0.5">
+                        <div className="text-[11px] text-[#475569] dark:text-slate-400 mt-0.5">
                           {opt.desc}
                         </div>
                       </button>
@@ -477,12 +477,12 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
             >
               <div
                 className={`p-4 rounded-xl border ${
-                  isDark ? 'bg-[#08110F]/60 border-[#1C382E]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
+                  isDark ? 'bg-[#07111F]/60 border-[#243B56]' : 'bg-[#F7FAFC] border-[#DCE6F0]'
                 }`}
               >
                 <div className="space-y-3">
                   <div>
-                    <label className="block text-xs font-semibold mb-1 text-[#111916] dark:text-slate-200">
+                    <label className="block text-xs font-semibold mb-1 text-[#0F172A] dark:text-slate-200">
                       Product or Service Name
                     </label>
                     <input
@@ -491,14 +491,14 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
                       value={seedProductName}
                       onChange={(e) => setSeedProductName(e.target.value)}
                       className={`w-full px-3.5 py-2.5 rounded-xl text-sm border outline-none ${
-                        isDark ? 'bg-[#10251E] border-[#1C382E] text-white' : 'bg-white border-[#DEE3DE] text-[#111916]'
+                        isDark ? 'bg-[#07111F] border-[#243B56] text-white' : 'bg-white border-[#DCE6F0] text-[#0F172A]'
                       }`}
                     />
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold mb-1 text-[#111916] dark:text-slate-200">
+                      <label className="block text-xs font-semibold mb-1 text-[#0F172A] dark:text-slate-200">
                         Selling Price ({getCurrencySymbol(currency)})
                       </label>
                       <input
@@ -507,12 +507,12 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
                         value={seedSellingPrice}
                         onChange={(e) => setSeedSellingPrice(e.target.value)}
                         className={`w-full px-3.5 py-2 rounded-xl text-sm border outline-none ${
-                          isDark ? 'bg-[#10251E] border-[#1C382E] text-white' : 'bg-white border-[#DEE3DE] text-[#111916]'
+                          isDark ? 'bg-[#07111F] border-[#243B56] text-white' : 'bg-white border-[#DCE6F0] text-[#0F172A]'
                         }`}
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold mb-1 text-[#111916] dark:text-slate-200">
+                      <label className="block text-xs font-semibold mb-1 text-[#0F172A] dark:text-slate-200">
                         Stock Quantity
                       </label>
                       <input
@@ -521,7 +521,7 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
                         value={seedStock}
                         onChange={(e) => setSeedStock(e.target.value)}
                         className={`w-full px-3.5 py-2 rounded-xl text-sm border outline-none ${
-                          isDark ? 'bg-[#10251E] border-[#1C382E] text-white' : 'bg-white border-[#DEE3DE] text-[#111916]'
+                          isDark ? 'bg-[#07111F] border-[#243B56] text-white' : 'bg-white border-[#DCE6F0] text-[#0F172A]'
                         }`}
                       />
                     </div>
@@ -529,13 +529,13 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
 
                   <div>
                     <div className="flex items-center justify-between mb-1">
-                      <label className="text-xs font-semibold text-[#111916] dark:text-slate-200">
+                      <label className="text-xs font-semibold text-[#0F172A] dark:text-slate-200">
                         Cost Price ({getCurrencySymbol(currency)})
                       </label>
                       <button
                         type="button"
                         onClick={() => setSeedCostKnown(!seedCostKnown)}
-                        className="text-[11px] text-[#B8F36B] hover:underline cursor-pointer"
+                        className="text-[11px] text-[#2563EB] dark:text-[#60A5FA] hover:underline cursor-pointer font-semibold"
                       >
                         {seedCostKnown ? 'Leave cost unassigned' : 'Enter cost price'}
                       </button>
@@ -547,7 +547,7 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
                         value={seedCostPrice}
                         onChange={(e) => setSeedCostPrice(e.target.value)}
                         className={`w-full px-3.5 py-2 rounded-xl text-sm border outline-none ${
-                          isDark ? 'bg-[#10251E] border-[#1C382E] text-white' : 'bg-white border-[#DEE3DE] text-[#111916]'
+                          isDark ? 'bg-[#07111F] border-[#243B56] text-white' : 'bg-white border-[#DCE6F0] text-[#0F172A]'
                         }`}
                       />
                     ) : (
@@ -564,14 +564,14 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
         </AnimatePresence>
 
         {/* Action Buttons */}
-        <div className="flex items-center justify-between pt-3 border-t border-[#DEE3DE] dark:border-[#1A2E27]">
+        <div className="flex items-center justify-between pt-3 border-t border-[#DCE6F0] dark:border-[#243B56]">
           {currentStep > 1 ? (
             <button
               type="button"
               onClick={handleBack}
               disabled={isLoading}
               className={`min-h-[42px] px-4 py-2 text-xs font-semibold rounded-xl border flex items-center gap-1.5 transition-colors cursor-pointer ${
-                isDark ? 'border-[#1C382E] text-slate-200 hover:bg-white/5' : 'border-[#DEE3DE] text-[#111916] hover:bg-black/5'
+                isDark ? 'border-[#243B56] text-slate-200 hover:bg-white/5' : 'border-[#DCE6F0] text-[#0F172A] hover:bg-black/5'
               }`}
             >
               <ArrowLeft className="w-3.5 h-3.5" />
@@ -584,7 +584,7 @@ export const BusinessSetupQuestionnaire: React.FC<BusinessSetupQuestionnaireProp
           <button
             type="submit"
             disabled={isLoading}
-            className="min-h-[42px] px-5 py-2 text-xs sm:text-sm font-semibold text-[#08110F] bg-[#B8F36B] hover:bg-[#A5E852] active:bg-[#97D844] rounded-xl transition-all shadow-sm shadow-[#B8F36B]/20 flex items-center gap-2 cursor-pointer disabled:opacity-50"
+            className="min-h-[42px] px-5 py-2 text-xs sm:text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB] rounded-xl transition-all shadow-sm shadow-[#2563EB]/20 flex items-center gap-2 cursor-pointer disabled:opacity-50"
           >
             {isLoading ? (
               <span>Saving setup...</span>

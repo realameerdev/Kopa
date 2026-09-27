@@ -346,7 +346,7 @@ export const AuthSection: React.FC = () => {
                           href={`https://console.firebase.google.com/project/${firebaseProjectId}/authentication/settings`}
                           target="_blank"
                           rel="noreferrer"
-                          className="text-[#B8F36B] hover:underline font-semibold inline-flex items-center gap-0.5"
+                          className="text-[#2563EB] dark:text-[#60A5FA] hover:underline font-semibold inline-flex items-center gap-0.5"
                         >
                           Firebase Authentication Settings <ExternalLink className="w-3 h-3" />
                         </a>
@@ -358,7 +358,7 @@ export const AuthSection: React.FC = () => {
                           href={`https://console.firebase.google.com/project/${firebaseProjectId}/authentication/providers`}
                           target="_blank"
                           rel="noreferrer"
-                          className="text-[#B8F36B] hover:underline font-semibold inline-flex items-center gap-0.5"
+                          className="text-[#2563EB] dark:text-[#60A5FA] hover:underline font-semibold inline-flex items-center gap-0.5"
                         >
                           Sign-in method <ExternalLink className="w-3 h-3" />
                         </a>
@@ -424,7 +424,7 @@ export const AuthSection: React.FC = () => {
                   <div>
                     <label
                       htmlFor="signup-fullname"
-                      className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-200"
+                      className="block text-xs font-medium mb-1.5 text-[#0F172A] dark:text-slate-200"
                     >
                       Full name
                     </label>
@@ -443,8 +443,8 @@ export const AuthSection: React.FC = () => {
                           signupErrors.fullName
                             ? 'border-red-500/80 focus:ring-1 focus:ring-red-500'
                             : isDark
-                            ? 'bg-[#08110F] border-[#1C382E] text-white placeholder-slate-500 focus:border-[#B8F36B] focus:ring-1 focus:ring-[#B8F36B]'
-                            : 'bg-[#F7F6F0]/70 border-[#DEE3DE] text-[#111916] placeholder-slate-400 focus:border-[#10251E] focus:ring-1 focus:ring-[#10251E]'
+                            ? 'bg-[#07111F] border-[#243B56] text-white placeholder-slate-500 focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6]'
+                            : 'bg-[#F7FAFC] border-[#DCE6F0] text-[#0F172A] placeholder-slate-400 focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
                         }`}
                       />
                     </div>
@@ -457,7 +457,7 @@ export const AuthSection: React.FC = () => {
                   <div>
                     <label
                       htmlFor="signup-bizname"
-                      className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-200"
+                      className="block text-xs font-medium mb-1.5 text-[#0F172A] dark:text-slate-200"
                     >
                       Business name
                     </label>
@@ -476,8 +476,8 @@ export const AuthSection: React.FC = () => {
                           signupErrors.businessName
                             ? 'border-red-500/80 focus:ring-1 focus:ring-red-500'
                             : isDark
-                            ? 'bg-[#08110F] border-[#1C382E] text-white placeholder-slate-500 focus:border-[#B8F36B] focus:ring-1 focus:ring-[#B8F36B]'
-                            : 'bg-[#F7F6F0]/70 border-[#DEE3DE] text-[#111916] placeholder-slate-400 focus:border-[#10251E] focus:ring-1 focus:ring-[#10251E]'
+                            ? 'bg-[#07111F] border-[#243B56] text-white placeholder-slate-500 focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6]'
+                            : 'bg-[#F7FAFC] border-[#DCE6F0] text-[#0F172A] placeholder-slate-400 focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
                         }`}
                       />
                     </div>
@@ -490,7 +490,7 @@ export const AuthSection: React.FC = () => {
                   <div>
                     <label
                       htmlFor="signup-email"
-                      className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-200"
+                      className="block text-xs font-medium mb-1.5 text-[#0F172A] dark:text-slate-200"
                     >
                       Email address
                     </label>
@@ -509,8 +509,8 @@ export const AuthSection: React.FC = () => {
                           signupErrors.email
                             ? 'border-red-500/80 focus:ring-1 focus:ring-red-500'
                             : isDark
-                            ? 'bg-[#08110F] border-[#1C382E] text-white placeholder-slate-500 focus:border-[#B8F36B] focus:ring-1 focus:ring-[#B8F36B]'
-                            : 'bg-[#F7F6F0]/70 border-[#DEE3DE] text-[#111916] placeholder-slate-400 focus:border-[#10251E] focus:ring-1 focus:ring-[#10251E]'
+                            ? 'bg-[#07111F] border-[#243B56] text-white placeholder-slate-500 focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6]'
+                            : 'bg-[#F7FAFC] border-[#DCE6F0] text-[#0F172A] placeholder-slate-400 focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
                         }`}
                       />
                     </div>
@@ -523,7 +523,7 @@ export const AuthSection: React.FC = () => {
                   <div>
                     <label
                       htmlFor="signup-password"
-                      className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-200"
+                      className="block text-xs font-medium mb-1.5 text-[#0F172A] dark:text-slate-200"
                     >
                       Password
                     </label>
@@ -542,8 +542,8 @@ export const AuthSection: React.FC = () => {
                           signupErrors.password
                             ? 'border-red-500/80 focus:ring-1 focus:ring-red-500'
                             : isDark
-                            ? 'bg-[#08110F] border-[#1C382E] text-white placeholder-slate-500 focus:border-[#B8F36B] focus:ring-1 focus:ring-[#B8F36B]'
-                            : 'bg-[#F7F6F0]/70 border-[#DEE3DE] text-[#111916] placeholder-slate-400 focus:border-[#10251E] focus:ring-1 focus:ring-[#10251E]'
+                            ? 'bg-[#07111F] border-[#243B56] text-white placeholder-slate-500 focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6]'
+                            : 'bg-[#F7FAFC] border-[#DCE6F0] text-[#0F172A] placeholder-slate-400 focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
                         }`}
                       />
                       <button
@@ -565,10 +565,10 @@ export const AuthSection: React.FC = () => {
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-[#08110F] bg-[#B8F36B] hover:bg-[#A5E852] active:bg-[#97D844] rounded-xl transition-all shadow-sm shadow-[#B8F36B]/20 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8F36B] disabled:opacity-60"
+                      className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB] rounded-xl transition-all shadow-sm shadow-[#2563EB]/20 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] disabled:opacity-60"
                     >
                       {isLoading ? (
-                        <Loader2 className="w-4 h-4 animate-spin text-[#08110F]" />
+                        <Loader2 className="w-4 h-4 animate-spin text-white" />
                       ) : (
                         <>
                           <span>Create account</span>
@@ -580,13 +580,13 @@ export const AuthSection: React.FC = () => {
                 </form>
 
                 {/* Footer link to Log in */}
-                <div className="mt-6 pt-5 border-t border-[#DEE3DE] dark:border-[#1A2E27] text-center">
-                  <p className="text-xs text-[#69746F] dark:text-slate-400">
+                <div className="mt-6 pt-5 border-t border-[#DCE6F0] dark:border-[#243B56] text-center">
+                  <p className="text-xs text-[#64748B] dark:text-slate-400">
                     Already have an account?{' '}
                     <button
                       type="button"
                       onClick={() => openAuth('login')}
-                      className="font-medium text-[#111916] dark:text-[#B8F36B] hover:underline cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#B8F36B] rounded px-1"
+                      className="font-medium text-[#2563EB] dark:text-[#60A5FA] hover:underline cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#2563EB] rounded px-1"
                     >
                       Log in
                     </button>
@@ -621,45 +621,45 @@ export const AuthSection: React.FC = () => {
                   <div
                     className={`rounded-2xl border p-6 sm:p-8 shadow-xl text-center py-8 ${
                       isDark
-                        ? 'bg-[#10251E]/90 border-[#1A2E27] shadow-black/40'
-                        : 'bg-white border-[#DEE3DE] shadow-black/5'
+                        ? 'bg-[#0D1B2E] border-[#243B56] shadow-black/40'
+                        : 'bg-white border-[#DCE6F0] shadow-black/5'
                     }`}
                   >
-                    <div className="w-14 h-14 rounded-full mx-auto mb-4 flex items-center justify-center bg-[#B8F36B]/20 text-[#B8F36B]">
+                    <div className="w-14 h-14 rounded-full mx-auto mb-4 flex items-center justify-center bg-[#2563EB]/20 text-[#2563EB] dark:bg-[#3B82F6]/20 dark:text-[#60A5FA]">
                       <CheckCircle2 className="w-7 h-7" />
                     </div>
                     <h1
                       className={`text-2xl sm:text-3xl font-heading font-semibold tracking-tight mb-2 ${
-                        isDark ? 'text-white' : 'text-[#111916]'
+                        isDark ? 'text-white' : 'text-[#0F172A]'
                       }`}
                     >
                       Congratulations, you are in.
                     </h1>
-                    <p className="text-sm text-[#69746F] dark:text-slate-400 mb-6">
+                    <p className="text-sm text-[#475569] dark:text-slate-400 mb-6">
                       Your business profile and personalized intelligence ledger have been successfully initialized.
                     </p>
 
                     {/* Summary Identity Card */}
                     <div
                       className={`p-4 rounded-xl border text-left mb-6 text-xs space-y-2.5 ${
-                        isDark ? 'bg-[#08110F] border-[#1C382E]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
+                        isDark ? 'bg-[#07111F] border-[#243B56]' : 'bg-[#F7FAFC] border-[#DCE6F0]'
                       }`}
                     >
                       <div className="flex justify-between items-center py-0.5">
-                        <span className="text-[#69746F] dark:text-slate-400">Business</span>
+                        <span className="text-[#475569] dark:text-slate-400">Business</span>
                         <span className="font-semibold">{currentUser?.businessName}</span>
                       </div>
                       <div className="flex justify-between items-center py-0.5">
-                        <span className="text-[#69746F] dark:text-slate-400">Category</span>
+                        <span className="text-[#475569] dark:text-slate-400">Category</span>
                         <span className="font-medium">{currentUser?.businessCategory}</span>
                       </div>
                       <div className="flex justify-between items-center py-0.5">
-                        <span className="text-[#69746F] dark:text-slate-400">Country</span>
+                        <span className="text-[#475569] dark:text-slate-400">Country</span>
                         <span className="font-medium">{currentUser?.country}</span>
                       </div>
                       <div className="flex justify-between items-center py-0.5">
-                        <span className="text-[#69746F] dark:text-slate-400">Currency</span>
-                        <span className="font-mono text-[#B8F36B] dark:text-[#B8F36B] bg-[#10251E] px-2 py-0.5 rounded">
+                        <span className="text-[#475569] dark:text-slate-400">Currency</span>
+                        <span className="font-mono text-[#2563EB] dark:text-[#60A5FA] bg-[#EAF2FF] dark:bg-[#102B4D] px-2 py-0.5 rounded">
                           {currentUser?.currency} ({currentUser?.currencySymbol || '₦'})
                         </span>
                       </div>
@@ -668,7 +668,7 @@ export const AuthSection: React.FC = () => {
                     <button
                       type="button"
                       onClick={openDashboard}
-                      className="w-full min-h-[46px] flex items-center justify-center gap-2 py-3 px-4 text-sm font-semibold text-[#08110F] bg-[#B8F36B] hover:bg-[#A5E852] rounded-xl transition-all shadow-sm shadow-[#B8F36B]/25 cursor-pointer"
+                      className="w-full min-h-[46px] flex items-center justify-center gap-2 py-3 px-4 text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB] rounded-xl transition-all shadow-sm shadow-[#2563EB]/25 cursor-pointer"
                     >
                       <span>Enter Kopa Workspace</span>
                       <ArrowRight className="w-4 h-4" />
@@ -688,8 +688,8 @@ export const AuthSection: React.FC = () => {
                 transition={{ duration: 0.25, ease: 'easeOut' }}
                 className={`rounded-2xl border p-6 sm:p-8 shadow-xl ${
                   isDark
-                    ? 'bg-[#10251E]/50 border-[#1A2E27] shadow-black/40'
-                    : 'bg-white border-[#DEE3DE] shadow-black/5'
+                    ? 'bg-[#0D1B2E]/80 border-[#243B56] shadow-black/40'
+                    : 'bg-white border-[#DCE6F0] shadow-black/5'
                 }`}
               >
                 {!loginSuccess ? (
@@ -697,12 +697,12 @@ export const AuthSection: React.FC = () => {
                     <div className="mb-6 text-left">
                       <h1
                         className={`text-2xl sm:text-[26px] font-heading font-medium tracking-tight mb-2 ${
-                          isDark ? 'text-white' : 'text-[#111916]'
+                          isDark ? 'text-white' : 'text-[#0F172A]'
                         }`}
                       >
                         Welcome back
                       </h1>
-                      <p className="text-sm font-normal text-[#69746F] dark:text-slate-400">
+                      <p className="text-sm font-normal text-[#64748B] dark:text-slate-400">
                         Sign in to access your business activity and intelligence.
                       </p>
                     </div>
@@ -744,7 +744,7 @@ export const AuthSection: React.FC = () => {
                               href={`https://console.firebase.google.com/project/${firebaseProjectId}/authentication/settings`}
                               target="_blank"
                               rel="noreferrer"
-                              className="text-[#B8F36B] hover:underline font-semibold inline-flex items-center gap-0.5"
+                              className="text-[#2563EB] dark:text-[#60A5FA] hover:underline font-semibold inline-flex items-center gap-0.5"
                             >
                               Firebase Authentication Settings <ExternalLink className="w-3 h-3" />
                             </a>
@@ -756,7 +756,7 @@ export const AuthSection: React.FC = () => {
                               href={`https://console.firebase.google.com/project/${firebaseProjectId}/authentication/providers`}
                               target="_blank"
                               rel="noreferrer"
-                              className="text-[#B8F36B] hover:underline font-semibold inline-flex items-center gap-0.5"
+                              className="text-[#2563EB] dark:text-[#60A5FA] hover:underline font-semibold inline-flex items-center gap-0.5"
                             >
                               Sign-in method <ExternalLink className="w-3 h-3" />
                             </a>
@@ -783,12 +783,12 @@ export const AuthSection: React.FC = () => {
                         disabled={isLoading}
                         className={`w-full min-h-[44px] flex items-center justify-center gap-3 py-2.5 px-4 text-xs sm:text-sm font-medium rounded-xl border transition-all cursor-pointer ${
                           isDark
-                            ? 'bg-[#08110F] hover:bg-[#152e25] border-[#1C382E] text-white hover:border-[#B8F36B]/40'
-                            : 'bg-white hover:bg-slate-50 border-[#DEE3DE] text-[#111916] hover:border-black/30'
+                            ? 'bg-[#07111F] hover:bg-[#132640] border-[#243B56] text-white hover:border-[#60A5FA]/40'
+                            : 'bg-white hover:bg-slate-50 border-[#DCE6F0] text-[#0F172A] hover:border-black/30'
                         } disabled:opacity-50 disabled:cursor-not-allowed`}
                       >
                         {isLoading ? (
-                          <Loader2 className="w-4 h-4 animate-spin text-[#B8F36B]" />
+                          <Loader2 className="w-4 h-4 animate-spin text-[#60A5FA]" />
                         ) : (
                           <GoogleIcon />
                         )}
@@ -799,7 +799,7 @@ export const AuthSection: React.FC = () => {
                         <div className="absolute inset-0 flex items-center">
                           <div
                             className={`w-full border-t ${
-                              isDark ? 'border-[#1A2E27]' : 'border-[#DEE3DE]'
+                              isDark ? 'border-[#243B56]' : 'border-[#DCE6F0]'
                             }`}
                           />
                         </div>
@@ -807,8 +807,8 @@ export const AuthSection: React.FC = () => {
                           <span
                             className={`px-2.5 ${
                               isDark
-                                ? 'bg-[#10251E] text-slate-400'
-                                : 'bg-white text-[#69746F]'
+                                ? 'bg-[#0D1B2E] text-slate-400'
+                                : 'bg-white text-[#64748B]'
                             }`}
                           >
                             or sign in with email
@@ -822,7 +822,7 @@ export const AuthSection: React.FC = () => {
                       <div>
                         <label
                           htmlFor="login-email"
-                          className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-200"
+                          className="block text-xs font-medium mb-1.5 text-[#0F172A] dark:text-slate-200"
                         >
                           Email address
                         </label>
@@ -841,8 +841,8 @@ export const AuthSection: React.FC = () => {
                               loginErrors.email
                                 ? 'border-red-500/80 focus:ring-1 focus:ring-red-500'
                                 : isDark
-                                ? 'bg-[#08110F] border-[#1C382E] text-white placeholder-slate-500 focus:border-[#B8F36B] focus:ring-1 focus:ring-[#B8F36B]'
-                                : 'bg-[#F7F6F0]/70 border-[#DEE3DE] text-[#111916] placeholder-slate-400 focus:border-[#10251E] focus:ring-1 focus:ring-[#10251E]'
+                                ? 'bg-[#07111F] border-[#243B56] text-white placeholder-slate-500 focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6]'
+                                : 'bg-[#F7FAFC] border-[#DCE6F0] text-[#0F172A] placeholder-slate-400 focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
                             }`}
                           />
                         </div>
@@ -856,14 +856,14 @@ export const AuthSection: React.FC = () => {
                         <div className="flex items-center justify-between mb-1.5">
                           <label
                             htmlFor="login-password"
-                            className="block text-xs font-medium text-[#111916] dark:text-slate-200"
+                            className="block text-xs font-medium text-[#0F172A] dark:text-slate-200"
                           >
                             Password
                           </label>
                           <button
                             type="button"
                             onClick={() => openAuth('forgot-password')}
-                            className="text-xs text-[#69746F] dark:text-slate-400 hover:text-[#111916] dark:hover:text-[#B8F36B] hover:underline cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#B8F36B] rounded px-1"
+                            className="text-xs text-[#64748B] dark:text-slate-400 hover:text-[#0F172A] dark:hover:text-[#60A5FA] hover:underline cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#2563EB] rounded px-1"
                           >
                             Forgot password?
                           </button>
@@ -883,8 +883,8 @@ export const AuthSection: React.FC = () => {
                               loginErrors.password
                                 ? 'border-red-500/80 focus:ring-1 focus:ring-red-500'
                                 : isDark
-                                ? 'bg-[#08110F] border-[#1C382E] text-white placeholder-slate-500 focus:border-[#B8F36B] focus:ring-1 focus:ring-[#B8F36B]'
-                                : 'bg-[#F7F6F0]/70 border-[#DEE3DE] text-[#111916] placeholder-slate-400 focus:border-[#10251E] focus:ring-1 focus:ring-[#10251E]'
+                                ? 'bg-[#07111F] border-[#243B56] text-white placeholder-slate-500 focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6]'
+                                : 'bg-[#F7FAFC] border-[#DCE6F0] text-[#0F172A] placeholder-slate-400 focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
                             }`}
                           />
                           <button
@@ -906,10 +906,10 @@ export const AuthSection: React.FC = () => {
                         <button
                           type="submit"
                           disabled={isLoading}
-                          className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-[#08110F] bg-[#B8F36B] hover:bg-[#A5E852] active:bg-[#97D844] rounded-xl transition-all shadow-sm shadow-[#B8F36B]/20 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8F36B] disabled:opacity-60"
+                          className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] rounded-xl transition-all shadow-sm shadow-[#2563EB]/20 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] disabled:opacity-60"
                         >
                           {isLoading ? (
-                            <Loader2 className="w-4 h-4 animate-spin text-[#08110F]" />
+                            <Loader2 className="w-4 h-4 animate-spin text-white" />
                           ) : (
                             <>
                               <span>Sign in</span>
@@ -921,13 +921,13 @@ export const AuthSection: React.FC = () => {
                     </form>
 
                     {/* Footer link to Sign up */}
-                    <div className="mt-6 pt-5 border-t border-[#DEE3DE] dark:border-[#1A2E27] text-center">
-                      <p className="text-xs text-[#69746F] dark:text-slate-400">
+                    <div className="mt-6 pt-5 border-t border-[#DCE6F0] dark:border-[#243B56] text-center">
+                      <p className="text-xs text-[#64748B] dark:text-slate-400">
                         Don't have an account yet?{' '}
                         <button
                           type="button"
                           onClick={() => openAuth('signup')}
-                          className="font-medium text-[#111916] dark:text-[#B8F36B] hover:underline cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#B8F36B] rounded px-1"
+                          className="font-medium text-[#2563EB] dark:text-[#60A5FA] hover:underline cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#2563EB] rounded px-1"
                         >
                           Create an account
                         </button>
@@ -936,23 +936,23 @@ export const AuthSection: React.FC = () => {
                   </>
                 ) : (
                   <div className="text-center py-4">
-                    <div className="w-12 h-12 rounded-full mx-auto mb-4 flex items-center justify-center bg-[#B8F36B]/15 text-[#B8F36B]">
+                    <div className="w-12 h-12 rounded-full mx-auto mb-4 flex items-center justify-center bg-[#2563EB]/15 text-[#2563EB] dark:bg-[#3B82F6]/15 dark:text-[#60A5FA]">
                       <CheckCircle2 className="w-6 h-6" />
                     </div>
                     <h2
                       className={`text-2xl font-heading font-medium tracking-tight mb-2 ${
-                        isDark ? 'text-white' : 'text-[#111916]'
+                        isDark ? 'text-white' : 'text-[#0F172A]'
                       }`}
                     >
                       Signed in successfully
                     </h2>
-                    <p className="text-sm text-[#69746F] dark:text-slate-400 mb-6">
+                    <p className="text-sm text-[#475569] dark:text-slate-400 mb-6">
                       Welcome back, {currentUser?.fullName || loginData.email}.
                     </p>
                     <button
                       type="button"
                       onClick={openDashboard}
-                      className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-[#08110F] bg-[#B8F36B] hover:bg-[#A5E852] rounded-xl transition-all shadow-sm shadow-[#B8F36B]/20 cursor-pointer"
+                      className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] rounded-xl transition-all shadow-sm shadow-[#2563EB]/20 cursor-pointer"
                     >
                       <span>Enter Workspace</span>
                       <ArrowRight className="w-4 h-4" />
@@ -972,8 +972,8 @@ export const AuthSection: React.FC = () => {
                 transition={{ duration: 0.25, ease: 'easeOut' }}
                 className={`rounded-2xl border p-6 sm:p-8 shadow-xl ${
                   isDark
-                    ? 'bg-[#10251E]/50 border-[#1A2E27] shadow-black/40'
-                    : 'bg-white border-[#DEE3DE] shadow-black/5'
+                    ? 'bg-[#0D1B2E]/80 border-[#243B56] shadow-black/40'
+                    : 'bg-white border-[#DCE6F0] shadow-black/5'
                 }`}
               >
                 {!forgotSubmitted ? (
@@ -981,12 +981,12 @@ export const AuthSection: React.FC = () => {
                     <div className="mb-6 text-left">
                       <h1
                         className={`text-2xl sm:text-[26px] font-heading font-medium tracking-tight mb-2 ${
-                          isDark ? 'text-white' : 'text-[#111916]'
+                          isDark ? 'text-white' : 'text-[#0F172A]'
                         }`}
                       >
                         Reset password
                       </h1>
-                      <p className="text-sm font-normal text-[#69746F] dark:text-slate-400">
+                      <p className="text-sm font-normal text-[#64748B] dark:text-slate-400">
                         Enter the email associated with your account, and we will send you a password reset link.
                       </p>
                     </div>
@@ -1002,7 +1002,7 @@ export const AuthSection: React.FC = () => {
                       <div>
                         <label
                           htmlFor="forgot-email"
-                          className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-200"
+                          className="block text-xs font-medium mb-1.5 text-[#0F172A] dark:text-slate-200"
                         >
                           Email address
                         </label>
@@ -1021,8 +1021,8 @@ export const AuthSection: React.FC = () => {
                               forgotError
                                 ? 'border-red-500/80 focus:ring-1 focus:ring-red-500'
                                 : isDark
-                                ? 'bg-[#08110F] border-[#1C382E] text-white placeholder-slate-500 focus:border-[#B8F36B] focus:ring-1 focus:ring-[#B8F36B]'
-                                : 'bg-[#F7F6F0]/70 border-[#DEE3DE] text-[#111916] placeholder-slate-400 focus:border-[#10251E] focus:ring-1 focus:ring-[#10251E]'
+                                ? 'bg-[#07111F] border-[#243B56] text-white placeholder-slate-500 focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6]'
+                                : 'bg-[#F7FAFC] border-[#DCE6F0] text-[#0F172A] placeholder-slate-400 focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
                             }`}
                           />
                         </div>
@@ -1035,10 +1035,10 @@ export const AuthSection: React.FC = () => {
                         <button
                           type="submit"
                           disabled={isLoading}
-                          className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-[#08110F] bg-[#B8F36B] hover:bg-[#A5E852] active:bg-[#97D844] rounded-xl transition-all shadow-sm shadow-[#B8F36B]/20 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8F36B] disabled:opacity-60"
+                          className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] rounded-xl transition-all shadow-sm shadow-[#2563EB]/20 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] disabled:opacity-60"
                         >
                           {isLoading ? (
-                            <Loader2 className="w-4 h-4 animate-spin text-[#08110F]" />
+                            <Loader2 className="w-4 h-4 animate-spin text-white" />
                           ) : (
                             <>
                               <span>Send reset link</span>
@@ -1049,11 +1049,11 @@ export const AuthSection: React.FC = () => {
                       </div>
                     </form>
 
-                    <div className="mt-6 pt-5 border-t border-[#DEE3DE] dark:border-[#1A2E27] text-center">
+                    <div className="mt-6 pt-5 border-t border-[#DCE6F0] dark:border-[#243B56] text-center">
                       <button
                         type="button"
                         onClick={() => openAuth('login')}
-                        className="text-xs font-medium text-[#69746F] dark:text-slate-400 hover:text-[#111916] dark:hover:text-white cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#B8F36B] rounded px-1"
+                        className="text-xs font-medium text-[#64748B] dark:text-slate-400 hover:text-[#0F172A] dark:hover:text-white cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#2563EB] rounded px-1"
                       >
                         ← Back to log in
                       </button>
@@ -1061,24 +1061,24 @@ export const AuthSection: React.FC = () => {
                   </>
                 ) : (
                   <div className="text-center py-4">
-                    <div className="w-12 h-12 rounded-full mx-auto mb-4 flex items-center justify-center bg-[#B8F36B]/15 text-[#B8F36B]">
+                    <div className="w-12 h-12 rounded-full mx-auto mb-4 flex items-center justify-center bg-[#2563EB]/15 text-[#2563EB]">
                       <Mail className="w-6 h-6" />
                     </div>
                     <h2
                       className={`text-2xl font-heading font-medium tracking-tight mb-2 ${
-                        isDark ? 'text-white' : 'text-[#111916]'
+                        isDark ? 'text-white' : 'text-[#0F172A]'
                       }`}
                     >
                       Check your email
                     </h2>
-                    <p className="text-sm text-[#69746F] dark:text-slate-400 mb-6">
+                    <p className="text-sm text-[#64748B] dark:text-slate-400 mb-6">
                       {forgotMessage || `We sent a password reset link to ${forgotEmail}.`}
                     </p>
 
                     <button
                       type="button"
                       onClick={() => openAuth('login')}
-                      className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-[#08110F] bg-[#B8F36B] hover:bg-[#A5E852] rounded-xl transition-all shadow-sm shadow-[#B8F36B]/20 cursor-pointer mb-3"
+                      className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] rounded-xl transition-all shadow-sm shadow-[#2563EB]/20 cursor-pointer mb-3"
                     >
                       <span>Return to log in</span>
                       <ArrowRight className="w-4 h-4" />
@@ -1098,8 +1098,8 @@ export const AuthSection: React.FC = () => {
                 transition={{ duration: 0.25, ease: 'easeOut' }}
                 className={`rounded-2xl border p-6 sm:p-8 shadow-xl ${
                   isDark
-                    ? 'bg-[#10251E]/50 border-[#1A2E27] shadow-black/40'
-                    : 'bg-white border-[#DEE3DE] shadow-black/5'
+                    ? 'bg-[#0D1B2E]/80 border-[#243B56] shadow-black/40'
+                    : 'bg-white border-[#DCE6F0] shadow-black/5'
                 }`}
               >
                 {!resetSuccess ? (
@@ -1107,12 +1107,12 @@ export const AuthSection: React.FC = () => {
                     <div className="mb-6 text-left">
                       <h1
                         className={`text-2xl sm:text-[26px] font-heading font-medium tracking-tight mb-2 ${
-                          isDark ? 'text-white' : 'text-[#111916]'
+                          isDark ? 'text-white' : 'text-[#0F172A]'
                         }`}
                       >
                         Set new password
                       </h1>
-                      <p className="text-sm font-normal text-[#69746F] dark:text-slate-400">
+                      <p className="text-sm font-normal text-[#64748B] dark:text-slate-400">
                         Create a new secure password for your Kopa account.
                       </p>
                     </div>
@@ -1122,7 +1122,7 @@ export const AuthSection: React.FC = () => {
                       <div>
                         <label
                           htmlFor="new-password"
-                          className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-200"
+                          className="block text-xs font-medium mb-1.5 text-[#0F172A] dark:text-slate-200"
                         >
                           New password
                         </label>
@@ -1141,8 +1141,8 @@ export const AuthSection: React.FC = () => {
                               resetErrors.newPassword
                                 ? 'border-red-500/80 focus:ring-1 focus:ring-red-500'
                                 : isDark
-                                ? 'bg-[#08110F] border-[#1C382E] text-white placeholder-slate-500 focus:border-[#B8F36B] focus:ring-1 focus:ring-[#B8F36B]'
-                                : 'bg-[#F7F6F0]/70 border-[#DEE3DE] text-[#111916] placeholder-slate-400 focus:border-[#10251E] focus:ring-1 focus:ring-[#10251E]'
+                                ? 'bg-[#07111F] border-[#243B56] text-white placeholder-slate-500 focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6]'
+                                : 'bg-[#F7FAFC] border-[#DCE6F0] text-[#0F172A] placeholder-slate-400 focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
                             }`}
                           />
                           <button
@@ -1163,7 +1163,7 @@ export const AuthSection: React.FC = () => {
                       <div>
                         <label
                           htmlFor="confirm-password"
-                          className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-200"
+                          className="block text-xs font-medium mb-1.5 text-[#0F172A] dark:text-slate-200"
                         >
                           Confirm new password
                         </label>
@@ -1182,8 +1182,8 @@ export const AuthSection: React.FC = () => {
                               resetErrors.confirmPassword
                                 ? 'border-red-500/80 focus:ring-1 focus:ring-red-500'
                                 : isDark
-                                ? 'bg-[#08110F] border-[#1C382E] text-white placeholder-slate-500 focus:border-[#B8F36B] focus:ring-1 focus:ring-[#B8F36B]'
-                                : 'bg-[#F7F6F0]/70 border-[#DEE3DE] text-[#111916] placeholder-slate-400 focus:border-[#10251E] focus:ring-1 focus:ring-[#10251E]'
+                                ? 'bg-[#07111F] border-[#243B56] text-white placeholder-slate-500 focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6]'
+                                : 'bg-[#F7FAFC] border-[#DCE6F0] text-[#0F172A] placeholder-slate-400 focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
                             }`}
                           />
                         </div>
@@ -1196,7 +1196,7 @@ export const AuthSection: React.FC = () => {
                       <div className="pt-2">
                         <button
                           type="submit"
-                          className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-[#08110F] bg-[#B8F36B] hover:bg-[#A5E852] active:bg-[#97D844] rounded-xl transition-all shadow-sm shadow-[#B8F36B]/20 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8F36B]"
+                          className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] rounded-xl transition-all shadow-sm shadow-[#2563EB]/20 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]"
                         >
                           <span>Save new password</span>
                           <ArrowRight className="w-4 h-4" />
@@ -1204,11 +1204,11 @@ export const AuthSection: React.FC = () => {
                       </div>
                     </form>
 
-                    <div className="mt-6 pt-5 border-t border-[#DEE3DE] dark:border-[#1A2E27] text-center">
+                    <div className="mt-6 pt-5 border-t border-[#DCE6F0] dark:border-[#243B56] text-center">
                       <button
                         type="button"
                         onClick={() => openAuth('login')}
-                        className="text-xs font-medium text-[#69746F] dark:text-slate-400 hover:text-[#111916] dark:hover:text-white cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#B8F36B] rounded px-1"
+                        className="text-xs font-medium text-[#64748B] dark:text-slate-400 hover:text-[#0F172A] dark:hover:text-white cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#2563EB] rounded px-1"
                       >
                         ← Back to log in
                       </button>
@@ -1216,23 +1216,23 @@ export const AuthSection: React.FC = () => {
                   </>
                 ) : (
                   <div className="text-center py-4">
-                    <div className="w-12 h-12 rounded-full mx-auto mb-4 flex items-center justify-center bg-[#B8F36B]/15 text-[#B8F36B]">
+                    <div className="w-12 h-12 rounded-full mx-auto mb-4 flex items-center justify-center bg-[#2563EB]/15 text-[#2563EB]">
                       <CheckCircle2 className="w-6 h-6" />
                     </div>
                     <h2
                       className={`text-2xl font-heading font-medium tracking-tight mb-2 ${
-                        isDark ? 'text-white' : 'text-[#111916]'
+                        isDark ? 'text-white' : 'text-[#0F172A]'
                       }`}
                     >
                       Password updated
                     </h2>
-                    <p className="text-sm text-[#69746F] dark:text-slate-400 mb-6">
+                    <p className="text-sm text-[#64748B] dark:text-slate-400 mb-6">
                       Your password has been reset successfully. You can now log in with your new password.
                     </p>
                     <button
                       type="button"
                       onClick={() => openAuth('login')}
-                      className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-[#08110F] bg-[#B8F36B] hover:bg-[#A5E852] rounded-xl transition-all shadow-sm shadow-[#B8F36B]/20 cursor-pointer"
+                      className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] rounded-xl transition-all shadow-sm shadow-[#2563EB]/20 cursor-pointer"
                     >
                       <span>Log in to your account</span>
                       <ArrowRight className="w-4 h-4" />

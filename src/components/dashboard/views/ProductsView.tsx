@@ -108,7 +108,7 @@ export const ProductsView: React.FC = () => {
                 <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#DEE3DE] dark:divide-[#1A2E27]">
+            <tbody className="divide-y divide-[#DCE6F0] dark:divide-[#243B56]">
               {filteredProducts.length > 0 ? (
                 filteredProducts.map((p) => {
                   const hasCost = p.costPrice !== null && p.costPrice !== undefined;
@@ -133,7 +133,7 @@ export const ProductsView: React.FC = () => {
                           )}
                         </div>
                       </td>
-                      <td className="py-3.5 px-4 text-[#69746F] dark:text-slate-400">
+                      <td className="py-3.5 px-4 text-[#475569] dark:text-slate-400">
                         {p.category}
                       </td>
                       <td className="py-3.5 px-4 text-right font-mono font-medium">
@@ -157,7 +157,7 @@ export const ProductsView: React.FC = () => {
                           className={`font-mono px-2 py-0.5 rounded text-xs ${
                             isLowStock
                               ? 'bg-amber-500/15 text-amber-700 dark:text-amber-400 font-bold'
-                              : 'text-[#48534E] dark:text-slate-300'
+                              : 'text-[#475569] dark:text-slate-300'
                           }`}
                         >
                           {p.stock} units
@@ -165,18 +165,18 @@ export const ProductsView: React.FC = () => {
                       </td>
                       <td className="py-3.5 px-4 text-right font-mono">
                         <div>
-                          <span className="text-[#111916] dark:text-white font-medium">
+                          <span className="text-[#0F172A] dark:text-white font-medium">
                             {currencySymbol}
                             {p.totalRevenue.toLocaleString()}
                           </span>
-                          <span className="text-[10px] text-[#69746F] dark:text-slate-400 block font-sans">
+                          <span className="text-[10px] text-[#64748B] dark:text-slate-400 block font-sans">
                             ({p.salesCount} sold)
                           </span>
                         </div>
                       </td>
                       <td className="py-3.5 px-4 text-right font-mono">
                         {totalProfit !== null ? (
-                          <span className="text-[#15803D] dark:text-[#B8F36B] font-bold">
+                          <span className="text-[#16A34A] dark:text-[#4ADE80] font-bold">
                             +{currencySymbol}
                             {totalProfit.toLocaleString()}
                           </span>
@@ -190,7 +190,7 @@ export const ProductsView: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => handleEdit(p)}
-                          className="p-1.5 rounded-lg text-slate-500 hover:text-[#111916] hover:bg-black/5 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/10 mr-1 cursor-pointer transition-colors"
+                          className="p-1.5 rounded-lg text-slate-500 hover:text-[#0F172A] hover:bg-black/5 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/10 mr-1 cursor-pointer transition-colors"
                           title="Edit product"
                         >
                           <Edit2 className="w-3.5 h-3.5" />
@@ -209,11 +209,11 @@ export const ProductsView: React.FC = () => {
                 })
               ) : (
                 <tr>
-                  <td colSpan={8} className="py-12 text-center text-xs text-[#69746F] dark:text-slate-400">
-                    <p className="font-medium text-sm text-[#111916] dark:text-slate-200">
+                  <td colSpan={8} className="py-12 text-center text-xs text-[#64748B] dark:text-slate-400">
+                    <p className="font-medium text-sm text-[#0F172A] dark:text-slate-200">
                       Your business activity will appear here once you start recording it.
                     </p>
-                    <p className="text-[11px] mt-1 text-[#69746F] dark:text-slate-400">
+                    <p className="text-[11px] mt-1 text-[#64748B] dark:text-slate-400">
                       No products recorded yet. Click "Add Product" to add your first item to inventory.
                     </p>
                   </td>

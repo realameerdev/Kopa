@@ -98,22 +98,24 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
     >
       <div
         className={`w-full max-w-md max-h-[90vh] overflow-y-auto rounded-2xl border p-5 sm:p-6 shadow-2xl transition-all ${
-          isDark ? 'bg-[#08110F] border-[#1C382E] text-white' : 'bg-white border-[#DEE3DE] text-[#111916]'
+          isDark ? 'bg-[#0D1B2E] border-[#243B56] text-white' : 'bg-white border-[#DCE6F0] text-[#0F172A]'
         }`}
       >
-        <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#DEE3DE] dark:border-[#1A2E27]">
+        <div className={`flex items-center justify-between pb-4 mb-4 border-b ${isDark ? 'border-[#243B56]' : 'border-[#DCE6F0]'}`}>
           <div>
-            <h2 className="text-lg font-heading font-medium tracking-tight">
+            <h2 className="text-lg font-heading font-semibold tracking-tight">
               {productToEdit ? 'Edit Product' : 'Add New Product'}
             </h2>
-            <p className="text-xs text-[#69746F] dark:text-slate-400">
+            <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-[#64748B]'}`}>
               Manage product pricing, cost data, and inventory stock
             </p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 cursor-pointer"
+            className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+              isDark ? 'text-slate-400 hover:text-white hover:bg-white/5' : 'text-slate-500 hover:text-[#0F172A] hover:bg-black/5'
+            }`}
           >
             <X className="w-5 h-5" />
           </button>
@@ -128,7 +130,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
 
         <form onSubmit={handleSubmit} className="space-y-4 text-xs sm:text-sm">
           <div>
-            <label className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-300">
+            <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-slate-300' : 'text-[#0F172A]'}`}>
               Product name
             </label>
             <input
@@ -139,16 +141,16 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
                 setName(e.target.value);
                 setError('');
               }}
-              className={`w-full px-3.5 py-2.5 rounded-xl border outline-none ${
+              className={`w-full px-3.5 py-2.5 rounded-xl border outline-none font-sans ${
                 isDark
-                  ? 'bg-[#10251E]/60 border-[#1C382E] text-white focus:border-[#B8F36B]'
-                  : 'bg-[#F7F6F0]/70 border-[#DEE3DE] text-[#111916] focus:border-[#10251E]'
+                  ? 'bg-[#07111F] border-[#243B56] text-white focus:border-[#60A5FA] focus:ring-1 focus:ring-[#60A5FA]'
+                  : 'bg-white border-[#DCE6F0] text-[#0F172A] focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
               }`}
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-300">
+            <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-slate-300' : 'text-[#0F172A]'}`}>
               Category
             </label>
             <input
@@ -156,17 +158,17 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
               placeholder="e.g. Shirts, Traditional, Accessories"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className={`w-full px-3.5 py-2.5 rounded-xl border outline-none ${
+              className={`w-full px-3.5 py-2.5 rounded-xl border outline-none font-sans ${
                 isDark
-                  ? 'bg-[#10251E]/60 border-[#1C382E] text-white focus:border-[#B8F36B]'
-                  : 'bg-[#F7F6F0]/70 border-[#DEE3DE] text-[#111916] focus:border-[#10251E]'
+                  ? 'bg-[#07111F] border-[#243B56] text-white focus:border-[#60A5FA] focus:ring-1 focus:ring-[#60A5FA]'
+                  : 'bg-white border-[#DCE6F0] text-[#0F172A] focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
               }`}
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-300">
+              <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-slate-300' : 'text-[#0F172A]'}`}>
                 Selling price (₦)
               </label>
               <input
@@ -175,20 +177,20 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
                 placeholder="e.g. 15000"
                 value={sellingPrice}
                 onChange={(e) => setSellingPrice(e.target.value)}
-                className={`w-full px-3.5 py-2.5 rounded-xl border outline-none ${
+                className={`w-full px-3.5 py-2.5 rounded-xl border outline-none font-sans ${
                   isDark
-                    ? 'bg-[#10251E]/60 border-[#1C382E] text-white focus:border-[#B8F36B]'
-                    : 'bg-[#F7F6F0]/70 border-[#DEE3DE] text-[#111916] focus:border-[#10251E]'
+                    ? 'bg-[#07111F] border-[#243B56] text-white focus:border-[#60A5FA] focus:ring-1 focus:ring-[#60A5FA]'
+                    : 'bg-white border-[#DCE6F0] text-[#0F172A] focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
                 }`}
               />
             </div>
 
             <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label className="block text-xs font-medium text-[#111916] dark:text-slate-300">
+              <div className="flex items-center justify-between mb-1.5 font-sans">
+                <label className={`block text-xs font-semibold ${isDark ? 'text-slate-300' : 'text-[#0F172A]'}`}>
                   Cost price (₦)
                 </label>
-                <span className="text-[10px] text-[#69746F] dark:text-slate-400">Optional</span>
+                <span className={`text-[10px] font-mono ${isDark ? 'text-slate-400' : 'text-[#64748B]'}`}>Optional</span>
               </div>
               <input
                 type="number"
@@ -196,21 +198,21 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
                 placeholder="Leave blank if unknown"
                 value={costPrice}
                 onChange={(e) => setCostPrice(e.target.value)}
-                className={`w-full px-3.5 py-2.5 rounded-xl border outline-none ${
+                className={`w-full px-3.5 py-2.5 rounded-xl border outline-none font-sans ${
                   isDark
-                    ? 'bg-[#10251E]/60 border-[#1C382E] text-white focus:border-[#B8F36B]'
-                    : 'bg-[#F7F6F0]/70 border-[#DEE3DE] text-[#111916] focus:border-[#10251E]'
+                    ? 'bg-[#07111F] border-[#243B56] text-white focus:border-[#60A5FA] focus:ring-1 focus:ring-[#60A5FA]'
+                    : 'bg-white border-[#DCE6F0] text-[#0F172A] focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
                 }`}
               />
             </div>
           </div>
-          <p className="text-[11px] text-[#69746F] dark:text-slate-400">
+          <p className={`text-[11px] font-sans ${isDark ? 'text-slate-400' : 'text-[#64748B]'}`}>
             If cost price is left blank, Kopa will display <strong className="text-amber-500">Cost not set</strong> and exclude this item from profit metrics until cost is provided.
           </p>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-300">
+              <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-slate-300' : 'text-[#0F172A]'}`}>
                 Current stock
               </label>
               <input
@@ -218,15 +220,15 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
                 min="0"
                 value={stock}
                 onChange={(e) => setStock(e.target.value)}
-                className={`w-full px-3.5 py-2.5 rounded-xl border outline-none ${
+                className={`w-full px-3.5 py-2.5 rounded-xl border outline-none font-sans ${
                   isDark
-                    ? 'bg-[#10251E]/60 border-[#1C382E] text-white focus:border-[#B8F36B]'
-                    : 'bg-[#F7F6F0]/70 border-[#DEE3DE] text-[#111916] focus:border-[#10251E]'
+                    ? 'bg-[#07111F] border-[#243B56] text-white focus:border-[#60A5FA] focus:ring-1 focus:ring-[#60A5FA]'
+                    : 'bg-white border-[#DCE6F0] text-[#0F172A] focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
                 }`}
               />
             </div>
             <div>
-              <label className="block text-xs font-medium mb-1.5 text-[#111916] dark:text-slate-300">
+              <label className={`block text-xs font-semibold mb-1.5 ${isDark ? 'text-slate-300' : 'text-[#0F172A]'}`}>
                 Low-stock threshold
               </label>
               <input
@@ -234,10 +236,10 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
                 min="1"
                 value={minStockAlert}
                 onChange={(e) => setMinStockAlert(e.target.value)}
-                className={`w-full px-3.5 py-2.5 rounded-xl border outline-none ${
+                className={`w-full px-3.5 py-2.5 rounded-xl border outline-none font-sans ${
                   isDark
-                    ? 'bg-[#10251E]/60 border-[#1C382E] text-white focus:border-[#B8F36B]'
-                    : 'bg-[#F7F6F0]/70 border-[#DEE3DE] text-[#111916] focus:border-[#10251E]'
+                    ? 'bg-[#07111F] border-[#243B56] text-white focus:border-[#60A5FA] focus:ring-1 focus:ring-[#60A5FA]'
+                    : 'bg-white border-[#DCE6F0] text-[#0F172A] focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]'
                 }`}
               />
             </div>
@@ -246,7 +248,7 @@ export const AddProductModal: React.FC<AddProductModalProps> = ({
           <div className="pt-2">
             <button
               type="submit"
-              className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-[#08110F] bg-[#B8F36B] hover:bg-[#A5E852] active:bg-[#97D844] rounded-xl transition-all shadow-sm shadow-[#B8F36B]/20 cursor-pointer"
+              className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB] rounded-xl transition-all shadow-sm shadow-[#2563EB]/20 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]"
             >
               <span>{productToEdit ? 'Save Changes' : 'Add to Inventory'}</span>
             </button>

@@ -399,11 +399,11 @@ export const ConnectedTools: React.FC = () => {
 
       {/* Header Container */}
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-12 text-center">
-        {/* Eyebrow in Kopa Lime / Deep Forest */}
+        {/* Eyebrow in Kopa Blue / Soft Slate */}
         <div className={`inline-flex items-center gap-2 text-[11px] sm:text-[12px] font-semibold tracking-widest uppercase mb-3 font-mono ${
-          isDark ? 'text-[#B8F36B]' : 'text-[#10251E]'
+          isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'
         }`}>
-          <span className={`w-1.5 h-1.5 rounded-full ${isDark ? 'bg-[#B8F36B]' : 'bg-[#10251E]'}`} />
+          <span className={`w-1.5 h-1.5 rounded-full ${isDark ? 'bg-[#60A5FA]' : 'bg-[#2563EB]'}`} />
           <span>BUILT TO CONNECT WITH THE TOOLS YOUR BUSINESS ALREADY USES</span>
         </div>
 
@@ -411,7 +411,7 @@ export const ConnectedTools: React.FC = () => {
         <h2 
           id={sectionTitleId}
           className={`text-2xl sm:text-4xl lg:text-[2.75rem] font-heading font-semibold tracking-tight leading-[1.15] mb-3 ${
-            isDark ? 'text-white' : 'text-[#111916]'
+            isDark ? 'text-white' : 'text-[#0F172A]'
           }`}
           style={{ textWrap: 'balance' }}
         >
@@ -420,7 +420,7 @@ export const ConnectedTools: React.FC = () => {
 
         {/* Minimal Subtitle in Manrope */}
         <p className={`text-sm sm:text-base max-w-xl mx-auto font-sans leading-relaxed ${
-          isDark ? 'text-slate-300' : 'text-[#69746F]'
+          isDark ? 'text-slate-300' : 'text-[#475569]'
         }`}>
           Kopa is architected to seamlessly unify your everyday commercial activity across the platforms you already rely on.
         </p>
@@ -440,9 +440,9 @@ export const ConnectedTools: React.FC = () => {
           <svg className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible" aria-hidden="true">
             <defs>
               <linearGradient id="networkLineGradDynamic" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#B8F36B" stopOpacity="0.15" />
-                <stop offset="50%" stopColor="#B8F36B" stopOpacity="0.45" />
-                <stop offset="100%" stopColor="#B8F36B" stopOpacity="0.15" />
+                <stop offset="0%" stopColor="#60A5FA" stopOpacity="0.15" />
+                <stop offset="50%" stopColor="#60A5FA" stopOpacity="0.45" />
+                <stop offset="100%" stopColor="#60A5FA" stopOpacity="0.15" />
               </linearGradient>
             </defs>
 
@@ -454,7 +454,7 @@ export const ConnectedTools: React.FC = () => {
                     svgPathsRef.current[idx] = el;
                   }}
                   fill="none"
-                  stroke={isDark ? "url(#networkLineGradDynamic)" : "rgba(16, 37, 30, 0.18)"}
+                  stroke={isDark ? "url(#networkLineGradDynamic)" : "rgba(37, 99, 235, 0.12)"}
                   strokeWidth="1.25"
                   strokeDasharray="4 4"
                   style={{ opacity: 0, transition: 'opacity 0.25s ease' }}
@@ -464,8 +464,8 @@ export const ConnectedTools: React.FC = () => {
                     pulseRefs.current[idx] = el;
                   }}
                   r="2.5"
-                  fill="#B8F36B"
-                  className="filter drop-shadow-[0_0_4px_#B8F36B]"
+                  fill="#60A5FA"
+                  className="filter drop-shadow-[0_0_4px_#60A5FA]"
                   style={{ opacity: 0 }}
                 />
               </g>
@@ -490,17 +490,17 @@ export const ConnectedTools: React.FC = () => {
                 tabIndex={0}
                 role="button"
                 aria-label={`${tool.name} connector: ${tool.category}. ${tool.detail}`}
-                className="absolute top-0 left-0 -ml-7 -mt-7 will-change-transform z-10 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8F36B] rounded-2xl"
+                className="absolute top-0 left-0 -ml-7 -mt-7 will-change-transform z-10 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60A5FA] rounded-2xl"
               >
                 <div 
                   className={`relative group flex items-center justify-center rounded-2xl transition-all duration-200 ${
                     isHovered
                       ? isDark
-                        ? 'bg-[#10251E] border-[#B8F36B] shadow-2xl scale-110 ring-2 ring-[#B8F36B]/60 z-30'
-                        : 'bg-white border-[#B8F36B] shadow-2xl scale-110 ring-2 ring-[#B8F36B]/60 z-30'
+                        ? 'bg-[#132640] border-[#60A5FA] shadow-2xl scale-110 ring-2 ring-[#60A5FA]/60 z-30'
+                        : 'bg-white border-[#2563EB] shadow-2xl scale-110 ring-2 ring-[#2563EB]/60 z-30'
                       : isDark
-                      ? 'bg-[#0E1F1A] hover:bg-[#10251E] border-[#1C3A2F] shadow-lg z-10'
-                      : 'bg-white hover:bg-[#F7F6F0] border-[#DEE3DE] shadow-md z-10'
+                      ? 'bg-[#0D1B2E] hover:bg-[#132640] border-[#243B56] shadow-lg z-10'
+                      : 'bg-white hover:bg-[#F7FAFC] border-[#DCE6F0] shadow-md z-10'
                   } border p-3 sm:p-3.5`}
                   style={{
                     boxShadow: isHovered
@@ -517,8 +517,8 @@ export const ConnectedTools: React.FC = () => {
                       role="tooltip"
                       className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-3.5 px-3.5 py-2 rounded-xl text-xs font-sans whitespace-nowrap shadow-2xl pointer-events-none z-50 flex items-center gap-2 border animate-in fade-in zoom-in-95 duration-150 ${
                         isDark
-                          ? 'bg-[#08110F] text-white border-[#1E3B30]'
-                          : 'bg-[#10251E] text-white border-[#214739]'
+                          ? 'bg-[#0D1B2E] text-white border-[#243B56]'
+                          : 'bg-[#2563EB] text-white border-[#0F3B82]'
                       }`}
                     >
                       <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: tool.color }} />
@@ -542,7 +542,7 @@ export const ConnectedTools: React.FC = () => {
         <div className="max-w-md mx-auto px-4 mt-4">
           <div
             className={`p-3.5 rounded-xl border shadow-lg flex items-start justify-between gap-3 text-left transition-all ${
-              isDark ? 'bg-[#10251E] border-[#1E3B30] text-white' : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#111916]'
+              isDark ? 'bg-[#132640] border-[#243B56] text-white' : 'bg-white border-[#DCE6F0] text-[#0F172A]'
             }`}
           >
             <div className="flex items-start gap-2.5">
@@ -552,13 +552,13 @@ export const ConnectedTools: React.FC = () => {
                   <span className="text-xs font-heading font-bold">{mobileDetailTool.name}</span>
                   <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded border font-semibold ${
                     isDark
-                      ? 'text-[#B8F36B] bg-[#B8F36B]/15 border-[#B8F36B]/30'
-                      : 'text-[#15803D] bg-[#15803D]/10 border-[#15803D]/25'
+                      ? 'text-[#60A5FA] bg-[#60A5FA]/15 border-[#60A5FA]/30'
+                      : 'text-[#2563EB] bg-[#2563EB]/10 border-[#2563EB]/25'
                   }`}>
                     {mobileDetailTool.category}
                   </span>
                 </div>
-                <p className={`text-[11px] mt-1 leading-snug ${isDark ? 'text-slate-300' : 'text-[#48534E]'}`}>
+                <p className={`text-[11px] mt-1 leading-snug ${isDark ? 'text-slate-300' : 'text-[#475569]'}`}>
                   {mobileDetailTool.detail}
                 </p>
               </div>
@@ -566,7 +566,7 @@ export const ConnectedTools: React.FC = () => {
 
             <button
               onClick={() => setMobileDetailTool(null)}
-              className="p-1 rounded-md text-slate-500 hover:text-[#111916] dark:text-slate-400 dark:hover:text-white cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors"
+              className="p-1 rounded-md text-slate-500 hover:text-[#0F172A] dark:text-slate-400 dark:hover:text-white cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors"
               aria-label="Close integration info"
             >
               <X className="w-4 h-4" />
@@ -577,8 +577,8 @@ export const ConnectedTools: React.FC = () => {
 
       {/* Accessible reassurance caption */}
       <div className="max-w-4xl mx-auto px-4 text-center mt-6 sm:mt-8">
-        <div className={`inline-flex items-center gap-2 text-[11px] font-mono ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
-          <CheckCircle2 className={`w-3.5 h-3.5 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`} />
+        <div className={`inline-flex items-center gap-2 text-[11px] font-mono ${isDark ? 'text-slate-400' : 'text-[#475569]'}`}>
+          <CheckCircle2 className={`w-3.5 h-3.5 ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`} />
           <span>Unified seamlessly into your single Kopa ledger</span>
         </div>
       </div>

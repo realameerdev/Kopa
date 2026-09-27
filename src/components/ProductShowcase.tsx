@@ -134,13 +134,13 @@ export const ProductShowcase: React.FC = () => {
     <section
       id="product"
       className={`py-24 sm:py-32 transition-colors duration-200 relative overflow-hidden border-t ${
-        isDark ? 'bg-[#10251E] text-white border-[#1C3E32]' : 'bg-[#F7F6F0] text-[#111916] border-[#DEE3DE]'
+        isDark ? 'bg-[#07111F] text-[#F8FBFF] border-[#243B56]' : 'bg-[#F7FAFC] text-[#0F172A] border-[#DCE6F0]'
       }`}
     >
       {/* Background data ambient illumination */}
       <div className={`absolute inset-0 pointer-events-none ${isDark ? 'bg-grid-dark opacity-25' : 'bg-grid-light opacity-50'}`} />
       <div className={`absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[360px] rounded-full blur-[140px] pointer-events-none ${
-        isDark ? 'bg-[#B8F36B]/5' : 'bg-[#B8F36B]/15'
+        isDark ? 'bg-[#3B82F6]/5' : 'bg-[#2563EB]/10'
       }`} />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -148,9 +148,9 @@ export const ProductShowcase: React.FC = () => {
         {/* Section Header */}
         <div className="max-w-2xl mb-14 sm:mb-16">
           <div className={`inline-flex items-center gap-2 text-[11px] sm:text-[12px] font-semibold tracking-widest uppercase mb-3 font-mono ${
-            isDark ? 'text-[#B8F36B]' : 'text-[#10251E]'
+            isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'
           }`}>
-            <span className={`w-1.5 h-1.5 rounded-full ${isDark ? 'bg-[#B8F36B]' : 'bg-[#10251E]'}`} />
+            <span className={`w-1.5 h-1.5 rounded-full ${isDark ? 'bg-[#60A5FA]' : 'bg-[#2563EB]'}`} />
             <span>FINANCIAL INTELLIGENCE DASHBOARD</span>
           </div>
 
@@ -177,24 +177,24 @@ export const ProductShowcase: React.FC = () => {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className={`rounded-3xl p-5 sm:p-8 shadow-2xl relative overflow-hidden border ${
-            isDark ? 'bg-[#08110F] border-[#1E3B30] text-white' : 'bg-white border-[#DEE3DE] text-[#111916]'
+            isDark ? 'bg-[#0D1B2E] border-[#243B56] text-white' : 'bg-white border-[#DCE6F0] text-[#0F172A]'
           }`}
         >
           {/* Top edge subtle highlight */}
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#B8F36B]/25 to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2563EB]/25 to-transparent" />
 
           {/* Dashboard Header Bar */}
           <div className={`flex flex-col sm:flex-row sm:items-center justify-between pb-5 mb-6 border-b gap-4 ${
-            isDark ? 'border-[#182F26]' : 'border-[#EAEFEA]'
+            isDark ? 'border-[#243B56]' : 'border-[#DCE6F0]'
           }`}>
             <div className="flex items-center gap-3">
               <KopaLogo variant="symbol" theme={isDark ? 'dark' : 'light'} size="sm" />
               <div>
-                <div className={`text-sm font-semibold flex items-center gap-2 ${isDark ? 'text-white' : 'text-[#111916]'}`}>
+                <div className={`text-sm font-semibold flex items-center gap-2 ${isDark ? 'text-white' : 'text-[#0F172A]'}`}>
                   <span>Amina Fashion</span>
-                  <span className={`text-[10px] font-mono ${isDark ? 'text-slate-400' : 'text-[#69746F]'}`}>· Lagos Hub</span>
+                  <span className={`text-[10px] font-mono ${isDark ? 'text-slate-400' : 'text-[#475569]'}`}>· Lagos Hub</span>
                 </div>
-                <div className={`text-xs font-mono ${isDark ? 'text-[#B8F36B]' : 'text-[#10251E]'}`}>
+                <div className={`text-xs font-mono ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`}>
                   Live operating ledger
                 </div>
               </div>
@@ -205,7 +205,7 @@ export const ProductShowcase: React.FC = () => {
               role="tablist"
               aria-label="Revenue Timeframe"
               className={`flex items-center gap-1.5 p-1 rounded-xl border ${
-                isDark ? 'bg-[#10251E] border-[#1A382C]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
+                isDark ? 'bg-[#07111F] border-[#243B56]' : 'bg-[#F7FAFC] border-[#DCE6F0]'
               }`}
             >
               {(['30d', '90d', 'ytd'] as Timeframe[]).map((tf) => (
@@ -214,12 +214,12 @@ export const ProductShowcase: React.FC = () => {
                   role="tab"
                   aria-selected={timeframe === tf}
                   onClick={() => setTimeframe(tf)}
-                  className={`px-3 py-1.5 text-xs font-mono rounded-lg transition-all cursor-pointer whitespace-nowrap focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none min-h-[36px] flex items-center ${
+                  className={`px-3 py-1.5 text-xs font-mono rounded-lg transition-all cursor-pointer whitespace-nowrap focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:outline-none min-h-[36px] flex items-center ${
                     timeframe === tf
-                      ? 'bg-[#B8F36B] text-[#08110F] font-bold shadow-xs'
+                      ? 'bg-[#2563EB] text-white dark:bg-[#3B82F6] dark:text-[#07111F] font-bold shadow-xs'
                       : isDark
                       ? 'text-slate-300 hover:text-white hover:bg-white/5'
-                      : 'text-[#69746F] hover:text-[#111916] hover:bg-black/5'
+                      : 'text-[#475569] hover:text-[#0F172A] hover:bg-black/5'
                   }`}
                 >
                   {tf === '30d' ? 'Last 30 Days' : tf === '90d' ? 'Last 90 Days' : 'Year to Date'}
@@ -232,80 +232,80 @@ export const ProductShowcase: React.FC = () => {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
             <motion.div
               whileHover={{ y: -3, transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] } }}
-              className={`p-4 sm:p-5 rounded-2xl border ${isDark ? 'bg-[#0E1F1A] border-[#183126]' : 'bg-[#F7F6F0] border-[#DEE3DE]'}`}
+              className={`p-4 sm:p-5 rounded-2xl border ${isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0]'}`}
             >
-              <span className={`text-[11px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
+              <span className={`text-[11px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-slate-400' : 'text-[#64748B]'}`}>
                 Revenue
               </span>
-              <span className={`text-2xl sm:text-3xl font-heading font-semibold tabular-nums block ${isDark ? 'text-white' : 'text-[#111916]'}`}>
+              <span className={`text-2xl sm:text-3xl font-heading font-semibold tabular-nums block ${isDark ? 'text-white' : 'text-[#0F172A]'}`}>
                 {activeData.revenue}
               </span>
-              <span className={`text-xs font-semibold block mt-1 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
+              <span className={`text-xs font-semibold block mt-1 ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`}>
                 {activeData.revenueChange}
               </span>
             </motion.div>
 
             <motion.div
               whileHover={{ y: -3, transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] } }}
-              className={`p-4 sm:p-5 rounded-2xl border ${isDark ? 'bg-[#0E1F1A] border-[#183126]' : 'bg-[#F7F6F0] border-[#DEE3DE]'}`}
+              className={`p-4 sm:p-5 rounded-2xl border ${isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0]'}`}
             >
-              <span className={`text-[11px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
+              <span className={`text-[11px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-slate-400' : 'text-[#64748B]'}`}>
                 Expenses
               </span>
-              <span className={`text-2xl sm:text-3xl font-heading font-semibold tabular-nums block ${isDark ? 'text-white' : 'text-[#111916]'}`}>
+              <span className={`text-2xl sm:text-3xl font-heading font-semibold tabular-nums block ${isDark ? 'text-white' : 'text-[#0F172A]'}`}>
                 {activeData.expenses}
               </span>
-              <span className={`text-xs block mt-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
+              <span className={`text-xs block mt-1 ${isDark ? 'text-slate-400' : 'text-[#64748B]'}`}>
                 {activeData.expensesNote}
               </span>
             </motion.div>
 
             <motion.div
               whileHover={{ y: -3, transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] } }}
-              className={`p-4 sm:p-5 rounded-2xl border ${isDark ? 'bg-[#0E1F1A] border-[#183126]' : 'bg-[#F7F6F0] border-[#DEE3DE]'}`}
+              className={`p-4 sm:p-5 rounded-2xl border ${isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0]'}`}
             >
-              <span className={`text-[11px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
+              <span className={`text-[11px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-slate-400' : 'text-[#64748B]'}`}>
                 Estimated Profit
               </span>
-              <span className={`text-2xl sm:text-3xl font-heading font-semibold tabular-nums block ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
+              <span className={`text-2xl sm:text-3xl font-heading font-semibold tabular-nums block ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`}>
                 {activeData.profit}
               </span>
-              <span className={`text-xs font-medium block mt-1 ${isDark ? 'text-slate-300' : 'text-[#48534E]'}`}>
+              <span className={`text-xs font-medium block mt-1 ${isDark ? 'text-slate-300' : 'text-[#64748B]'}`}>
                 {activeData.profitMargin}
               </span>
             </motion.div>
 
             <motion.div
               whileHover={{ y: -3, transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] } }}
-              className={`p-4 sm:p-5 rounded-2xl border ${isDark ? 'bg-[#0E1F1A] border-[#183126]' : 'bg-[#F7F6F0] border-[#DEE3DE]'}`}
+              className={`p-4 sm:p-5 rounded-2xl border ${isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0]'}`}
             >
-              <span className={`text-[11px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
+              <span className={`text-[11px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-slate-400' : 'text-[#64748B]'}`}>
                 Transactions
               </span>
-              <span className={`text-2xl sm:text-3xl font-heading font-semibold tabular-nums block ${isDark ? 'text-white' : 'text-[#111916]'}`}>
+              <span className={`text-2xl sm:text-3xl font-heading font-semibold tabular-nums block ${isDark ? 'text-white' : 'text-[#0F172A]'}`}>
                 {activeData.transactions}
               </span>
-              <span className={`text-xs block mt-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
+              <span className={`text-xs block mt-1 ${isDark ? 'text-slate-400' : 'text-[#64748B]'}`}>
                 {activeData.transactionsNote}
               </span>
             </motion.div>
           </div>
 
           {/* Monthly Revenue Trajectory Chart */}
-          <div className={`mb-8 p-5 sm:p-6 rounded-2xl border ${isDark ? 'bg-[#0E1F1A] border-[#183126]' : 'bg-[#F7F6F0] border-[#DEE3DE]'}`}>
+          <div className={`mb-8 p-5 sm:p-6 rounded-2xl border ${isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0]'}`}>
             <div className="flex items-center justify-between mb-4">
               <div>
-                <span className={`text-sm font-semibold block ${isDark ? 'text-white' : 'text-[#111916]'}`}>
+                <span className={`text-sm font-semibold block ${isDark ? 'text-white' : 'text-[#0F172A]'}`}>
                   Business Activity & Revenue Trajectory
                 </span>
-                <span className={`text-xs ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
+                <span className={`text-xs ${isDark ? 'text-slate-400' : 'text-[#64748B]'}`}>
                   Real-time transaction volume curve
                 </span>
               </div>
               <span className={`text-xs font-mono font-semibold px-2.5 py-1 rounded border ${
                 isDark
-                  ? 'text-[#B8F36B] bg-[#B8F36B]/10 border-[#B8F36B]/20'
-                  : 'text-[#15803D] bg-[#15803D]/10 border-[#15803D]/25'
+                  ? 'text-[#60A5FA] bg-[#60A5FA]/10 border-[#60A5FA]/20'
+                  : 'text-[#2563EB] bg-[#2563EB]/10 border-[#2563EB]/25'
               }`}>
                 Peak: {activeData.revenue}
               </span>
@@ -316,8 +316,8 @@ export const ProductShowcase: React.FC = () => {
               <svg className="w-full h-full overflow-visible" viewBox="0 0 600 130" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="revenueGradTheme" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor={isDark ? "#B8F36B" : "#15803D"} stopOpacity={isDark ? "0.25" : "0.15"} />
-                    <stop offset="100%" stopColor={isDark ? "#B8F36B" : "#15803D"} stopOpacity="0.0" />
+                    <stop offset="0%" stopColor={isDark ? "#60A5FA" : "#2563EB"} stopOpacity={isDark ? "0.25" : "0.15"} />
+                    <stop offset="100%" stopColor={isDark ? "#60A5FA" : "#2563EB"} stopOpacity="0.0" />
                   </linearGradient>
                 </defs>
 
@@ -337,7 +337,7 @@ export const ProductShowcase: React.FC = () => {
                 <path
                   d={activeData.chartPath}
                   fill="none"
-                  stroke={isDark ? "#B8F36B" : "#15803D"}
+                  stroke={isDark ? "#60A5FA" : "#2563EB"}
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   className="transition-all duration-500 ease-out"
@@ -350,15 +350,15 @@ export const ProductShowcase: React.FC = () => {
                       cx={pt.cx}
                       cy={pt.cy}
                       r={idx === activeData.points.length - 1 ? 5 : 3.5}
-                      fill={idx === activeData.points.length - 1 ? isDark ? "#B8F36B" : "#15803D" : isDark ? "#08110F" : "#FFFFFF"}
-                      stroke={isDark ? "#B8F36B" : "#15803D"}
+                      fill={idx === activeData.points.length - 1 ? isDark ? "#60A5FA" : "#2563EB" : isDark ? "#07111F" : "#FFFFFF"}
+                      stroke={isDark ? "#60A5FA" : "#2563EB"}
                       strokeWidth="2"
                     />
                   </g>
                 ))}
               </svg>
 
-              <div className={`flex justify-between text-[11px] font-mono mt-2 px-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
+              <div className={`flex justify-between text-[11px] font-mono mt-2 px-1 ${isDark ? 'text-slate-400' : 'text-[#64748B]'}`}>
                 {activeData.points.map((pt, idx) => (
                   <span key={idx}>
                     {pt.label} ({pt.value})
@@ -374,10 +374,10 @@ export const ProductShowcase: React.FC = () => {
             {/* Top Products */}
             <div className="lg:col-span-7">
               <div className="flex items-center justify-between mb-3.5">
-                <span className={`text-xs font-semibold uppercase tracking-wider font-mono ${isDark ? 'text-white' : 'text-[#111916]'}`}>
+                <span className={`text-xs font-semibold uppercase tracking-wider font-mono ${isDark ? 'text-white' : 'text-[#0F172A]'}`}>
                   Top Products
                 </span>
-                <span className={`text-xs font-mono font-semibold ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>By Recorded Revenue</span>
+                <span className={`text-xs font-mono font-semibold ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`}>By Recorded Revenue</span>
               </div>
 
               <div className="space-y-2.5">
@@ -385,22 +385,22 @@ export const ProductShowcase: React.FC = () => {
                   <div
                     key={idx}
                     className={`p-3.5 rounded-xl border flex items-center justify-between transition-colors ${
-                      isDark ? 'bg-[#0E1F1A] border-[#183126] hover:border-[#1E3B30]' : 'bg-[#F7F6F0] border-[#DEE3DE] hover:border-[#CED4CE]'
+                      isDark ? 'bg-[#132640] border-[#243B56] hover:border-[#3B82F6]' : 'bg-[#F7FAFC] border-[#DCE6F0] hover:border-[#2563EB]'
                     }`}
                   >
                     <div>
-                      <div className={`text-xs sm:text-sm font-semibold ${isDark ? 'text-white' : 'text-[#111916]'}`}>
+                      <div className={`text-xs sm:text-sm font-semibold ${isDark ? 'text-white' : 'text-[#0F172A]'}`}>
                         {p.name}
                       </div>
-                      <div className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
+                      <div className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-[#64748B]'}`}>
                         {p.units} units sold · {p.margin} margin
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className={`text-xs sm:text-sm font-semibold tabular-nums ${isDark ? 'text-white' : 'text-[#111916]'}`}>
+                      <div className={`text-xs sm:text-sm font-semibold tabular-nums ${isDark ? 'text-white' : 'text-[#0F172A]'}`}>
                         {p.revenue}
                       </div>
-                      <div className={`text-[10px] font-mono font-semibold ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
+                      <div className={`text-[10px] font-mono font-semibold ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`}>
                         {p.share} of total
                       </div>
                     </div>
@@ -412,10 +412,10 @@ export const ProductShowcase: React.FC = () => {
             {/* Recent Business Activity */}
             <div className="lg:col-span-5">
               <div className="flex items-center justify-between mb-3.5">
-                <span className={`text-xs font-semibold uppercase tracking-wider font-mono ${isDark ? 'text-white' : 'text-[#111916]'}`}>
+                <span className={`text-xs font-semibold uppercase tracking-wider font-mono ${isDark ? 'text-white' : 'text-[#0F172A]'}`}>
                   Recent Activity
                 </span>
-                <span className={`text-xs font-mono font-semibold flex items-center gap-1 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
+                <span className={`text-xs font-mono font-semibold flex items-center gap-1 ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`}>
                   <Clock className="w-3 h-3" /> Live
                 </span>
               </div>
@@ -425,26 +425,26 @@ export const ProductShowcase: React.FC = () => {
                   <div
                     key={idx}
                     className={`p-3.5 rounded-xl border flex items-center justify-between ${
-                      isDark ? 'bg-[#0E1F1A] border-[#183126]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
+                      isDark ? 'bg-[#132640] border-[#243B56]' : 'bg-[#F7FAFC] border-[#DCE6F0]'
                     }`}
                   >
                     <div>
-                      <div className={`text-xs font-semibold ${isDark ? 'text-white' : 'text-[#111916]'}`}>
+                      <div className={`text-xs font-semibold ${isDark ? 'text-white' : 'text-[#0F172A]'}`}>
                         {act.title}
                       </div>
-                      <div className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
+                      <div className={`text-[11px] ${isDark ? 'text-slate-400' : 'text-[#64748B]'}`}>
                         {act.party}
                       </div>
                     </div>
                     <div className="text-right">
                       <div className={`text-xs font-semibold tabular-nums ${
                         act.isPositive
-                          ? isDark ? 'text-[#B8F36B]' : 'text-[#15803D] font-bold'
-                          : isDark ? 'text-slate-400' : 'text-[#48534E]'
+                          ? isDark ? 'text-[#60A5FA]' : 'text-[#2563EB] font-bold'
+                          : isDark ? 'text-slate-400' : 'text-[#64748B]'
                       }`}>
                         {act.amount}
                       </div>
-                      <div className={`text-[10px] font-mono ${isDark ? 'text-slate-500' : 'text-[#69746F]'}`}>
+                      <div className={`text-[10px] font-mono ${isDark ? 'text-slate-500' : 'text-[#64748B]'}`}>
                         {act.time}
                       </div>
                     </div>
@@ -465,27 +465,27 @@ export const ProductShowcase: React.FC = () => {
           <div
             className={`rounded-3xl border shadow-xl relative overflow-hidden transition-all ${
               isDark
-                ? 'bg-[#0E1F1A] border-[#1C382E] text-white'
-                : 'bg-white border-[#DEE3DE] text-[#111916]'
+                ? 'bg-[#0D1B2E] border-[#243B56] text-white'
+                : 'bg-white border-[#DCE6F0] text-[#0F172A]'
             }`}
           >
             {/* ChatGPT-Style Pinned Top Bar */}
             <div
               className={`flex flex-col sm:flex-row sm:items-center justify-between px-5 sm:px-6 py-3.5 border-b gap-3 transition-colors ${
-                isDark ? 'bg-[#08110F]/70 border-[#182E26]' : 'bg-[#F7F6F0]/80 border-[#DEE3DE]'
+                isDark ? 'bg-[#07111F]/70 border-[#243B56]' : 'bg-[#F7FAFC]/80 border-[#DCE6F0]'
               }`}
             >
               <div className="flex items-center gap-2.5">
-                <div className="w-7 h-7 rounded-lg flex items-center justify-center bg-[#08110F] border border-[#1C382E] text-white shadow-xs">
+                <div className="w-7 h-7 rounded-lg flex items-center justify-center bg-[#07111F] border border-[#243B56] text-white shadow-xs">
                   <KopaLogo variant="symbol" theme="dark" size="sm" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs sm:text-sm font-heading font-semibold text-[#111916] dark:text-white">
+                    <span className="text-xs sm:text-sm font-heading font-semibold text-[#0F172A] dark:text-white">
                       Ask Kopa
                     </span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#15803D] dark:bg-[#B8F36B] animate-pulse" />
-                    <span className="text-[10px] font-mono text-[#69746F] dark:text-slate-400">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] dark:bg-[#60A5FA] animate-pulse" />
+                    <span className="text-[10px] font-mono text-[#475569] dark:text-slate-400">
                       GPT Engine · Live Context
                     </span>
                   </div>
@@ -494,15 +494,15 @@ export const ProductShowcase: React.FC = () => {
 
               {/* Cost data condition toggle */}
               <div className="flex items-center gap-2 text-xs font-sans">
-                <span className="text-[#69746F] dark:text-slate-400 text-[11px]">Cost data:</span>
+                <span className="text-[#475569] dark:text-slate-400 text-[11px]">Cost data:</span>
                 <button
                   type="button"
                   onClick={() => setCostDataAvailable(!costDataAvailable)}
                   className={`text-[11px] px-2.5 py-1 rounded-md border font-mono cursor-pointer transition-colors ${
                     costDataAvailable
                       ? isDark
-                        ? 'bg-[#B8F36B]/15 text-[#B8F36B] border-[#B8F36B]/30'
-                        : 'bg-[#15803D]/10 text-[#15803D] border-[#15803D]/25 font-semibold'
+                        ? 'bg-[#60A5FA]/15 text-[#60A5FA] border-[#60A5FA]/30'
+                        : 'bg-[#2563EB]/10 text-[#2563EB] border-[#2563EB]/25 font-semibold'
                       : 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/40 font-semibold'
                   }`}
                 >
@@ -515,7 +515,7 @@ export const ProductShowcase: React.FC = () => {
             <div className="p-5 sm:p-6 space-y-4">
               {/* Quick Prompt Selector Chips (ChatGPT Style) */}
               <div>
-                <p className="text-[11px] font-mono uppercase tracking-wider text-[#69746F] dark:text-slate-400 mb-2">
+                <p className="text-[11px] font-mono uppercase tracking-wider text-[#475569] dark:text-slate-400 mb-2">
                   Suggested Queries
                 </p>
                 <div className="flex flex-wrap gap-2" role="group" aria-label="Exploration questions">
@@ -525,14 +525,14 @@ export const ProductShowcase: React.FC = () => {
                       type="button"
                       aria-pressed={activeQueryIndex === idx}
                       onClick={() => setActiveQueryIndex(idx)}
-                      className={`text-xs px-3.5 py-2 rounded-xl border transition-all cursor-pointer font-sans min-h-[36px] flex items-center focus-visible:ring-2 focus-visible:ring-[#15803D] dark:focus-visible:ring-[#B8F36B] focus-visible:outline-none ${
+                      className={`text-xs px-3.5 py-2 rounded-xl border transition-all cursor-pointer font-sans min-h-[36px] flex items-center focus-visible:ring-2 focus-visible:ring-[#2563EB] dark:focus-visible:ring-[#60A5FA] focus-visible:outline-none ${
                         activeQueryIndex === idx
                           ? isDark
-                            ? 'bg-[#B8F36B] text-[#08110F] border-[#B8F36B] font-semibold shadow-xs'
-                            : 'bg-[#10251E] text-white border-[#10251E] font-semibold shadow-xs'
+                            ? 'bg-[#60A5FA] text-[#07111F] border-[#60A5FA] font-semibold shadow-xs'
+                            : 'bg-[#2563EB] text-white border-[#2563EB] font-semibold shadow-xs'
                           : isDark
-                          ? 'bg-[#08110F] text-slate-300 border-[#1B352B] hover:text-white hover:border-[#214739]'
-                          : 'bg-[#F7F6F0] text-[#111916] border-[#DEE3DE] hover:bg-black/5 hover:border-black/20'
+                          ? 'bg-[#07111F] text-slate-300 border-[#243B56] hover:text-white hover:border-[#3B82F6]'
+                          : 'bg-[#F7FAFC] text-[#0F172A] border-[#DCE6F0] hover:bg-black/5 hover:border-[#2563EB]'
                       }`}
                     >
                       "{q.question}"
@@ -545,7 +545,7 @@ export const ProductShowcase: React.FC = () => {
               <div className="pt-2 space-y-3">
                 {/* User Message Bubble */}
                 <div className="flex justify-end">
-                  <div className="bg-[#10251E] dark:bg-[#1E3B30] text-white px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-sans max-w-[85%] sm:max-w-[75%] shadow-xs">
+                  <div className="bg-[#2563EB] dark:bg-[#102B4D] text-white px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-sans max-w-[85%] sm:max-w-[75%] shadow-xs animate-fade-in">
                     <p>"{activeQuery.question}"</p>
                   </div>
                 </div>
@@ -560,31 +560,31 @@ export const ProductShowcase: React.FC = () => {
                     transition={{ duration: 0.25 }}
                     className={`p-4 rounded-2xl border flex items-start gap-3 text-xs sm:text-sm ${
                       isDark
-                        ? 'bg-[#08110F] border-[#1E3B30] text-slate-100'
-                        : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#111916]'
+                        ? 'bg-[#07111F] border-[#243B56] text-slate-100'
+                        : 'bg-[#F7FAFC] border-[#DCE6F0] text-[#0F172A]'
                     }`}
                   >
-                    <div className="w-7 h-7 rounded-lg shrink-0 flex items-center justify-center bg-[#08110F] border border-[#1C382E] text-white shadow-xs mt-0.5">
+                    <div className="w-7 h-7 rounded-lg shrink-0 flex items-center justify-center bg-[#07111F] border border-[#243B56] text-white shadow-xs mt-0.5">
                       <KopaLogo variant="symbol" theme="dark" size="sm" />
                     </div>
 
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                        <strong className="text-xs sm:text-sm font-semibold text-[#111916] dark:text-white">
+                        <strong className="text-xs sm:text-sm font-semibold text-[#0F172A] dark:text-white">
                           Kopa Assistant
                         </strong>
                         <span className={`text-[10px] font-mono px-2 py-0.5 rounded border font-semibold ${
                           costDataAvailable || activeQueryIndex !== 0
                             ? isDark
-                              ? 'text-[#B8F36B] bg-[#B8F36B]/15 border-[#B8F36B]/30'
-                              : 'text-[#15803D] bg-[#15803D]/10 border-[#15803D]/25'
+                              ? 'text-[#60A5FA] bg-[#60A5FA]/15 border-[#60A5FA]/30'
+                              : 'text-[#2563EB] bg-[#2563EB]/10 border-[#2563EB]/25'
                             : 'text-amber-700 dark:text-amber-400 bg-amber-500/10 border-amber-500/30'
                         }`}>
                           {activeQuery.badge}
                         </span>
                       </div>
 
-                      <p className="text-xs sm:text-sm text-[#111916] dark:text-slate-200 leading-relaxed font-sans">
+                      <p className="text-xs sm:text-sm text-[#0F172A] dark:text-slate-200 leading-relaxed font-sans">
                         {activeQuery.getAnswer(costDataAvailable)}
                       </p>
                     </div>
@@ -595,16 +595,16 @@ export const ProductShowcase: React.FC = () => {
               {/* Stationary Simulated ChatGPT Prompt Capsule */}
               <div
                 className={`pt-2 flex items-center gap-2 p-2 rounded-2xl border ${
-                  isDark ? 'bg-[#08110F] border-[#1C382E]' : 'bg-white border-[#DEE3DE]'
+                  isDark ? 'bg-[#07111F] border-[#243B56]' : 'bg-white border-[#DCE6F0]'
                 }`}
               >
-                <div className="flex-1 px-3 py-1 text-xs text-[#69746F] dark:text-slate-400 font-sans truncate">
+                <div className="flex-1 px-3 py-1 text-xs text-[#475569] dark:text-slate-400 font-sans truncate">
                   Ask Kopa or record transactions naturally…
                 </div>
                 <button
                   type="button"
                   onClick={() => setActiveQueryIndex((activeQueryIndex + 1) % aiQueries.length)}
-                  className="px-3 py-1.5 rounded-xl bg-[#15803D] dark:bg-[#B8F36B] text-white dark:text-[#08110F] text-xs font-semibold hover:opacity-90 transition-opacity cursor-pointer shrink-0"
+                  className="px-3 py-1.5 rounded-xl bg-[#2563EB] dark:bg-[#60A5FA] text-white dark:text-[#07111F] text-xs font-semibold hover:opacity-90 transition-opacity cursor-pointer shrink-0"
                 >
                   Next Query →
                 </button>

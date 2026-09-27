@@ -193,19 +193,19 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         <div
           className={`p-4 sm:p-5 rounded-2xl border flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-all ${
             isDark
-              ? 'bg-gradient-to-r from-[#10251E] to-[#0A1612] border-emerald-500/30'
-              : 'bg-gradient-to-r from-emerald-50 to-white border-emerald-200 shadow-xs'
+              ? 'bg-gradient-to-r from-[#102B4D]/40 to-[#0D1B2E] border-[#243B56]'
+              : 'bg-gradient-to-r from-[#EAF2FF] to-white border-[#DCE6F0] shadow-xs'
           }`}
         >
           <div className="flex items-start sm:items-center gap-3.5">
-            <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 shrink-0">
+            <div className="p-2.5 rounded-xl bg-[#2563EB]/10 border border-[#2563EB]/30 text-[#2563EB] dark:bg-[#60A5FA]/20 dark:border-[#60A5FA]/30 dark:text-[#60A5FA] shrink-0">
               <Layers className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-sm font-heading font-semibold text-[#111916] dark:text-white">
+              <h3 className="text-sm font-heading font-semibold text-[#0F172A] dark:text-white">
                 Connect your business platforms to Kopa
               </h3>
-              <p className="text-xs text-[#48534E] dark:text-slate-300 mt-0.5 max-w-xl leading-relaxed">
+              <p className="text-xs text-[#475569] dark:text-slate-300 mt-0.5 max-w-xl leading-relaxed">
                 Link Shopify, Stripe, WhatsApp, Google, QuickBooks, PayPal, Airtable, or Slack to sync sales, stream payments, and unlock real-time MCP intelligence in Ask Kopa.
               </p>
             </div>
@@ -213,7 +213,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           <button
             type="button"
             onClick={() => onNavigate('connected-apps')}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-500 text-black text-xs font-semibold hover:bg-emerald-400 transition-all shadow-xs shrink-0 self-start sm:self-auto cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#2563EB] dark:bg-[#3B82F6] text-white text-xs font-semibold hover:bg-[#1D4ED8] dark:hover:bg-[#2563EB] transition-all shadow-xs shrink-0 self-start sm:self-auto cursor-pointer"
           >
             <span>Connect Apps</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -226,12 +226,12 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         {/* 1. Total Revenue */}
         <div
           className={`p-5 rounded-2xl border transition-all ${
-            isDark ? 'bg-[#10251E]/40 border-[#1C382E]' : 'bg-white border-[#DEE3DE] shadow-xs'
+            isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0] shadow-xs'
           }`}
         >
-          <div className="flex items-center justify-between text-xs text-[#48534E] dark:text-slate-400 mb-2 font-medium">
+          <div className="flex items-center justify-between text-xs text-[#475569] dark:text-slate-400 mb-2 font-medium">
             <span>Total Revenue</span>
-            <span className="p-1.5 rounded-lg bg-[#15803D]/10 dark:bg-[#B8F36B]/15 text-[#15803D] dark:text-[#B8F36B]">
+            <span className="p-1.5 rounded-lg bg-[#16A34A]/10 dark:bg-[#4ADE80]/15 text-[#16A34A] dark:text-[#4ADE80]">
               <TrendingUp className="w-4 h-4" />
             </span>
           </div>
@@ -239,7 +239,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             {currencySymbol}
             {metrics.totalRevenue.toLocaleString()}
           </div>
-          <p className="text-[11px] text-[#48534E] dark:text-slate-400 mt-2 flex items-center gap-1">
+          <p className="text-[11px] text-[#475569] dark:text-slate-400 mt-2 flex items-center gap-1">
             <span>Recorded sales in selected period</span>
           </p>
         </div>
@@ -247,7 +247,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         {/* 2. Total Expenses */}
         <div
           className={`p-5 rounded-2xl border transition-all ${
-            isDark ? 'bg-[#10251E]/40 border-[#1C382E]' : 'bg-white border-[#DEE3DE] shadow-xs'
+            isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0] shadow-xs'
           }`}
         >
           <div className="flex items-center justify-between text-xs text-[#69746F] dark:text-slate-400 mb-2">
@@ -268,18 +268,18 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         {/* 3. Estimated Gross Profit */}
         <div
           className={`p-5 rounded-2xl border transition-all ${
-            isDark ? 'bg-[#10251E]/40 border-[#1C382E]' : 'bg-white border-[#DEE3DE] shadow-xs'
+            isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0] shadow-xs'
           }`}
         >
-          <div className="flex items-center justify-between text-xs text-[#48534E] dark:text-slate-400 mb-2 font-medium">
+          <div className="flex items-center justify-between text-xs text-[#475569] dark:text-slate-400 mb-2 font-medium">
             <div className="flex items-center gap-1">
               <span>Estimated Gross Profit</span>
             </div>
-            <span className="p-1.5 rounded-lg bg-[#15803D]/10 dark:bg-[#B8F36B]/15 text-[#15803D] dark:text-[#B8F36B]">
+            <span className="p-1.5 rounded-lg bg-[#16A34A]/10 dark:bg-[#4ADE80]/15 text-[#16A34A] dark:text-[#4ADE80]">
               <DollarSign className="w-4 h-4" />
             </span>
           </div>
-          <div className="text-2xl sm:text-3xl font-heading font-semibold tracking-tight text-[#15803D] dark:text-[#B8F36B]">
+          <div className="text-2xl sm:text-3xl font-heading font-semibold tracking-tight text-[#16A34A] dark:text-[#4ADE80]">
             {currencySymbol}
             {metrics.estimatedGrossProfit.toLocaleString()}
           </div>
@@ -291,7 +291,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               </span>
             </p>
           ) : (
-            <p className="text-[11px] text-[#48534E] dark:text-slate-400 mt-2">
+            <p className="text-[11px] text-[#475569] dark:text-slate-400 mt-2">
               Based on verified costed inventory
             </p>
           )}
@@ -300,7 +300,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         {/* 4. Total Transactions */}
         <div
           className={`p-5 rounded-2xl border transition-all ${
-            isDark ? 'bg-[#10251E]/40 border-[#1C382E]' : 'bg-white border-[#DEE3DE] shadow-xs'
+            isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0] shadow-xs'
           }`}
         >
           <div className="flex items-center justify-between text-xs text-[#69746F] dark:text-slate-400 mb-2">
@@ -320,7 +320,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         {/* 5. Outstanding Customer Debts */}
         <div
           className={`p-5 rounded-2xl border transition-all ${
-            isDark ? 'bg-[#10251E]/40 border-[#1C382E]' : 'bg-white border-[#DEE3DE] shadow-xs'
+            isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0] shadow-xs'
           }`}
         >
           <div className="flex items-center justify-between text-xs text-[#69746F] dark:text-slate-400 mb-2">
@@ -341,7 +341,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         {/* 6. Current Inventory Value */}
         <div
           className={`p-5 rounded-2xl border transition-all ${
-            isDark ? 'bg-[#10251E]/40 border-[#1C382E]' : 'bg-white border-[#DEE3DE] shadow-xs'
+            isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0] shadow-xs'
           }`}
         >
           <div className="flex items-center justify-between text-xs text-[#69746F] dark:text-slate-400 mb-2">
@@ -367,7 +367,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         {/* Left: Revenue vs Expenses breakdown */}
         <div
           className={`lg:col-span-7 p-6 rounded-2xl border ${
-            isDark ? 'bg-[#10251E]/40 border-[#1C382E]' : 'bg-white border-[#DEE3DE] shadow-xs'
+            isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0] shadow-xs'
           }`}
         >
           <div className="flex items-center justify-between mb-6">
@@ -377,7 +377,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             </div>
             <div className="flex items-center gap-4 text-xs font-mono">
               <span className="flex items-center gap-1.5">
-                <span className={`w-2.5 h-2.5 rounded-full ${isDark ? 'bg-[#B8F36B]' : 'bg-[#15803D]'}`} />
+                <span className={`w-2.5 h-2.5 rounded-full ${isDark ? 'bg-[#60A5FA]' : 'bg-[#2563EB]'}`} />
                 <span>Revenue</span>
               </span>
               <span className="flex items-center gap-1.5">
@@ -392,7 +392,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             <div>
               <div className="flex justify-between text-xs font-medium mb-1.5">
                 <span>Revenue</span>
-                <span className={`font-mono font-bold ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
+                <span className={`font-mono font-bold ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`}>
                   {currencySymbol}
                   {metrics.totalRevenue.toLocaleString()}
                 </span>
@@ -411,7 +411,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                     }%`,
                   }}
                   transition={{ duration: 0.8, ease: 'easeOut' }}
-                  className={`h-full rounded-full ${isDark ? 'bg-[#B8F36B]' : 'bg-[#15803D]'}`}
+                  className={`h-full rounded-full ${isDark ? 'bg-[#60A5FA]' : 'bg-[#2563EB]'}`}
                 />
               </div>
             </div>
@@ -445,21 +445,21 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
 
             <div
               className={`mt-6 p-4 rounded-xl border text-xs flex justify-between items-center ${
-                isDark ? 'bg-[#08110F] border-[#1C382E]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
+                isDark ? 'bg-[#07111F] border-[#243B56]' : 'bg-[#F7FAFC] border-[#DCE6F0]'
               }`}
             >
               <div>
-                <span className="text-[#48534E] dark:text-slate-400 block font-medium">Operating Net Flow</span>
+                <span className="text-[#475569] dark:text-slate-400 block font-medium">Operating Net Flow</span>
                 <span className="text-base font-semibold font-mono">
                   {currencySymbol}
                   {(metrics.totalRevenue - metrics.totalExpenses).toLocaleString()}
                 </span>
               </div>
               <div className="text-right">
-                <span className="text-[11px] text-[#48534E] dark:text-slate-400 block">Status</span>
+                <span className="text-[11px] text-[#475569] dark:text-slate-400 block">Status</span>
                 <span
                   className={`font-semibold ${
-                    metrics.totalRevenue >= metrics.totalExpenses ? isDark ? 'text-[#B8F36B]' : 'text-[#15803D]' : 'text-red-500'
+                    metrics.totalRevenue >= metrics.totalExpenses ? isDark ? 'text-[#4ADE80]' : 'text-[#16A34A]' : 'text-red-500'
                   }`}
                 >
                   {metrics.totalRevenue >= metrics.totalExpenses ? 'Cash Positive' : 'Deficit'}
@@ -472,18 +472,18 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         {/* Right: Most Profitable Products (Strict Cost Data Enforcement) */}
         <div
           className={`lg:col-span-5 p-6 rounded-2xl border ${
-            isDark ? 'bg-[#10251E]/40 border-[#1C382E]' : 'bg-white border-[#DEE3DE] shadow-xs'
+            isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0] shadow-xs'
           }`}
         >
           <div className="flex items-center justify-between mb-4">
             <div>
               <h2 className="text-sm sm:text-base font-heading font-medium">Most Profitable Items</h2>
-              <p className="text-xs text-[#48534E] dark:text-slate-400">Strictly where cost data exists</p>
+              <p className="text-xs text-[#475569] dark:text-slate-400">Strictly where cost data exists</p>
             </div>
             <button
               type="button"
               onClick={() => onNavigate('products')}
-              className={`text-xs hover:underline cursor-pointer font-semibold ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}
+              className={`text-xs hover:underline cursor-pointer font-semibold ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`}
             >
               View all
             </button>
@@ -495,34 +495,34 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 <div
                   key={p.id}
                   className={`p-3 rounded-xl border flex items-center justify-between text-xs ${
-                    isDark ? 'bg-[#08110F] border-[#1C382E]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
+                    isDark ? 'bg-[#07111F] border-[#243B56]' : 'bg-[#F7FAFC] border-[#DCE6F0]'
                   }`}
                 >
                   <div>
                     <span className="font-semibold block">{p.name}</span>
-                    <span className="text-[11px] text-[#48534E] dark:text-slate-400">
+                    <span className="text-[11px] text-[#475569] dark:text-slate-400">
                       Sold {p.salesCount} × Margin: {currencySymbol}
                       {p.unitProfit.toLocaleString()}
                     </span>
                   </div>
                   <div className="text-right">
-                    <span className={`font-mono font-bold block ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
+                    <span className={`font-mono font-bold block ${isDark ? 'text-[#4ADE80]' : 'text-[#16A34A]'}`}>
                       +{currencySymbol}
                       {p.totalProfit.toLocaleString()}
                     </span>
-                    <span className="text-[10px] text-[#48534E] dark:text-slate-400">Verified profit</span>
+                    <span className="text-[10px] text-[#475569] dark:text-slate-400">Verified profit</span>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="py-8 text-center text-xs text-[#48534E] dark:text-slate-400">
+            <div className="py-8 text-center text-xs text-[#475569] dark:text-slate-400">
               <AlertTriangle className="w-6 h-6 mx-auto mb-2 text-amber-500" />
               <p>No products have verified cost prices yet.</p>
               <button
                 type="button"
                 onClick={() => onNavigate('products')}
-                className={`mt-2 hover:underline cursor-pointer font-semibold ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}
+                className={`mt-2 hover:underline cursor-pointer font-semibold ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`}
               >
                 Set product costs to calculate profit
               </button>
@@ -538,7 +538,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           {/* Low Stock Alerts */}
           <div
             className={`p-5 rounded-2xl border ${
-              isDark ? 'bg-[#10251E]/40 border-[#1C382E]' : 'bg-white border-[#DEE3DE] shadow-xs'
+              isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0] shadow-xs'
             }`}
           >
             <div className="flex items-center justify-between mb-3">
@@ -549,7 +549,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               <button
                 type="button"
                 onClick={() => onNavigate('products')}
-                className={`text-xs hover:underline cursor-pointer font-semibold ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}
+                className={`text-xs hover:underline cursor-pointer font-semibold ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`}
               >
                 Restock
               </button>
@@ -561,12 +561,12 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                   <div
                     key={p.id}
                     className={`p-2.5 rounded-xl border flex items-center justify-between text-xs ${
-                      isDark ? 'bg-[#08110F] border-[#1C382E]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
+                      isDark ? 'bg-[#07111F] border-[#243B56]' : 'bg-[#F7FAFC] border-[#DCE6F0]'
                     }`}
                   >
                     <div>
                       <span className="font-medium">{p.name}</span>
-                      <span className="text-[11px] text-[#48534E] dark:text-slate-400 block">
+                      <span className="text-[11px] text-[#475569] dark:text-slate-400 block">
                         Threshold: {p.minStockAlert} units
                       </span>
                     </div>
@@ -577,14 +577,14 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 ))}
               </div>
             ) : (
-              <p className="text-xs text-[#48534E] dark:text-slate-400">All product stock levels healthy.</p>
+              <p className="text-xs text-[#475569] dark:text-slate-400">All product stock levels healthy.</p>
             )}
           </div>
 
           {/* Outstanding Customer Debts */}
           <div
             className={`p-5 rounded-2xl border ${
-              isDark ? 'bg-[#10251E]/40 border-[#1C382E]' : 'bg-white border-[#DEE3DE] shadow-xs'
+              isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0] shadow-xs'
             }`}
           >
             <div className="flex items-center justify-between mb-3">
@@ -595,7 +595,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               <button
                 type="button"
                 onClick={() => onNavigate('customers')}
-                className={`text-xs hover:underline cursor-pointer font-semibold ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}
+                className={`text-xs hover:underline cursor-pointer font-semibold ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`}
               >
                 View all
               </button>
@@ -607,12 +607,12 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                   <div
                     key={c.id}
                     className={`p-2.5 rounded-xl border flex items-center justify-between text-xs ${
-                      isDark ? 'bg-[#08110F] border-[#1C382E]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
+                      isDark ? 'bg-[#07111F] border-[#243B56]' : 'bg-[#F7FAFC] border-[#DCE6F0]'
                     }`}
                   >
                     <div>
                       <span className="font-medium">{c.name}</span>
-                      <span className="text-[11px] text-[#48534E] dark:text-slate-400 block">{c.phone}</span>
+                      <span className="text-[11px] text-[#475569] dark:text-slate-400 block">{c.phone}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="font-mono text-amber-700 dark:text-amber-400 font-bold">
@@ -621,7 +621,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                       <button
                         type="button"
                         onClick={onOpenRecordPayment}
-                        className="px-2.5 py-1 text-[11px] rounded bg-[#B8F36B] text-[#08110F] font-semibold hover:bg-[#A5E852] cursor-pointer shadow-2xs"
+                        className="px-2.5 py-1 text-[11px] rounded bg-[#2563EB] text-white font-semibold hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:text-[#07111F] dark:hover:bg-[#60A5FA] cursor-pointer shadow-2xs"
                       >
                         Collect
                       </button>
@@ -630,7 +630,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 ))}
               </div>
             ) : (
-              <p className="text-xs text-[#48534E] dark:text-slate-400">No outstanding customer debts.</p>
+              <p className="text-xs text-[#475569] dark:text-slate-400">No outstanding customer debts.</p>
             )}
           </div>
         </div>
@@ -638,18 +638,18 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
         {/* Right: Recent Transactions Table */}
         <div
           className={`lg:col-span-6 p-5 rounded-2xl border ${
-            isDark ? 'bg-[#10251E]/40 border-[#1C382E]' : 'bg-white border-[#DEE3DE] shadow-xs'
+            isDark ? 'bg-[#0D1B2E] border-[#243B56]' : 'bg-white border-[#DCE6F0] shadow-xs'
           }`}
         >
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-sm font-heading font-medium">Recent Transactions</h3>
-              <p className="text-xs text-[#48534E] dark:text-slate-400">Latest recorded business activity</p>
+              <p className="text-xs text-[#475569] dark:text-slate-400">Latest recorded business activity</p>
             </div>
             <button
               type="button"
               onClick={() => onNavigate('transactions')}
-              className={`text-xs hover:underline cursor-pointer font-semibold ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}
+              className={`text-xs hover:underline cursor-pointer font-semibold ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`}
             >
               All transactions →
             </button>
@@ -661,20 +661,20 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                 <div
                   key={tx.id}
                   className={`p-3 rounded-xl border flex items-center justify-between text-xs ${
-                    isDark ? 'bg-[#08110F] border-[#1C382E]' : 'bg-[#F7F6F0] border-[#DEE3DE]'
+                    isDark ? 'bg-[#07111F] border-[#243B56]' : 'bg-[#F7FAFC] border-[#DCE6F0]'
                   }`}
                 >
                   <div>
                     <span className="font-medium block">{tx.title}</span>
-                    <span className="text-[11px] text-[#48534E] dark:text-slate-400">
+                    <span className="text-[11px] text-[#475569] dark:text-slate-400">
                       {new Date(tx.date).toLocaleDateString()} · {tx.category}
                     </span>
                   </div>
                   <div className="text-right">
                     <span
-                      className={`font-mono font-bold block ${
+                       className={`font-mono font-bold block ${
                         tx.type === 'sale' || tx.type === 'payment'
-                          ? isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'
+                          ? isDark ? 'text-[#4ADE80]' : 'text-[#16A34A]'
                           : tx.type === 'expense'
                           ? 'text-red-500'
                           : 'text-amber-500'
@@ -684,19 +684,19 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
                       {currencySymbol}
                       {tx.amount.toLocaleString()}
                     </span>
-                    <span className="text-[10px] text-[#48534E] dark:text-slate-400 capitalize">
+                    <span className="text-[10px] text-[#475569] dark:text-slate-400 capitalize">
                       {tx.type}
                     </span>
                   </div>
                 </div>
               ))
             ) : (
-              <div className="py-8 text-center text-xs text-[#48534E] dark:text-slate-400">
-                <Receipt className={`w-8 h-8 mx-auto mb-2 opacity-30 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`} />
-                <p className="font-medium text-[#111916] dark:text-slate-200">
+              <div className="py-8 text-center text-xs text-[#475569] dark:text-slate-400">
+                <Receipt className={`w-8 h-8 mx-auto mb-2 opacity-30 ${isDark ? 'text-[#60A5FA]' : 'text-[#2563EB]'}`} />
+                <p className="font-medium text-[#0F172A] dark:text-slate-200">
                   Your business activity will appear here once you start recording it.
                 </p>
-                <p className="text-[11px] mt-1 text-[#48534E] dark:text-slate-400">
+                <p className="text-[11px] mt-1 text-[#475569] dark:text-slate-400">
                   Record sales, log operational expenses, or ask Kopa in plain natural language.
                 </p>
               </div>

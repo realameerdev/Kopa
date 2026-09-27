@@ -65,10 +65,10 @@ export const PassportView: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-heading font-semibold tracking-tight text-[#111916] dark:text-white">
+          <h1 className="text-xl sm:text-2xl font-heading font-semibold tracking-tight text-[#0F172A] dark:text-white">
             Business Passport
           </h1>
-          <p className="text-xs sm:text-sm text-[#48534E] dark:text-slate-400 mt-0.5">
+          <p className="text-xs sm:text-sm text-[#475569] dark:text-slate-400 mt-0.5">
             Shareable proof of recorded business activity for suppliers, partners, and institutions.
           </p>
         </div>
@@ -79,11 +79,11 @@ export const PassportView: React.FC = () => {
             onClick={handleCopyLink}
             className={`inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium rounded-xl border transition-colors cursor-pointer ${
               isDark
-                ? 'bg-[#10251E]/80 border-[#1C382E] text-slate-200 hover:text-white'
-                : 'bg-white border-[#DEE3DE] text-[#111916]'
+                ? 'bg-[#0D1B2E] border-[#243B56] text-slate-200 hover:text-white'
+                : 'bg-white border-[#DCE6F0] text-[#0F172A]'
             }`}
           >
-            {copied ? <CheckCircle2 className="w-3.5 h-3.5 text-[#B8F36B]" /> : <Copy className="w-3.5 h-3.5" />}
+            {copied ? <CheckCircle2 className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#60A5FA]" /> : <Copy className="w-3.5 h-3.5" />}
             <span>{copied ? 'Copied Link' : 'Copy Passport Link'}</span>
           </button>
         </div>
@@ -93,15 +93,15 @@ export const PassportView: React.FC = () => {
       <div
         className={`rounded-2xl border p-4 sm:p-7 relative overflow-hidden transition-all shadow-md ${
           isDark
-            ? 'bg-gradient-to-b from-[#10251E] to-[#08110F] border-[#1C382E] text-white'
-            : 'bg-gradient-to-b from-white to-[#F7F6F0] border-[#DEE3DE] text-[#111916]'
+            ? 'bg-gradient-to-b from-[#0D1B2E] to-[#07111F] border-[#243B56] text-white'
+            : 'bg-gradient-to-b from-white to-[#F7FAFC] border-[#DCE6F0] text-[#0F172A]'
         }`}
       >
         {/* Ambient Top Glow Line */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#B8F36B] to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#2563EB] to-transparent" />
 
         {/* Top Passport Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 mb-8 border-b border-[#DEE3DE] dark:border-[#1A2E27]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 mb-8 border-b border-[#DCE6F0] dark:border-[#243B56]">
           <div className="flex items-center gap-3">
             <KopaLogo variant="symbol" theme={isDark ? 'dark' : 'light'} size="md" />
             <div>
@@ -116,7 +116,7 @@ export const PassportView: React.FC = () => {
             </div>
           </div>
 
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#E8F5D8] dark:bg-[#B8F36B]/15 text-[#14532D] dark:text-[#B8F36B] border border-[#C4E99C] dark:border-[#B8F36B]/30 text-xs font-mono font-semibold self-start sm:self-auto">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#EAF2FF] dark:bg-[#102B4D]/60 text-[#2563EB] dark:text-[#60A5FA] border border-[#2563EB]/20 dark:border-[#60A5FA]/30 text-xs font-mono font-semibold self-start sm:self-auto">
             <CheckCircle2 className="w-3.5 h-3.5" />
             <span>VERIFIED ACTIVITY</span>
           </div>
@@ -126,13 +126,13 @@ export const PassportView: React.FC = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
           <div
             className={`p-3 sm:p-4 rounded-xl border ${
-              isDark ? 'bg-[#08110F]/60 border-[#1C382E]' : 'bg-white border-[#DEE3DE]'
+              isDark ? 'bg-[#07111F]/60 border-[#243B56]' : 'bg-white border-[#DCE6F0]'
             }`}
           >
             <span className="text-[11px] sm:text-xs text-[#69746F] dark:text-slate-400 block mb-1">
               Recorded Turnover
             </span>
-            <span className="text-lg sm:text-2xl font-mono font-bold text-[#15803D] dark:text-[#B8F36B] truncate block">
+            <span className="text-lg sm:text-2xl font-mono font-bold text-[#2563EB] dark:text-[#60A5FA] truncate block">
               {currencySymbol}
               {recordedRevenue.toLocaleString()}
             </span>
@@ -143,13 +143,13 @@ export const PassportView: React.FC = () => {
 
           <div
             className={`p-3 sm:p-4 rounded-xl border ${
-              isDark ? 'bg-[#08110F]/60 border-[#1C382E]' : 'bg-white border-[#DEE3DE]'
+              isDark ? 'bg-[#07111F]/60 border-[#243B56]' : 'bg-white border-[#DCE6F0]'
             }`}
           >
             <span className="text-[11px] sm:text-xs text-[#69746F] dark:text-slate-400 block mb-1">
               Transactions
             </span>
-            <span className="text-lg sm:text-2xl font-mono font-bold block text-[#111916] dark:text-white">
+            <span className="text-lg sm:text-2xl font-mono font-bold block text-[#0F172A] dark:text-white">
               {totalTransactions}
             </span>
             <span className="text-[10px] text-[#69746F] dark:text-slate-400 block mt-1">
@@ -159,13 +159,13 @@ export const PassportView: React.FC = () => {
 
           <div
             className={`p-3 sm:p-4 rounded-xl border ${
-              isDark ? 'bg-[#08110F]/60 border-[#1C382E]' : 'bg-white border-[#DEE3DE]'
+              isDark ? 'bg-[#07111F]/60 border-[#243B56]' : 'bg-white border-[#DCE6F0]'
             }`}
           >
             <span className="text-[11px] sm:text-xs text-[#69746F] dark:text-slate-400 block mb-1">
               Active Customers
             </span>
-            <span className="text-lg sm:text-2xl font-mono font-bold block text-[#111916] dark:text-white">
+            <span className="text-lg sm:text-2xl font-mono font-bold block text-[#0F172A] dark:text-white">
               {customerCount}
             </span>
             <span className="text-[10px] text-[#69746F] dark:text-slate-400 block mt-1">
@@ -175,13 +175,13 @@ export const PassportView: React.FC = () => {
 
           <div
             className={`p-3 sm:p-4 rounded-xl border ${
-              isDark ? 'bg-[#08110F]/60 border-[#1C382E]' : 'bg-white border-[#DEE3DE]'
+              isDark ? 'bg-[#07111F]/60 border-[#243B56]' : 'bg-white border-[#DCE6F0]'
             }`}
           >
             <span className="text-[11px] sm:text-xs text-[#69746F] dark:text-slate-400 block mb-1">
               Ledger Currency
             </span>
-            <span className="text-lg sm:text-2xl font-mono font-bold text-[#15803D] dark:text-[#B8F36B] block">
+            <span className="text-lg sm:text-2xl font-mono font-bold text-[#2563EB] dark:text-[#60A5FA] block">
               {settings.currency}
             </span>
             <span className="text-[10px] text-[#69746F] dark:text-slate-400 block mt-1">
@@ -200,7 +200,7 @@ export const PassportView: React.FC = () => {
               <div
                 key={p.id}
                 className={`p-3.5 rounded-xl border text-xs ${
-                  isDark ? 'bg-[#08110F]/60 border-[#1C382E]' : 'bg-white border-[#DEE3DE]'
+                  isDark ? 'bg-[#07111F]/60 border-[#243B56]' : 'bg-white border-[#DCE6F0]'
                 }`}
               >
                 <span className="font-semibold block truncate">{p.name}</span>
@@ -221,7 +221,7 @@ export const PassportView: React.FC = () => {
           <div className="space-y-3">
             {timelineEvents.map((evt, idx) => (
               <div key={idx} className="flex items-start gap-3">
-                <div className="w-2 h-2 rounded-full bg-[#B8F36B] mt-1.5 shrink-0" />
+                <div className="w-2 h-2 rounded-full bg-[#2563EB] dark:bg-[#60A5FA] mt-1.5 shrink-0" />
                 <div className="text-xs">
                   <span className="font-semibold block">{evt.date}</span>
                   <span className="text-[#69746F] dark:text-slate-400">{evt.detail}</span>
@@ -232,7 +232,7 @@ export const PassportView: React.FC = () => {
         </div>
 
         {/* Footer Note: No arbitrary credit score disclaimer */}
-        <div className="mt-8 pt-6 border-t border-[#DEE3DE] dark:border-[#1A2E27] text-center">
+        <div className="mt-8 pt-6 border-t border-[#DCE6F0] dark:border-[#243B56] text-center">
           <p className="text-[11px] font-mono text-[#69746F] dark:text-slate-500">
             Kopa Business Passport is constructed strictly from verified recorded business activity.
             No arbitrary credit or proxy scores are used.
