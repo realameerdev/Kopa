@@ -212,6 +212,15 @@ export const ConnectorCard: React.FC<ConnectorCardProps> = ({
 
                 <button
                   type="button"
+                  onClick={() => onConnectClick(metadata)}
+                  className="p-2 text-slate-400 hover:text-emerald-500 hover:bg-emerald-500/10 rounded-xl transition-colors cursor-pointer"
+                  title="Reconnect Platform"
+                >
+                  <RefreshCw className="w-4 h-4" />
+                </button>
+
+                <button
+                  type="button"
                   onClick={() => setDisconnectConfirm(true)}
                   className="p-2 text-slate-400 hover:text-rose-500 hover:bg-rose-500/10 rounded-xl transition-colors cursor-pointer"
                   title="Disconnect Platform"
