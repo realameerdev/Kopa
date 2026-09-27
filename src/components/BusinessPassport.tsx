@@ -75,9 +75,12 @@ export const BusinessPassport: React.FC = () => {
           
           {/* Left: Strategic Context Cards */}
           <div className="lg:col-span-5 space-y-4">
-            <div className={`p-5 rounded-2xl border transition-colors ${
-              isDark ? 'bg-[#10251E] border-[#1E3B30] text-white' : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#111916]'
-            }`}>
+            <motion.div
+              whileHover={{ y: -3, transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] } }}
+              className={`p-5 rounded-2xl border transition-colors ${
+                isDark ? 'bg-[#10251E] border-[#1E3B30] text-white' : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#111916]'
+              }`}
+            >
               <div className={`text-[11px] font-mono font-semibold uppercase tracking-wider mb-1.5 ${
                 isDark ? 'text-[#B8F36B]' : 'text-[#10251E]'
               }`}>
@@ -89,11 +92,14 @@ export const BusinessPassport: React.FC = () => {
               <p className={`text-xs sm:text-sm leading-relaxed font-sans ${isDark ? 'text-slate-300' : 'text-[#69746F]'}`}>
                 Small businesses produce immense real-world value. Kopa binds your sales velocity and inventory turnover into a portable, cryptographically signed record.
               </p>
-            </div>
+            </motion.div>
 
-            <div className={`p-5 rounded-2xl border transition-colors ${
-              isDark ? 'bg-[#10251E] border-[#1E3B30] text-white' : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#111916]'
-            }`}>
+            <motion.div
+              whileHover={{ y: -3, transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] } }}
+              className={`p-5 rounded-2xl border transition-colors ${
+                isDark ? 'bg-[#10251E] border-[#1E3B30] text-white' : 'bg-[#F7F6F0] border-[#DEE3DE] text-[#111916]'
+              }`}
+            >
               <div className={`text-[11px] font-mono font-semibold uppercase tracking-wider mb-1.5 ${
                 isDark ? 'text-[#B8F36B]' : 'text-[#10251E]'
               }`}>
@@ -105,7 +111,7 @@ export const BusinessPassport: React.FC = () => {
               <p className={`text-xs sm:text-sm leading-relaxed font-sans ${isDark ? 'text-slate-300' : 'text-[#69746F]'}`}>
                 The Passport is based strictly on your recorded business activity. Share verified aggregate metrics with distributors and partners without exposing private customer identities.
               </p>
-            </div>
+            </motion.div>
 
             <div className="pt-2">
               <button

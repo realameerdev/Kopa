@@ -230,7 +230,10 @@ export const ProductShowcase: React.FC = () => {
 
           {/* Four Key Metrics Cards (Revenue, Expenses, Estimated Profit, Transactions) */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
-            <div className={`p-4 sm:p-5 rounded-2xl border ${isDark ? 'bg-[#0E1F1A] border-[#183126]' : 'bg-[#F7F6F0] border-[#DEE3DE]'}`}>
+            <motion.div
+              whileHover={{ y: -3, transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] } }}
+              className={`p-4 sm:p-5 rounded-2xl border ${isDark ? 'bg-[#0E1F1A] border-[#183126]' : 'bg-[#F7F6F0] border-[#DEE3DE]'}`}
+            >
               <span className={`text-[11px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
                 Revenue
               </span>
@@ -240,9 +243,12 @@ export const ProductShowcase: React.FC = () => {
               <span className={`text-xs font-semibold block mt-1 ${isDark ? 'text-[#B8F36B]' : 'text-[#15803D]'}`}>
                 {activeData.revenueChange}
               </span>
-            </div>
+            </motion.div>
 
-            <div className={`p-4 sm:p-5 rounded-2xl border ${isDark ? 'bg-[#0E1F1A] border-[#183126]' : 'bg-[#F7F6F0] border-[#DEE3DE]'}`}>
+            <motion.div
+              whileHover={{ y: -3, transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] } }}
+              className={`p-4 sm:p-5 rounded-2xl border ${isDark ? 'bg-[#0E1F1A] border-[#183126]' : 'bg-[#F7F6F0] border-[#DEE3DE]'}`}
+            >
               <span className={`text-[11px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
                 Expenses
               </span>
@@ -252,9 +258,12 @@ export const ProductShowcase: React.FC = () => {
               <span className={`text-xs block mt-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
                 {activeData.expensesNote}
               </span>
-            </div>
+            </motion.div>
 
-            <div className={`p-4 sm:p-5 rounded-2xl border ${isDark ? 'bg-[#0E1F1A] border-[#183126]' : 'bg-[#F7F6F0] border-[#DEE3DE]'}`}>
+            <motion.div
+              whileHover={{ y: -3, transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] } }}
+              className={`p-4 sm:p-5 rounded-2xl border ${isDark ? 'bg-[#0E1F1A] border-[#183126]' : 'bg-[#F7F6F0] border-[#DEE3DE]'}`}
+            >
               <span className={`text-[11px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
                 Estimated Profit
               </span>
@@ -264,9 +273,12 @@ export const ProductShowcase: React.FC = () => {
               <span className={`text-xs font-medium block mt-1 ${isDark ? 'text-slate-300' : 'text-[#48534E]'}`}>
                 {activeData.profitMargin}
               </span>
-            </div>
+            </motion.div>
 
-            <div className={`p-4 sm:p-5 rounded-2xl border ${isDark ? 'bg-[#0E1F1A] border-[#183126]' : 'bg-[#F7F6F0] border-[#DEE3DE]'}`}>
+            <motion.div
+              whileHover={{ y: -3, transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] } }}
+              className={`p-4 sm:p-5 rounded-2xl border ${isDark ? 'bg-[#0E1F1A] border-[#183126]' : 'bg-[#F7F6F0] border-[#DEE3DE]'}`}
+            >
               <span className={`text-[11px] font-mono uppercase tracking-wider block mb-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
                 Transactions
               </span>
@@ -276,7 +288,7 @@ export const ProductShowcase: React.FC = () => {
               <span className={`text-xs block mt-1 ${isDark ? 'text-slate-400' : 'text-[#48534E]'}`}>
                 {activeData.transactionsNote}
               </span>
-            </div>
+            </motion.div>
           </div>
 
           {/* Monthly Revenue Trajectory Chart */}

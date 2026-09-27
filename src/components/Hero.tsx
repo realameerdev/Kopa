@@ -78,14 +78,18 @@ export const Hero: React.FC<HeroProps> = ({ onOpenWaitlist }) => {
 
             {/* Buttons (Primary Pill + Secondary Action) */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 mb-10">
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={onOpenWaitlist}
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 min-h-[46px] rounded-xl font-heading font-semibold text-sm text-[#08110F] bg-[#B8F36B] hover:bg-[#A5E852] active:bg-[#97D844] transition-all shadow-md shadow-[#B8F36B]/20 hover:shadow-lg hover:shadow-[#B8F36B]/30 cursor-pointer whitespace-nowrap focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none"
               >
                 <span>Start with Kopa →</span>
-              </button>
+              </motion.button>
 
-              <a
+              <motion.a
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 href="#how-it-works"
                 className={`inline-flex items-center justify-center gap-2 px-6 py-3.5 min-h-[46px] rounded-xl font-heading font-medium text-sm transition-all cursor-pointer whitespace-nowrap focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none ${
                   isDark
@@ -95,7 +99,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenWaitlist }) => {
               >
                 <Play className="w-3.5 h-3.5 text-[#B8F36B] fill-[#B8F36B]" />
                 <span>See how it works</span>
-              </a>
+              </motion.a>
             </div>
 
             {/* Proof Metrics matching reference lower bar */}

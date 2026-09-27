@@ -74,8 +74,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
   ];
 
   return (
-    <header
+    <motion.header
       ref={navRef}
+      initial={{ opacity: 0, y: -12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-200 border-b backdrop-blur-xl ${
         isDark
           ? 'bg-[#08110F]/95 border-[#1A2E27] shadow-[0_4px_24px_rgba(0,0,0,0.4)]'
@@ -283,6 +286,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
           )}
         </AnimatePresence>
       </div>
-    </header>
+    </motion.header>
   );
 };

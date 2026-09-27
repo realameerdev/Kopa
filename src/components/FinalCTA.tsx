@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { ArrowRight, CheckCircle2, Play } from 'lucide-react';
 import { KopaLogo } from './KopaLogo';
 import { useTheme } from '../context/ThemeContext';
@@ -54,14 +55,18 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenWaitlist }) => {
 
         {/* Action Button Group */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-12">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             onClick={onOpenWaitlist}
             className="inline-flex items-center justify-center gap-2 px-8 py-4 min-h-[48px] rounded-xl font-heading font-semibold text-base text-[#08110F] bg-[#B8F36B] hover:bg-[#A5E852] active:bg-[#97D844] transition-all shadow-lg shadow-[#B8F36B]/25 hover:shadow-xl hover:shadow-[#B8F36B]/35 cursor-pointer whitespace-nowrap focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none"
           >
             <span>Start with Kopa →</span>
-          </button>
+          </motion.button>
 
-          <a
+          <motion.a
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             href="#how-it-works"
             className={`inline-flex items-center justify-center gap-2 px-7 py-4 min-h-[48px] rounded-xl font-heading font-medium text-base transition-all cursor-pointer whitespace-nowrap focus-visible:ring-2 focus-visible:ring-[#B8F36B] focus-visible:outline-none ${
               isDark
@@ -71,7 +76,7 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenWaitlist }) => {
           >
             <Play className="w-4 h-4 text-[#B8F36B] fill-[#B8F36B]" />
             <span>See how it works</span>
-          </a>
+          </motion.a>
         </div>
 
         {/* Subtle trust markers */}
