@@ -503,13 +503,13 @@ export const AskKopaView: React.FC = () => {
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#DEE3DE] dark:border-[#1C382E] bg-black/5 dark:bg-white/5 text-xs font-semibold">
             <span className="w-2 h-2 rounded-full bg-[#15803D] dark:bg-[#B8F36B] animate-pulse" />
-            <span className="text-primary font-semibold">Kopa 2.5 Flash</span>
-            <span className="text-[10px] text-muted font-mono hidden sm:inline">
+            <span className="text-[#111916] dark:text-white">Kopa 2.5 Flash</span>
+            <span className="text-[10px] text-[#69746F] dark:text-slate-400 font-mono hidden sm:inline">
               · Financial Engine
             </span>
           </div>
 
-          <span className="text-xs text-secondary font-mono hidden md:inline truncate max-w-xs">
+          <span className="text-xs text-[#69746F] dark:text-slate-400 font-mono hidden md:inline truncate max-w-xs">
             {settings.businessName} ({settings.category})
           </span>
         </div>
@@ -522,7 +522,7 @@ export const AskKopaView: React.FC = () => {
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-medium transition-colors cursor-pointer ${
                 showMcpDrawer
                   ? 'bg-[#15803D] dark:bg-[#B8F36B] text-white dark:text-[#08110F] border-transparent font-semibold'
-                  : 'bg-black/5 dark:bg-white/5 border-[#DEE3DE] dark:border-[#1C382E] text-secondary hover:text-primary hover:bg-black/10 dark:hover:bg-white/10'
+                  : 'bg-black/5 dark:bg-white/5 border-[#DEE3DE] dark:border-[#1C382E] text-[#111916] dark:text-slate-200 hover:bg-black/10 dark:hover:bg-white/10'
               }`}
             >
               <Layers className="w-3.5 h-3.5" />
@@ -534,7 +534,7 @@ export const AskKopaView: React.FC = () => {
           <button
             type="button"
             onClick={handleResetChat}
-            className="p-2 rounded-xl text-muted hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer"
+            className="p-2 rounded-xl text-slate-500 hover:text-[#111916] dark:text-slate-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer"
             title="Start new conversation"
             aria-label="Start new conversation"
           >
@@ -556,11 +556,11 @@ export const AskKopaView: React.FC = () => {
           >
             <div className="max-w-3xl mx-auto">
               <div className="flex items-center justify-between text-xs mb-2">
-                <span className="font-semibold text-primary flex items-center gap-1.5">
+                <span className="font-semibold text-[#111916] dark:text-white flex items-center gap-1.5">
                   <Terminal className="w-3.5 h-3.5 text-[#15803D] dark:text-[#B8F36B]" />
                   <span>Execute MCP Platform Actions</span>
                 </span>
-                <span className="text-[11px] text-muted font-mono">
+                <span className="text-[11px] text-[#69746F] dark:text-slate-400 font-mono">
                   1-click trigger
                 </span>
               </div>
@@ -570,7 +570,7 @@ export const AskKopaView: React.FC = () => {
                     key={`${tool.provider}-${tool.toolName}`}
                     type="button"
                     onClick={() => handleExecuteMcpTool(tool.provider, tool.toolName)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-[#DEE3DE] dark:border-[#1C382E] bg-white dark:bg-[#10251E] hover:border-[#15803D] dark:hover:border-[#B8F36B] text-xs font-medium text-secondary hover:text-primary transition-colors shadow-2xs cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-[#DEE3DE] dark:border-[#1C382E] bg-white dark:bg-[#10251E] hover:border-[#15803D] dark:hover:border-[#B8F36B] text-xs font-medium text-[#111916] dark:text-slate-200 transition-colors shadow-2xs cursor-pointer"
                   >
                     <ConnectorIcon provider={tool.provider} className="w-3.5 h-3.5 shrink-0" />
                     <span>{tool.description.split('.')[0] || tool.toolName}</span>
@@ -594,10 +594,10 @@ export const AskKopaView: React.FC = () => {
                 <Sparkles className="w-6 h-6 text-[#B8F36B]" />
               </div>
 
-              <h2 className="text-xl sm:text-2xl font-heading font-medium tracking-tight text-primary mb-2">
+              <h2 className="text-xl sm:text-2xl font-heading font-medium tracking-tight text-[#111916] dark:text-white mb-2">
                 What can I help your business run today?
               </h2>
-              <p className="text-xs sm:text-sm text-secondary max-w-md mx-auto mb-8 leading-relaxed font-sans">
+              <p className="text-xs sm:text-sm text-[#48534E] dark:text-slate-300 max-w-md mx-auto mb-8 leading-relaxed font-sans">
                 Tell me sales or expenses in natural language, ask questions about profitability, or automate tasks across connected platforms.
               </p>
 
@@ -616,11 +616,11 @@ export const AskKopaView: React.FC = () => {
                         <div className="p-1.5 rounded-lg bg-black/5 dark:bg-white/5 text-[#15803D] dark:text-[#B8F36B]">
                           <Icon className="w-4 h-4" />
                         </div>
-                        <span className="text-xs font-heading font-semibold text-primary group-hover:text-[#15803D] dark:group-hover:text-[#B8F36B] transition-colors">
+                        <span className="text-xs font-heading font-semibold text-[#111916] dark:text-white group-hover:text-[#15803D] dark:group-hover:text-[#B8F36B] transition-colors">
                           {card.title}
                         </span>
                       </div>
-                      <p className="text-[12px] text-secondary font-sans line-clamp-2">
+                      <p className="text-[12px] text-[#48534E] dark:text-slate-300 font-sans line-clamp-2">
                         "{card.prompt}"
                       </p>
                     </button>
@@ -651,22 +651,15 @@ export const AskKopaView: React.FC = () => {
                   msg.sender === 'user' ? 'items-end' : 'items-start'
                 }`}
               >
-                {/* User Message Bubble (Dark green conversation bubble with crisp light text) */}
+                {/* User Message Bubble (ChatGPT sleek dark/pill styling) */}
                 {msg.sender === 'user' ? (
-                  <div className="bg-[#10251E] dark:bg-[#142B23] text-[#F7F6F0] px-4 py-2.5 rounded-3xl text-xs sm:text-sm font-sans leading-relaxed shadow-sm">
+                  <div className="bg-[#10251E] dark:bg-[#1C382E] text-white px-4 py-2.5 rounded-3xl text-xs sm:text-sm font-sans leading-relaxed shadow-sm">
                     <p className="whitespace-pre-wrap">{msg.text}</p>
                   </div>
                 ) : (
-                  /* Assistant Message (Clean typography with visible Kopa Assistant title) */
+                  /* Assistant Message (ChatGPT style clean Markdown/formatted typography) */
                   <div className="space-y-3">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs font-semibold text-primary">Kopa Assistant</span>
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-[#DEE3DE] dark:border-[#1C382E] bg-black/5 dark:bg-white/5 text-muted font-medium">
-                        AI Ledger
-                      </span>
-                    </div>
-
-                    <div className="text-xs sm:text-sm text-primary font-sans leading-relaxed">
+                    <div className="text-xs sm:text-sm text-[#111916] dark:text-slate-100 font-sans leading-relaxed">
                       <p className="whitespace-pre-wrap">{msg.text}</p>
                     </div>
 
@@ -682,27 +675,27 @@ export const AskKopaView: React.FC = () => {
 
                         <div className="space-y-2 divide-y divide-[#DEE3DE] dark:divide-[#1A2E27]">
                           <div className="flex justify-between py-1">
-                            <span className="text-secondary font-medium">Type</span>
-                            <span className="font-semibold capitalize text-primary">
+                            <span className="text-[#69746F] dark:text-slate-400">Type</span>
+                            <span className="font-semibold capitalize text-[#111916] dark:text-white">
                               {msg.candidate.type}
                             </span>
                           </div>
                           <div className="flex justify-between py-1">
-                            <span className="text-secondary font-medium">Item</span>
-                            <span className="font-medium text-primary">
+                            <span className="text-[#69746F] dark:text-slate-400">Item</span>
+                            <span className="font-medium text-[#111916] dark:text-white">
                               {msg.candidate.productName}
                             </span>
                           </div>
                           {msg.candidate.type === 'sale' && (
                             <div className="flex justify-between py-1">
-                              <span className="text-secondary font-medium">Quantity</span>
-                              <span className="font-mono text-primary">
+                              <span className="text-[#69746F] dark:text-slate-400">Quantity</span>
+                              <span className="font-mono text-[#111916] dark:text-white">
                                 {msg.candidate.quantity}
                               </span>
                             </div>
                           )}
                           <div className="flex justify-between py-1.5 items-center">
-                            <span className="text-secondary font-medium">Total Amount</span>
+                            <span className="text-[#69746F] dark:text-slate-400">Total Amount</span>
                             <span className="font-mono font-bold text-base text-[#15803D] dark:text-[#B8F36B]">
                               {currencySymbol}
                               {msg.candidate.amount.toLocaleString()}
@@ -714,7 +707,7 @@ export const AskKopaView: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => handleConfirmCandidate(msg.id, msg.candidate!)}
-                            className="flex-1 py-2 px-3 rounded-xl bg-[#B8F36B] hover:bg-[#A5E852] text-[#08110F] text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                            className="flex-1 py-2 px-3 rounded-xl bg-[#15803D] dark:bg-[#B8F36B] text-white dark:text-[#08110F] text-xs font-semibold hover:opacity-90 transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
                           >
                             <CheckCircle2 className="w-3.5 h-3.5" />
                             <span>Confirm & Commit to Ledger</span>
@@ -728,7 +721,7 @@ export const AskKopaView: React.FC = () => {
                                 )
                               )
                             }
-                            className="py-2 px-3 rounded-xl border border-[#DEE3DE] dark:border-[#1C382E] text-xs font-medium text-muted hover:text-primary cursor-pointer"
+                            className="py-2 px-3 rounded-xl border border-[#DEE3DE] dark:border-[#1C382E] text-xs font-medium text-[#69746F] dark:text-slate-400 hover:text-[#111916] dark:hover:text-white cursor-pointer"
                           >
                             Discard
                           </button>
@@ -741,18 +734,18 @@ export const AskKopaView: React.FC = () => {
                       <div
                         className="p-4 rounded-2xl border border-[#DEE3DE] dark:border-[#1C382E] bg-white dark:bg-[#10251E] shadow-xs text-xs"
                       >
-                        <span className="font-semibold block mb-2.5 text-primary">
+                        <span className="font-semibold block mb-2.5 text-[#111916] dark:text-white">
                           {msg.dataSummary.title}
                         </span>
                         <div className="space-y-1.5 divide-y divide-[#DEE3DE]/60 dark:divide-[#1A2E27]">
                           {msg.dataSummary.items.map((item, i) => (
                             <div key={i} className="flex justify-between items-center pt-1.5 pb-0.5">
-                              <span className="text-secondary font-medium">{item.label}</span>
+                              <span className="text-[#48534E] dark:text-slate-300">{item.label}</span>
                               <span
                                 className={`font-mono font-medium ${
                                   item.isAccent
                                     ? 'text-[#15803D] dark:text-[#B8F36B] font-bold text-sm'
-                                    : 'text-primary'
+                                    : 'text-[#111916] dark:text-white'
                                 }`}
                               >
                                 {item.value}
@@ -771,23 +764,23 @@ export const AskKopaView: React.FC = () => {
                         <div className="flex items-center justify-between pb-2 mb-2 border-b border-emerald-500/20">
                           <div className="flex items-center gap-1.5">
                             <ConnectorIcon provider={msg.mcpResult.provider} className="w-4 h-4" />
-                            <span className="font-semibold capitalize font-mono text-[#15803D] dark:text-[#B8F36B]">
+                            <span className="font-semibold capitalize font-mono text-[#15803D] dark:text-emerald-400">
                               {msg.mcpResult.provider} · {msg.mcpResult.toolName}
                             </span>
                           </div>
-                          <span className="text-[10px] text-[#15803D] dark:text-[#B8F36B] px-2 py-0.5 rounded bg-emerald-500/10 font-mono font-semibold">
+                          <span className="text-[10px] text-[#15803D] dark:text-emerald-400 px-2 py-0.5 rounded bg-emerald-500/10 font-mono font-semibold">
                             LIVE MCP
                           </span>
                         </div>
 
                         {msg.mcpResult.summary && (
-                          <p className="text-primary text-xs mb-2 leading-relaxed">
+                          <p className="text-[#111916] dark:text-slate-200 text-xs mb-2 leading-relaxed">
                             {msg.mcpResult.summary}
                           </p>
                         )}
 
                         {msg.mcpResult.data && (
-                          <pre className="p-2.5 rounded-xl bg-black/5 dark:bg-black/40 text-[10px] font-mono text-primary overflow-x-auto max-h-40 border border-[#DEE3DE] dark:border-[#1C382E]">
+                          <pre className="p-2.5 rounded-xl bg-black/5 dark:bg-black/40 text-[10px] font-mono text-[#111916] dark:text-slate-300 overflow-x-auto max-h-40 border border-[#DEE3DE] dark:border-[#1C382E]">
                             {JSON.stringify(msg.mcpResult.data, null, 2)}
                           </pre>
                         )}
@@ -795,13 +788,13 @@ export const AskKopaView: React.FC = () => {
                     )}
 
                     {/* Message Actions Under Assistant Bubble (Copy, Timestamp) */}
-                    <div className="flex items-center gap-2 pt-1 text-[11px] text-muted font-mono">
+                    <div className="flex items-center gap-2 pt-1 text-[11px] text-[#69746F] dark:text-slate-400 font-mono">
                       <span>{msg.timestamp}</span>
                       <span>·</span>
                       <button
                         type="button"
                         onClick={() => handleCopyMessage(msg.id, msg.text)}
-                        className="inline-flex items-center gap-1 text-muted hover:text-primary transition-colors cursor-pointer"
+                        className="inline-flex items-center gap-1 hover:text-[#111916] dark:hover:text-white transition-colors cursor-pointer"
                         title="Copy message text"
                       >
                         {copiedId === msg.id ? (
@@ -829,7 +822,7 @@ export const AskKopaView: React.FC = () => {
               <div className="w-8 h-8 rounded-xl shrink-0 flex items-center justify-center bg-[#08110F] border border-[#1C382E] text-white shadow-xs">
                 <KopaLogo variant="symbol" theme="dark" size="sm" />
               </div>
-              <div className="p-3 rounded-2xl border border-[#DEE3DE] dark:border-[#1C382E] bg-white dark:bg-[#10251E] flex items-center gap-2.5 text-xs text-muted font-mono shadow-xs">
+              <div className="p-3 rounded-2xl border border-[#DEE3DE] dark:border-[#1C382E] bg-white dark:bg-[#10251E] flex items-center gap-2.5 text-xs text-[#69746F] dark:text-slate-400 font-mono shadow-xs">
                 <div className="w-2 h-2 rounded-full bg-[#15803D] dark:bg-[#B8F36B] animate-ping" />
                 <span>Kopa analyzing business context & records...</span>
               </div>
@@ -851,7 +844,7 @@ export const AskKopaView: React.FC = () => {
             <button
               type="button"
               onClick={() => setShowMcpDrawer(!showMcpDrawer)}
-              className="p-2 rounded-full text-muted hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer shrink-0"
+              className="p-2 rounded-full text-slate-400 hover:text-[#111916] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer shrink-0"
               title="Toggle tools & connectors"
               aria-label="Toggle tools"
             >
@@ -871,7 +864,7 @@ export const AskKopaView: React.FC = () => {
                 }
               }}
               placeholder="Ask Kopa or record business activity naturally…"
-              className="flex-1 max-h-32 min-h-[36px] py-1.5 px-2 bg-transparent text-xs sm:text-sm text-primary placeholder:text-muted outline-none resize-none leading-relaxed"
+              className="flex-1 max-h-32 min-h-[36px] py-1.5 px-2 bg-transparent text-xs sm:text-sm text-[#111916] dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none resize-none leading-relaxed"
             />
 
             {/* Audio Voice Simulation Mic */}

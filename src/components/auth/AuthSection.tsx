@@ -377,7 +377,47 @@ export const AuthSection: React.FC = () => {
                   </div>
                 )}
 
+                {/* Google Sign In Option */}
+                <div className="mb-5">
+                  <button
+                    type="button"
+                    onClick={handleGoogleAuth}
+                    disabled={isLoading}
+                    className={`w-full min-h-[44px] flex items-center justify-center gap-3 py-2.5 px-4 text-xs sm:text-sm font-medium rounded-xl border transition-all cursor-pointer ${
+                      isDark
+                        ? 'bg-[#08110F] hover:bg-[#152e25] border-[#1C382E] text-white hover:border-[#B8F36B]/40'
+                        : 'bg-white hover:bg-slate-50 border-[#DEE3DE] text-[#111916] hover:border-black/30'
+                    } disabled:opacity-50 disabled:cursor-not-allowed`}
+                  >
+                    {isLoading ? (
+                      <Loader2 className="w-4 h-4 animate-spin text-[#B8F36B]" />
+                    ) : (
+                      <GoogleIcon />
+                    )}
+                    <span>Continue with Google</span>
+                  </button>
 
+                  <div className="relative my-5">
+                    <div className="absolute inset-0 flex items-center">
+                      <div
+                        className={`w-full border-t ${
+                          isDark ? 'border-[#1A2E27]' : 'border-[#DEE3DE]'
+                        }`}
+                      />
+                    </div>
+                    <div className="relative flex justify-center text-xs">
+                      <span
+                        className={`px-2.5 ${
+                          isDark
+                            ? 'bg-[#10251E] text-slate-400'
+                            : 'bg-white text-[#69746F]'
+                        }`}
+                      >
+                        or continue with email
+                      </span>
+                    </div>
+                  </div>
+                </div>
 
                 <form onSubmit={handleSignUpSubmit} noValidate className="space-y-4">
                   {/* Full Name */}
@@ -734,7 +774,47 @@ export const AuthSection: React.FC = () => {
                       </div>
                     )}
 
+                    {/* Google Sign In Option */}
+                    <div className="mb-5">
+                      <button
+                        type="button"
+                        onClick={handleGoogleAuth}
+                        disabled={isLoading}
+                        className={`w-full min-h-[44px] flex items-center justify-center gap-3 py-2.5 px-4 text-xs sm:text-sm font-medium rounded-xl border transition-all cursor-pointer ${
+                          isDark
+                            ? 'bg-[#08110F] hover:bg-[#152e25] border-[#1C382E] text-white hover:border-[#B8F36B]/40'
+                            : 'bg-white hover:bg-slate-50 border-[#DEE3DE] text-[#111916] hover:border-black/30'
+                        } disabled:opacity-50 disabled:cursor-not-allowed`}
+                      >
+                        {isLoading ? (
+                          <Loader2 className="w-4 h-4 animate-spin text-[#B8F36B]" />
+                        ) : (
+                          <GoogleIcon />
+                        )}
+                        <span>Continue with Google</span>
+                      </button>
 
+                      <div className="relative my-5">
+                        <div className="absolute inset-0 flex items-center">
+                          <div
+                            className={`w-full border-t ${
+                              isDark ? 'border-[#1A2E27]' : 'border-[#DEE3DE]'
+                            }`}
+                          />
+                        </div>
+                        <div className="relative flex justify-center text-xs">
+                          <span
+                            className={`px-2.5 ${
+                              isDark
+                                ? 'bg-[#10251E] text-slate-400'
+                                : 'bg-white text-[#69746F]'
+                            }`}
+                          >
+                            or sign in with email
+                          </span>
+                        </div>
+                      </div>
+                    </div>
 
                     <form onSubmit={handleLoginSubmit} noValidate className="space-y-4">
                       {/* Email */}

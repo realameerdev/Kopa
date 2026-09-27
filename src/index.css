@@ -1,42 +1,5 @@
 @import "tailwindcss";
 
-:root,
-html.light,
-html:not(.dark) {
-  --text-primary: #10251E;
-  --text-secondary: #52605A;
-  --text-muted: #74807A;
-
-  --kopa-dark-primary: #08110F;
-  --kopa-dark-secondary: #10251E;
-  --kopa-dark-surface: #0E1F1A;
-  --kopa-dark-card: #142B23;
-  --kopa-dark-border: #1B352B;
-
-  --kopa-lime: #B8F36B;
-  --kopa-lime-hover: #A5E852;
-  --kopa-lime-soft: #E8F5D8;
-
-  --kopa-light-bg: #F7F6F0;
-  --kopa-light-surface: #FFFFFF;
-  --kopa-light-muted: #EEEFEA;
-  --kopa-light-border: #DEE3DE;
-
-  --kopa-text-primary: #10251E;
-  --kopa-text-muted: #52605A;
-  --kopa-text-subtle: #74807A;
-}
-
-html.dark {
-  --text-primary: #F7F6F0;
-  --text-secondary: #C5D0CA;
-  --text-muted: #9EAAA4;
-
-  --kopa-text-primary: #F7F6F0;
-  --kopa-text-muted: #C5D0CA;
-  --kopa-text-subtle: #9EAAA4;
-}
-
 @theme {
   --font-heading: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -50,40 +13,39 @@ html.dark {
   --color-ink: #111916;
   --color-muted-slate: #4A5652;
   --color-soft-border: #DEE3DE;
-
-  --color-text-primary: var(--text-primary);
-  --color-text-secondary: var(--text-secondary);
-  --color-text-muted: var(--text-muted);
 }
 
-@utility text-primary {
-  color: var(--text-primary);
-}
+@layer base {
+  :root {
+    --kopa-dark-primary: #08110F;
+    --kopa-dark-secondary: #10251E;
+    --kopa-dark-surface: #0E1F1A;
+    --kopa-dark-card: #142B23;
+    --kopa-dark-border: #1B352B;
 
-@utility text-secondary {
-  color: var(--text-secondary);
-}
+    --kopa-lime: #B8F36B;
+    --kopa-lime-hover: #A5E852;
+    --kopa-lime-soft: #E8F5D8;
 
-@utility text-muted {
-  color: var(--text-muted);
-}
+    --kopa-light-bg: #F7F6F0;
+    --kopa-light-surface: #FFFFFF;
+    --kopa-light-muted: #EEEFEA;
+    --kopa-light-border: #DEE3DE;
 
-.text-primary {
-  color: var(--text-primary);
-}
+    --kopa-text-primary: #111916;
+    --kopa-text-muted: #4A5652;
+    --kopa-text-subtle: #73807B;
 
-.text-secondary {
-  color: var(--text-secondary);
-}
-
-.text-muted {
-  color: var(--text-muted);
+    --font-heading: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
 }
 
 html.dark body,
 html.dark {
   background-color: #08110F;
-  color: var(--text-primary);
+  color: #F8FAFC;
   color-scheme: dark;
 }
 
@@ -92,7 +54,7 @@ html:not(.dark) body,
 html.light,
 html:not(.dark) {
   background-color: #F7F6F0;
-  color: var(--text-primary);
+  color: #111916;
   color-scheme: light;
 }
 
@@ -113,12 +75,6 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 
 .font-mono {
   font-family: 'JetBrains Mono', monospace !important;
-}
-
-/* Accessible inputs placeholder */
-::placeholder {
-  color: var(--text-muted);
-  opacity: 0.85;
 }
 
 /* Custom background grid textures */
