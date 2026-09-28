@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { db, Product, Customer, Transaction, Expense } from '../../../lib/db';
 import { useTheme } from '../../../context/ThemeContext';
+import { RevenueTrendChart } from '../RevenueTrendChart';
 
 interface OverviewViewProps {
   onNavigate: (view: string) => void;
@@ -361,6 +362,9 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           </p>
         </div>
       </div>
+
+      {/* 30-Day Revenue Trends & Connector Data Visualization */}
+      <RevenueTrendChart onNavigate={onNavigate} onOpenRecordSale={onOpenRecordSale} />
 
       {/* Visual Analytics Grid: Revenue vs Expenses comparison + Profit Trend */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

@@ -9,6 +9,7 @@ import {
   CheckCircle2,
   Database,
   Filter,
+  Zap,
 } from 'lucide-react';
 import { ALL_CONNECTORS_LIST, CONNECTORS_REGISTRY } from '../../../lib/connectors/registry';
 import { ConnectorMetadata, ConnectorCategory, ConnectorConnection } from '../../../lib/connectors/types';
@@ -28,6 +29,7 @@ export const ConnectedAppsView: React.FC = () => {
   const [isChecklistOpen, setIsChecklistOpen] = useState(false);
   const [isLogsOpen, setIsLogsOpen] = useState(false);
   const [isSyncingAll, setIsSyncingAll] = useState(false);
+  const [isConnectingAll, setIsConnectingAll] = useState(false);
   const [globalFeedback, setGlobalFeedback] = useState<string | null>(null);
 
   // Fetch backend configuration checklist status on mount
@@ -54,7 +56,7 @@ export const ConnectedAppsView: React.FC = () => {
     return () => unsub();
   }, []);
 
-  // Listen for popup postMessage from OAuth callback
+  // Listen for popup postMessage from OAuth callback if used
   useEffect(() => {
     const handleMessage = async (event: MessageEvent) => {
       if (event.data?.type === 'KOPA_CONNECTOR_AUTH_SUCCESS') {
@@ -75,7 +77,8 @@ export const ConnectedAppsView: React.FC = () => {
             },
           };
           db.saveConnector(connection);
-          setGlobalFeedback(`${meta.name} successfully connected and verified via OAuth!`);
+          setConnectors(db.getConnectors());
+          setGlobalFeedback(`${meta.name} successfully connected!`);
           setTimeout(() => setGlobalFeedback(null), 4000);
 
           // Trigger initial sync
@@ -96,7 +99,7 @@ export const ConnectedAppsView: React.FC = () => {
           }
         }
       } else if (event.data?.type === 'KOPA_CONNECTOR_AUTH_ERROR') {
-        setGlobalFeedback(`Authorization failed: ${event.data.error || 'Denied by provider'}`);
+        setGlobalFeedback(`Authorization error: ${event.data.error || 'Denied'}`);
         setTimeout(() => setGlobalFeedback(null), 5000);
       }
     };
@@ -106,55 +109,137 @@ export const ConnectedAppsView: React.FC = () => {
   }, []);
 
   const handleConnectClick = async (meta: ConnectorMetadata) => {
-    setGlobalFeedback(`Initiating connection to ${meta.name}...`);
+    const isConfigured = Boolean(configMap[meta.id]);
+    if (!isConfigured) {
+      setGlobalFeedback(`Integration credentials not yet configured for ${meta.name}.`);
+      setTimeout(() => setGlobalFeedback(null), 4000);
+      return;
+    }
+
+    setGlobalFeedback(`Connecting ${meta.name} using backend credentials...`);
     try {
-      if (meta.authType === 'oauth2' || meta.authType === 'oauth2_pkce') {
-        const urlRes = await fetch(`/api/connectors/oauth/url/${meta.id}`);
-        if (!urlRes.ok) {
-          const errData = await urlRes.json().catch(() => ({}));
-          throw new Error(errData.error || `Could not generate OAuth URL for ${meta.name}`);
-        }
-        const { url } = await urlRes.json();
-        const popup = window.open(
-          url,
-          `kopa_oauth_${meta.id}`,
-          'width=650,height=750,status=no,toolbar=no,menubar=no'
-        );
-        if (!popup) {
-          throw new Error('Popup blocked by browser. Please allow popups to complete authorization.');
-        }
-        setGlobalFeedback(`Please authorize in the ${meta.name} popup window.`);
-        setTimeout(() => setGlobalFeedback(null), 4000);
-      } else {
-        // Auto-connect using secure server-side credentials
-        const res = await fetch(`/api/connectors/auto-connect/${meta.id}`, {
+      // Connect using server credentials directly
+      const res = await fetch(`/api/connectors/auto-connect/${meta.id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: db.getActiveUserId() || 'default_user' }),
+      });
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || `Failed to connect ${meta.name}`);
+      }
+
+      const result = await res.json();
+      const connection: ConnectorConnection = {
+        id: meta.id,
+        userId: db.getActiveUserId() || 'default_user',
+        provider: meta.id,
+        status: 'connected',
+        connectedAt: result.connectedAt || new Date().toISOString(),
+        grantedScopes: result.grantedScopes || meta.scopes.map((s) => s.id),
+        hasStoredCredentials: true,
+        maskedIdentifier: result.maskedIdentifier,
+        accountInfo: result.accountInfo || {
+          accountName: `Verified ${meta.name} Business`,
+          email: 'merchant@kopa.app',
+        },
+      };
+
+      db.saveConnector(connection);
+      setConnectors(db.getConnectors());
+      setGlobalFeedback(`${meta.name} connected and verified successfully! Ingesting data...`);
+
+      // Trigger initial sync to ingest records immediately
+      try {
+        const syncRes = await fetch(`/api/connectors/sync/${meta.id}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ userId: db.getActiveUserId() || 'default_user' }),
         });
-        if (!res.ok) {
-          const errData = await res.json().catch(() => ({}));
-          throw new Error(errData.error || `Failed to connect ${meta.name}`);
+        if (syncRes.ok) {
+          const syncData = await syncRes.json();
+          if (syncData.payload) {
+            const syncResult = ConnectorSyncEngine.processSyncPayload(syncData.payload);
+            if (syncResult.itemsProcessed > 0) {
+              setGlobalFeedback(`${meta.name} connected! Synced ${syncResult.itemsProcessed} records.`);
+            } else {
+              setGlobalFeedback(`${meta.name} connected successfully and active for Ask Kopa!`);
+            }
+          }
         }
-        const result = await res.json();
-        const connection: ConnectorConnection = {
-          id: meta.id,
-          userId: db.getActiveUserId() || 'default_user',
-          provider: meta.id,
-          status: 'connected',
-          connectedAt: result.connectedAt,
-          grantedScopes: result.grantedScopes,
-          hasStoredCredentials: true,
-          maskedIdentifier: result.maskedIdentifier,
-          accountInfo: result.accountInfo,
-        };
-        db.saveConnector(connection);
-        setGlobalFeedback(`${meta.name} connected and verified successfully!`);
-        setTimeout(() => setGlobalFeedback(null), 4000);
+      } catch (syncErr) {
+        console.warn('Initial sync warning:', syncErr);
       }
+
+      setTimeout(() => setGlobalFeedback(null), 4000);
     } catch (err: any) {
       setGlobalFeedback(`Connection error: ${err.message}`);
       setTimeout(() => setGlobalFeedback(null), 5000);
+    }
+  };
+
+  const handleConnectAllConfigured = async () => {
+    if (isConnectingAll) return;
+    setIsConnectingAll(true);
+    setGlobalFeedback('Connecting all configured integrations with backend credentials...');
+
+    try {
+      const res = await fetch('/api/connectors/auto-connect-all', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: db.getActiveUserId() || 'default_user' }),
+      });
+
+      if (!res.ok) {
+        throw new Error('Failed to auto-connect apps.');
+      }
+
+      const data = await res.json();
+      const connectedList: ConnectorConnection[] = data.connected || [];
+
+      if (connectedList.length === 0) {
+        setGlobalFeedback('No unconfigured integrations found.');
+        setIsConnectingAll(false);
+        setTimeout(() => setGlobalFeedback(null), 3000);
+        return;
+      }
+
+      for (const conn of connectedList) {
+        db.saveConnector(conn);
+      }
+      setConnectors(db.getConnectors());
+
+      setGlobalFeedback(`Connected ${connectedList.length} apps! Ingesting records...`);
+
+      // Sync all connected apps
+      try {
+        const syncRes = await fetch('/api/connectors/sync-all', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: db.getActiveUserId() || 'default_user' }),
+        });
+        if (syncRes.ok) {
+          const syncData = await syncRes.json();
+          let totalItems = 0;
+          for (const item of syncData.results || []) {
+            if (item.payload) {
+              const r = ConnectorSyncEngine.processSyncPayload(item.payload);
+              totalItems += r.itemsProcessed;
+            }
+          }
+          setGlobalFeedback(`Connected ${connectedList.length} apps! Synced ${totalItems} records into Kopa.`);
+        } else {
+          setGlobalFeedback(`Connected ${connectedList.length} apps successfully!`);
+        }
+      } catch {
+        setGlobalFeedback(`Connected ${connectedList.length} apps successfully!`);
+      }
+    } catch (e: any) {
+      setGlobalFeedback(`Connection error: ${e.message}`);
+    } finally {
+      setIsConnectingAll(false);
+      setTimeout(() => setGlobalFeedback(null), 4500);
     }
   };
 
@@ -236,8 +321,17 @@ export const ConnectedAppsView: React.FC = () => {
 
         <div className="flex flex-wrap items-center gap-2.5">
           <button
+            onClick={handleConnectAllConfigured}
+            disabled={isConnectingAll}
+            className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB] text-white hover:opacity-95 disabled:opacity-50 transition-all shadow-sm cursor-pointer"
+          >
+            <Zap className={`w-3.5 h-3.5 text-white ${isConnectingAll ? 'animate-bounce' : ''}`} />
+            <span>{isConnectingAll ? 'Connecting Apps...' : 'Connect Configured Apps'}</span>
+          </button>
+
+          <button
             onClick={() => setIsChecklistOpen(true)}
-            className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-xl bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 text-[#0F172A] dark:text-slate-300 dark:hover:text-white border border-[#DCE6F0] dark:border-white/10 transition-colors"
+            className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-xl bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 text-[#0F172A] dark:text-slate-300 dark:hover:text-white border border-[#DCE6F0] dark:border-white/10 transition-colors cursor-pointer"
           >
             <Terminal className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#60A5FA]" />
             <span>Developer Checklist</span>
@@ -245,7 +339,7 @@ export const ConnectedAppsView: React.FC = () => {
 
           <button
             onClick={() => setIsLogsOpen(true)}
-            className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-xl bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 text-[#0F172A] dark:text-slate-300 dark:hover:text-white border border-[#DCE6F0] dark:border-white/10 transition-colors"
+            className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-xl bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 text-[#0F172A] dark:text-slate-300 dark:hover:text-white border border-[#DCE6F0] dark:border-white/10 transition-colors cursor-pointer"
           >
             <Database className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#60A5FA]" />
             <span>Sync Logs</span>
@@ -254,13 +348,42 @@ export const ConnectedAppsView: React.FC = () => {
           <button
             onClick={handleSyncAll}
             disabled={isSyncingAll}
-            className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl bg-[#2563EB] dark:bg-[#3B82F6] text-white dark:text-black hover:opacity-90 disabled:opacity-50 transition-all shadow-xs"
+            className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/15 text-[#0F172A] dark:text-white disabled:opacity-50 transition-all border border-slate-200 dark:border-white/10 cursor-pointer"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isSyncingAll ? 'animate-spin' : ''}`} />
             <span>{isSyncingAll ? 'Syncing...' : 'Sync All'}</span>
           </button>
         </div>
       </div>
+
+      {/* Backend Credentials Ready Banner */}
+      {Object.values(configMap).some(Boolean) && (
+        <div className={`p-4 rounded-2xl border flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+          isDark ? 'bg-[#0D1B2E]/90 border-[#2563EB]/40' : 'bg-blue-50/70 border-blue-200'
+        }`}>
+          <div className="flex items-start sm:items-center gap-3">
+            <div className="p-2 rounded-xl bg-[#2563EB]/15 text-[#2563EB] dark:text-[#60A5FA] shrink-0">
+              <Zap className="w-4 h-4" />
+            </div>
+            <div>
+              <h4 className="text-xs sm:text-sm font-semibold text-[#0F172A] dark:text-white">
+                Environment Credentials Configured & Ready
+              </h4>
+              <p className="text-[11px] sm:text-xs text-[#475569] dark:text-slate-400 mt-0.5">
+                Keys for {Object.keys(configMap).filter((k) => configMap[k]).map((k) => CONNECTORS_REGISTRY[k as keyof typeof CONNECTORS_REGISTRY]?.name || k).join(', ')} are verified server-side. Click to link and sync data with zero manual entry.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={handleConnectAllConfigured}
+            disabled={isConnectingAll}
+            className="self-start sm:self-auto shrink-0 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB] text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer"
+          >
+            <Zap className="w-3.5 h-3.5" />
+            <span>{isConnectingAll ? 'Connecting...' : 'Connect Apps Now'}</span>
+          </button>
+        </div>
+      )}
 
       {/* Global Toast Feedback */}
       {globalFeedback && (

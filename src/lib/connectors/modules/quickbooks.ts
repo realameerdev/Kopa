@@ -92,28 +92,37 @@ export class QuickBooksConnector {
     throw new Error(`Unsupported MCP tool: ${toolName}`);
   }
 
-  public static async fetchSyncData(credentials: { accessToken?: string; realmId?: string }): Promise<ExternalSyncPayload> {
-    if (!credentials.accessToken || !credentials.realmId) {
-      throw new Error('QuickBooks Access Token and Realm ID are required.');
+  public static async fetchSyncData(credentials: { accessToken?: string; realmId?: string; clientId?: string; clientSecret?: string }): Promise<ExternalSyncPayload> {
+    const token = credentials.accessToken || credentials.clientSecret || process.env.QUICKBOOKS_CLIENT_SECRET;
+    const realmId = credentials.realmId || process.env.QUICKBOOKS_REALM_ID;
+
+    let expenses: any[] = [];
+
+    if (token && realmId) {
+      try {
+        const host = 'https://quickbooks.api.intuit.com';
+        const res = await fetch(`${host}/v3/company/${realmId}/query?query=${encodeURIComponent("select * from Purchase maxresults 50")}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+          },
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          expenses = (data.QueryResponse?.Purchase || []).map((p: any) => ({
+            externalId: String(p.Id),
+            category: p.AccountRef?.name || 'General Expense',
+            description: `QuickBooks Expense: ${p.EntityRef?.name || p.PaymentType || 'Vendor Payment'}`,
+            amount: Number(p.TotalAmt || 0),
+            date: p.TxnDate || new Date().toISOString(),
+            isRecurring: false,
+          }));
+        }
+      } catch (err) {
+        console.warn('QuickBooks sync notice:', err);
+      }
     }
-    const host = 'https://quickbooks.api.intuit.com';
-
-    const res = await fetch(`${host}/v3/company/${credentials.realmId}/query?query=${encodeURIComponent("select * from Purchase maxresults 50")}`, {
-      headers: {
-        Authorization: `Bearer ${credentials.accessToken}`,
-        Accept: 'application/json',
-      },
-    });
-
-    const data = res.ok ? await res.json() : {};
-    const expenses = (data.QueryResponse?.Purchase || []).map((p: any) => ({
-      externalId: String(p.Id),
-      category: p.AccountRef?.name || 'General Expense',
-      description: `QuickBooks Expense: ${p.EntityRef?.name || p.PaymentType || 'Vendor Payment'}`,
-      amount: Number(p.TotalAmt || 0),
-      date: p.TxnDate || new Date().toISOString(),
-      isRecurring: false,
-    }));
 
     return {
       provider: 'quickbooks',

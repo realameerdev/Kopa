@@ -6,9 +6,10 @@ export class GoogleConnector {
   public static readonly metadata: ConnectorMetadata = CONNECTORS_REGISTRY.google;
 
   public static getOAuthUrl(clientId: string, redirectUri: string, state: string): string {
+    const cleanClientId = (clientId || '').replace(/^https?:\/\//, '').trim();
     const scopes = GoogleConnector.metadata.scopes.map((s) => s.id).join(' ');
     const params = new URLSearchParams({
-      client_id: clientId,
+      client_id: cleanClientId,
       redirect_uri: redirectUri,
       response_type: 'code',
       scope: scopes,
