@@ -147,6 +147,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
               <>
                 <button
                   type="button"
+                  onClick={() => onOpenDashboard?.()}
+                  className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB] rounded-xl transition-all duration-150 shadow-sm whitespace-nowrap cursor-pointer focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:outline-none active:scale-[0.98] px-4 py-2 min-h-[40px]"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-white" />
+                  <span>Launch Workspace</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </button>
+
+                <button
+                  type="button"
                   onClick={() => {
                     if (onOpenAuth) onOpenAuth('login');
                     else onOpenWaitlist?.();
@@ -158,18 +168,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
                   }`}
                 >
                   Sign in
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (onOpenAuth) onOpenAuth('signup');
-                    else onOpenWaitlist?.();
-                  }}
-                  className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB] rounded-xl transition-all duration-150 shadow-sm whitespace-nowrap cursor-pointer focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:outline-none active:scale-[0.98] px-4 py-2 min-h-[40px]"
-                >
-                  <span>Start with Kopa</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
                 </button>
               </>
             )}
@@ -255,6 +253,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
                       type="button"
                       onClick={() => {
                         setMobileMenuOpen(false);
+                        onOpenDashboard?.();
+                      }}
+                      className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] rounded-xl shadow-sm cursor-pointer"
+                    >
+                      <Sparkles className="w-4 h-4 text-white" />
+                      <span>Launch Live Workspace</span>
+                      <ArrowUpRight className="w-4 h-4" />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setMobileMenuOpen(false);
                         if (onOpenAuth) onOpenAuth('login');
                         else onOpenWaitlist?.();
                       }}
@@ -265,19 +276,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenWaitlist, onOpenAuth, onOp
                       }`}
                     >
                       Sign in
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setMobileMenuOpen(false);
-                        if (onOpenAuth) onOpenAuth('signup');
-                        else onOpenWaitlist?.();
-                      }}
-                      className="w-full min-h-[44px] flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] rounded-xl shadow-sm cursor-pointer"
-                    >
-                      <span>Start with Kopa</span>
-                      <ArrowUpRight className="w-4 h-4" />
                     </button>
                   </>
                 )}

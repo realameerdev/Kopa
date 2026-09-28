@@ -83,7 +83,10 @@ function KopaMain() {
       {/* Main Sections */}
       <main className="flex-1">
         {/* Section 1: Hero */}
-        <Hero onOpenWaitlist={() => openAuth('signup')} />
+        <Hero
+          onOpenWaitlist={() => openAuth('signup')}
+          onOpenDashboard={openDashboard}
+        />
 
         {/* Section 2: Problem & Convergence */}
         <ProblemSection />

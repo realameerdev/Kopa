@@ -6,9 +6,10 @@ import { useTheme } from '../context/ThemeContext';
 
 interface HeroProps {
   onOpenWaitlist: () => void;
+  onOpenDashboard?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenWaitlist }) => {
+export const Hero: React.FC<HeroProps> = ({ onOpenWaitlist, onOpenDashboard }) => {
   const { isDark } = useTheme();
 
   return (
@@ -81,25 +82,27 @@ export const Hero: React.FC<HeroProps> = ({ onOpenWaitlist }) => {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={onOpenWaitlist}
+                onClick={() => {
+                  if (onOpenDashboard) onOpenDashboard();
+                  else onOpenWaitlist();
+                }}
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 min-h-[46px] rounded-xl font-heading font-semibold text-sm text-white bg-[#2563EB] hover:bg-[#1D4ED8] dark:bg-[#3B82F6] dark:hover:bg-[#2563EB] transition-all shadow-md shadow-[#2563EB]/20 hover:shadow-lg cursor-pointer whitespace-nowrap focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:outline-none"
               >
-                <span>Start with Kopa →</span>
+                <span>Launch Live Workspace →</span>
               </motion.button>
 
-              <motion.a
+              <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                href="#how-it-works"
+                onClick={onOpenWaitlist}
                 className={`inline-flex items-center justify-center gap-2 px-6 py-3.5 min-h-[46px] rounded-xl font-heading font-medium text-sm transition-all cursor-pointer whitespace-nowrap focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:outline-none ${
                   isDark
                     ? 'text-[#D5E2F0] hover:text-[#F8FBFF] bg-[#0D1B2E] hover:bg-[#132640] border border-[#243B56]'
                     : 'text-[#0F172A] hover:text-black bg-[#FFFFFF] hover:bg-[#EAF2FF]/50 border border-[#DCE6F0] shadow-2xs'
                 }`}
               >
-                <Play className="w-3.5 h-3.5 text-[#2563EB] dark:text-[#60A5FA] fill-current" />
-                <span>See how it works</span>
-              </motion.a>
+                <span>Create Free Account</span>
+              </motion.button>
             </div>
 
             {/* Proof Metrics matching reference lower bar */}

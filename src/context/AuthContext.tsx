@@ -299,7 +299,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setCurrentAuthMode('reset-password');
         setIsDashboardOpen(false);
       } else if (isDashboardRoute) {
-        if (currentUserRef.current || (auth && auth.currentUser)) {
+        if (!currentUserRef.current && !(auth && auth.currentUser)) {
+          loginDemoUser();
+        } else {
           setIsDashboardOpen(true);
           setCurrentAuthMode(null);
         }
@@ -332,15 +334,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const openDashboard = () => {
-    if (!currentUser && !(auth && auth.currentUser)) {
-      openAuth('login');
-      setAuthError('Please sign in to access your business workspace.');
-      return;
-    }
     setAuthError(null);
     setUnauthorizedDomain(null);
     setCurrentAuthMode(null);
-    setIsDashboardOpen(true);
+    if (!currentUser && !(auth && auth.currentUser)) {
+      loginDemoUser();
+    } else {
+      setIsDashboardOpen(true);
+    }
   };
 
   const closeDashboard = () => {
